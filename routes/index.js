@@ -1,6 +1,9 @@
 const apiRouter = require('express').Router();
 
-const { getAllUsers } = require("../db");
+const { 
+  getAllUsers,
+  getAllProducts,
+ } = require("../db");
 
 apiRouter.get("/users", async (req, res, next) => {
     try {
@@ -10,5 +13,16 @@ apiRouter.get("/users", async (req, res, next) => {
       next({name, messages})
     }
 })
+
+
+apiRouter.get("/products", async ( req, res, next) => {
+  try {
+    const products = await getAllProducts
+    
+  } catch ({name, messages}) {
+    next({name, messages})
+  }
+})
+
 
 module.exports = apiRouter;
