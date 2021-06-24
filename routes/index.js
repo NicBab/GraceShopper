@@ -5,13 +5,22 @@ const {
   getAllProducts,
  } = require("../db");
 
+apiRouter.get("/", (req, res, next) => {
+  res.send({
+    message: "API is under construction!"
+  });
+});
 
-apiRouter.get("/users", async (req, res, next) => {
+apiRouter.get("/users", async (_, res, next) => {
     try {
-        const users = await getAllUsers()
+        const users = await getAllUsers();
 
-    } catch ({name, messages}) {
-      next({name, messages})
+        res.send({
+          users: users,
+        })
+
+    } catch ({name, message}) {
+      next({name: "GetUserError", message: "Unable to get users"})
     }
 })
 
@@ -19,11 +28,13 @@ apiRouter.get("/users", async (req, res, next) => {
 apiRouter.get("/products", async ( req, res, next) => {
   try {
     const products = await getAllProducts()
-
+    res.send({
+      products: products,
+    })
   } catch ({name, messages}) {
-    next({name, messages})
+    next({name: "GetProductsError", message: "Unable to get products"})
   }
 })
 
 
-module.exports = apiRouter;
+module.exports = { apiRouter };

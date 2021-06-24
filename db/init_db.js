@@ -1,18 +1,18 @@
 const { 
     client,
-    createUsers,
+    createUser,
     getAllUsers,
-    createProducts,
-    getAllProducts,
+    // createProducts,
+    // getAllProducts,
 } = require('./index')
 
 async function dropTables() {
   try {
     console.log('Starting to drop tables...');
-    await client.query(`
-        DROP TABLES IF EXISTS Users_payment;
-        DROP TABLES IF EXISTS Users_Address;
-        DROP TABLES IF EXISTS Products;
+    client.query(`
+    DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS users_payment;
+        DROP TABLE IF EXISTS users_address;
         DROP TABLE IF EXISTS users;
       `);
     console.log('Finished dropping tables!');
@@ -26,41 +26,11 @@ async function createTables() {
   try {
     console.log('Starting to build tables...');
     await client.query(`
-     CREATE TABLE Users (
-        ID SERIAL PRIMARY KEY,
-        Email TEXT NOT NULL UNIQUE,
-        Password VARCHAR (255) NOT NULL,
-        ConfirmPassword VARCHAR (255) NOT NULL,
-        CreationDT DATE NOT NULL DEFAULT CURRENT_DATE,
-      );
-      CREATE TABLE Users_payment (
-        ID SERIAL PRIMARY KEY,
-        userID INT REFERENCES Users(id) NOT NULL,
-        Payment_Type VARCHAR (255) NOT NULL,
-        Payment_Provider VARCHAR (255) NOT NULL,
-        CardNumber INT NOT NULL,
-        CCV_Number INT NOT NULL,
-        ExpirationDT date NOT NULL,
-      );
-      CREATE TABLE Users_Address (
-        ID SERIAL PRIMARY KEY,
-        userID INT REFERENCES Users(id) NOT NULL,
-        address_line1 VARCHAR (255) NOT NULL,
-        address_line2 VARCHAR (255) NULL,
-        CITY VARCHAR (255) NOT NULL,
-        STATE VARCHAR (255) NOT NULL,
-        ZIP_CODE INT NOT NULL
-      );
-      CREATE TABLE Products(
-        ID SERIAL PRIMARY KEY,
-        name VARCHAR (255) NOT NULL,
-        description VARCHAR (255) NOT NULL,
-        category VARCHAR (255) NULL,
-        inventory INT NOT NULL,
-        price VARCHAR (255) NOT NULL,
-        product_image BYTEA NOT NULL,
-        product_color VARCHAR (255) NOT NULL,
-       CreationDT DATE NOT NULL DEFAULT CURRENT_DATE,
+     CREATE TABLE users(
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      password VARCHAR(255) NOT NULL
       );
       `);
     console.log('Finished building tables!');
@@ -71,10 +41,34 @@ async function createTables() {
 }
 
 async function createInitialUsers() {
+  console.log('Starting to create users...');
   try {
-    console.log('Starting to create users...');
-    await createUser({
-    });
+    const usersToCreate = [
+      {
+        name: "Ryan",
+        email: "sneakerhead123@gmail.com",
+        password: "shoeguy123",
+
+      },
+      {
+        name: "Michelle",
+        email: "michelle@admin.com",
+        password: "admin123",
+      },
+      {
+        name: "Rashon",
+        email: "rashon@admin.com",
+        password: "admin456",
+      },
+      {
+        name: "Nick",
+        email: "nick@admin.com",
+        password: "admin789"
+      }
+    ];
+    const users = await Promise.all(usersToCreate.map(createUser));
+    console.log("Users created:");
+    console.log(users);
     console.log('Finished creating users!');
   } catch (error) {
     console.error('Error creating users!');
@@ -82,13 +76,13 @@ async function createInitialUsers() {
   }
 }
 
-async function createInitialProducts() {
-    try {
-        console.log('Starting to create Products!')
-    } catch (error) {
-      throw error
-    }
-}
+// async function createInitialProducts() {
+//     try {
+//         console.log('Starting to create Products!')
+//     } catch (error) {
+//       throw error
+//     }
+// }
 
 async function rebuildDB() {
   try {
@@ -96,8 +90,37 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await createInitialUsers();
+    // await createInitialProducts();
+    } catch (error) {
+      console.log("Error during rebuildDB")
+      throw error;
+  }
+}
+
+// async function testDB() {
+//   try {
+//     console.log("Starting to test database...");
+
+//     console.log("Calling getAllUsers");
+//     const users = await getAllUsers();
+//     console.log("Result:", users);
+  
+//   } catch (error) {
+//     console.log("Error during testDB");
+//     throw error;
+//   }
+// }
+
+async function populateInitialData() {
+  try {
+    await createInitialUsers()
   } catch (error) {
     throw error;
   }
 }
-rebuildDB();
+
+rebuildDB()
+  .then(populateInitialData)
+  .catch(console.error)
+  // .then(createInitialProducts)
+  .finally(() => client.end());
