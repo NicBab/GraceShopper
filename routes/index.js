@@ -5,6 +5,7 @@ const {
   getAllProducts,
  } = require("../db");
 
+ 
 apiRouter.get("/users", async (req, res, next) => {
     try {
         const users = await getAllUsers
@@ -18,7 +19,7 @@ apiRouter.get("/users", async (req, res, next) => {
 apiRouter.get("/products", async ( req, res, next) => {
   try {
     const products = await getAllProducts
-    
+
   } catch ({name, messages}) {
     next({name, messages})
   }
