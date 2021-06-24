@@ -1,4 +1,9 @@
-const { getAllUsers, getAllProducts } = require('./index')
+const { 
+    createUsers,
+    getAllUsers,
+    createProducts,
+    getAllProducts,
+} = require('./index')
 
 async function dropTables() {
   try {
@@ -63,6 +68,7 @@ async function createTables() {
     throw error;
   }
 }
+
 async function createInitialUsers() {
   try {
     console.log('Starting to create users...');
@@ -74,6 +80,15 @@ async function createInitialUsers() {
     throw error;
   }
 }
+
+async function createInitialProducts() {
+    try {
+        console.log('Starting to create Products!')
+    } catch (error) {
+      throw error
+    }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
