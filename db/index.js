@@ -1,17 +1,13 @@
-const { Client } = require('pg');
+const { Client } = require("pg");
 const DB_NAME = "localhost:5432/ohshoesdb";
 const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
-const bcrypt = require ("bcrypt");
+const bcrypt = require("bcrypt");
 
-async function createUser({
-  name, 
-  email,
-  password = [] 
-}) {
+async function createUser({ name, email, password = [] }) {
   try {
-    // const SALT_COUNT = 10;
-    // const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    const SALT_COUNT = 10;
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     const {
       rows: [users],
     } = await client.query(
@@ -21,13 +17,13 @@ async function createUser({
       ON CONFLICT (email) DO NOTHING
       RETURNING *;
       `,
-      [name, email, password]
+      [name, email, hashedPassword]
     );
-    //password = hashedPassword;
-    //delete user.password;
+    password = hashedPassword;
+    delete users.password;
     return users;
   } catch (error) {
-    throw error
+    throw error;
   }
 }
 
@@ -58,45 +54,52 @@ async function getUserById(userId) {
 
 async function getAllUsers() {
   // select and return an array of all users
-    try {
-        const { rows } = await client.query(`
+  try {
+    const { rows } = await client.query(`
         SELECT *
         FROM users;
         `);
-      //const users = await Promise.all(id.map((user) => getUserById(user.id)))
-      return rows;
-    } catch (error) {
-      throw error 
-    }
+    //const users = await Promise.all(id.map((user) => getUserById(user.id)))
+    return rows;
+  } catch (error) {
+    throw error;
+  }
 }
 
+async function createProduct({ name, description, SKU, price = [] }) {
+  try {
+    const {
+      rows: [products],
+    } = await client.query(
+      `
+      INSERT INTO products(name, description, SKU, price)
+      VALUES($1, $2, $3, $4)
+      RETURNING *;
+      `,
+      [name, description, SKU, price]
+    );
+    return products;
+  } catch (error) {
+    throw error;
+  }
+}
 
-// async function createProduct() {
-//   try {
-    
-//   } catch (error) {
-//     throw error
-//   }
-// }
+async function getAllProducts() {
+  try {
+    const { rows } = await client.query(`
+      SELECT *
+      FROM products
+    `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
 
-
-// async function getAllProducts() {
-//   try {
-//     const { rows } = await client.query(`
-//       SELECT *
-//       FROM products
-//     `)  
-//     return rows 
-//   } catch (error) {
-//     throw error
-//   }
-// }
-
-
-module.exports = { 
+module.exports = {
   client,
   createUser,
   getAllUsers,
-  // createProducts,
-  // getAllProducts,
- };
+  createProduct,
+  getAllProducts,
+};

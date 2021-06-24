@@ -13,8 +13,7 @@ export async function getUsers() {
 export async function getAllProducts() {
   try {
     const { data } = await axios.get(`/api/products`)
-
-    return data
+    return data;
   } catch (error) {
     throw error
   }

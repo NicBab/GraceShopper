@@ -2,15 +2,15 @@ const {
     client,
     createUser,
     getAllUsers,
-    // createProducts,
-    // getAllProducts,
+    createProduct,
+    getAllProducts,
 } = require('./index')
 
 async function dropTables() {
   try {
     console.log('Starting to drop tables...');
     client.query(`
-    DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS users_payment;
         DROP TABLE IF EXISTS users_address;
         DROP TABLE IF EXISTS users;
@@ -29,8 +29,15 @@ async function createTables() {
      CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
-      email TEXT NOT NULL UNIQUE,
+      email VARCHAR(255) NOT NULL UNIQUE,
       password VARCHAR(255) NOT NULL
+      );
+      CREATE TABLE products(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        description TEXT NOT NULL,
+        SKU VARCHAR(255) NOT NULL,
+        price DECIMAL NOT NULL
       );
       `);
     console.log('Finished building tables!');
@@ -76,13 +83,26 @@ async function createInitialUsers() {
   }
 }
 
-// async function createInitialProducts() {
-//     try {
-//         console.log('Starting to create Products!')
-//     } catch (error) {
-//       throw error
-//     }
-// }
+async function createInitialProducts() {
+  console.log('Starting to create Products!')
+    try {
+      const productsToCreate = [
+        {
+          name: "Shoe",
+          description: "Very comfortable",
+          SKU: 12345,
+          price: 30.99
+        }
+      ];
+      const products = await Promise.all(productsToCreate.map(createProduct));
+      console.log("Products created:");
+      console.log(products);
+      console.log("Finished creating products!");
+    } catch (error) {
+      console.error("Error creating products!");
+      throw error;
+    }
+}
 
 async function rebuildDB() {
   try {
@@ -90,7 +110,7 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await createInitialUsers();
-    // await createInitialProducts();
+    await createInitialProducts();
     } catch (error) {
       console.log("Error during rebuildDB")
       throw error;
@@ -111,16 +131,9 @@ async function rebuildDB() {
 //   }
 // }
 
-async function populateInitialData() {
-  try {
-    await createInitialUsers()
-  } catch (error) {
-    throw error;
-  }
-}
+
 
 rebuildDB()
-  .then(populateInitialData)
+  .then(console.log("testDB goes here"))
   .catch(console.error)
-  // .then(createInitialProducts)
   .finally(() => client.end());
