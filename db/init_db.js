@@ -1,4 +1,5 @@
 const { 
+    client,
     createUsers,
     getAllUsers,
     createProducts,

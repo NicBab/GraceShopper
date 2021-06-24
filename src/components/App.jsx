@@ -1,12 +1,49 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import './App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 
-const App = () => {
-    return (
-       <div>
-           <h2>Hello World</h2>
-       </div>
-    )
+import {
+  Header, 
+  Home,
+  Shoes,
+  Hats,
+  Accessories,
+  Main,
+  Footer
+} from '../Components'
+
+function App() {
+  return (
+    <Router>
+      <>
+        <Header />
+            <Switch>
+                  <Route path="/Home">
+                    <Home />
+                  </Route>
+
+                  <Route path="/Shoes">
+                    <Shoes />
+                  </Route>
+
+                  <Route path="/Hats">
+                    <Hats />
+                  </Route>
+
+                  <Route path="/Accessories">
+                    <Accessories />
+                  </Route>
+              </Switch>
+          <Main />
+          <Footer />
+        </>
+    </Router>
+  );
 }
 
 export default App;

@@ -1,0 +1,41 @@
+header h1{
+    background-color: #023047;
+    padding: 50px;
+    color: #FB8500;
+    text-align: center;
+}
+
+header .page-select{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color:#219EBC;
+    padding: 15px;
+    margin: auto;
+}
+
+header .page-select select{
+    width: 16em;
+    margin-right: .5em;
+}
+
+header .page-select a {
+    text-decoration: none;
+    color: #023047;
+}
+
+header .page-select button {
+    padding: 8px;
+    background-color: #FFB703;
+    border-radius: 20px;
+    box-shadow: 0 3px 6px -5px;
+}
+
+
+
+
+
+
+
+
