@@ -4,6 +4,15 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 
 
+async function createUser() {
+  try {
+    
+  } catch (error) {
+    throw error
+  }
+}
+
+
 async function getAllUsers() {
     try {
         const { rows } = await client.query(`
@@ -16,7 +25,32 @@ async function getAllUsers() {
     }
 }
 
+
+async function createProduct() {
+  try {
+    
+  } catch (error) {
+    throw error
+  }
+}
+
+
+async function getAllProducts() {
+  try {
+    const { rows } = await client.query(`
+      SELECT *
+      FROM products
+    `)  
+    return rows 
+  } catch (error) {
+    throw error
+  }
+}
+
+
 module.exports = { 
+  createUsers,
   getAllUsers,
+  createProducts,
   getAllProducts,
  }

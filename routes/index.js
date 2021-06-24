@@ -5,10 +5,10 @@ const {
   getAllProducts,
  } = require("../db");
 
- 
+
 apiRouter.get("/users", async (req, res, next) => {
     try {
-        const users = await getAllUsers
+        const users = await getAllUsers()
 
     } catch ({name, messages}) {
       next({name, messages})
@@ -18,7 +18,7 @@ apiRouter.get("/users", async (req, res, next) => {
 
 apiRouter.get("/products", async ( req, res, next) => {
   try {
-    const products = await getAllProducts
+    const products = await getAllProducts()
 
   } catch ({name, messages}) {
     next({name, messages})
