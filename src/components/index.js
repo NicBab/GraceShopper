@@ -7,3 +7,4 @@ export { default as Hats } from './Hats'
 export { default as Accessories } from './Accessories'
 export { default as Main } from './Main';
 export { default as Footer } from './Footer';
+export { default as Pages } from './Pages';
