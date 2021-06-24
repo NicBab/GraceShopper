@@ -1,8 +1,9 @@
 import React from 'react'
+import './Accessories.css'
 
 const Accessories = () => {
     return (
-        <div>Accessories</div>
+        <div className="acc">Accessories</div>
     )
 }
 
