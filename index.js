@@ -14,7 +14,7 @@ server.use(express.static(path.join(__dirname, 'build')));
 server.use('/api', require('./routes'));
 
 server.use((req, res, next) => {
-    res.sendFile(paht.join(__dirname, 'build', 'index.html'))
+    res.sendFile(path.join(__dirname, 'build', 'index.html'))
 });
 
 const { client } = require('./db');
@@ -26,7 +26,7 @@ server.listen(PORT, async () => {
     try {
         await client.connect()
         console.log('Database is open for business!');
-        
+
     } catch (error) {
       console.error("Database is closed for repairs!\n", error)
     }
