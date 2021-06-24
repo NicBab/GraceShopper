@@ -5,6 +5,7 @@ export { default as Home } from './Home'
 export { default as Shoes } from './Shoes'
 export { default as Hats } from './Hats'
 export { default as Accessories } from './Accessories'
+export { default as Admin } from './Admin';
 export { default as Main } from './Main';
 export { default as Footer } from './Footer';
 export { default as Pages } from './Pages';

@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Shoes = () => {
+
+    useEffect(() => {
+
+    })
+    
     return (
         <div>Shoes</div>
     )

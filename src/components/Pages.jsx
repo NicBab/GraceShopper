@@ -1,16 +1,14 @@
 import React from "react";
 import { Route } from "react-router-dom";
-// import {
-//     Home,
-//     Shoes,
-//     Hats,
-//     Accessories
-// } from "./components";
 
-import Home from "./Home";
-import Shoes from "./Shoes";
-import Hats from "./Hats";
-import Accessories from "./Accessories";
+import {
+    Home,
+    Shoes,
+    Hats,
+    Accessories,
+    Admin
+} from "../components";
+
 
 const Pages = () => {
   return (
@@ -29,6 +27,10 @@ const Pages = () => {
 
       <Route exact path="/accessories">
         <Accessories />
+      </Route>
+
+      <Route exact path="/admin">
+        <Admin />
       </Route>
     </>
   );
