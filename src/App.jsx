@@ -1,11 +1,7 @@
 import React from 'react';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from 'react-router-dom';
+import { Route, Switch } from "react-router-dom";
+
 
 import {
   Header, 
@@ -15,11 +11,10 @@ import {
   Accessories,
   Main,
   Footer
-} from '../Components'
+} from './components'
 
 function App() {
   return (
-    <Router>
       <>
         <Header />
             <Switch>
@@ -42,7 +37,6 @@ function App() {
           <Main />
           <Footer />
         </>
-    </Router>
   );
 }
 
