@@ -1,6 +1,6 @@
 import React from "react";
 import "./Header.css";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -8,27 +8,27 @@ const Header = () => {
         <h1>Hello Shoes</h1>
         <nav className="page-select">
           <button>
-            <Link to="/home" activeClassName="current">
+            <Link to="/home" activeclassname="current">
               HOME
             </Link>
           </button>
           <button>
-            <Link to="/shoes" activeClassName="current">
+            <Link to="/shoes" activeclassname="current">
               SHOES
             </Link>
           </button>
           <button>
-            <Link to="/hats" activeClassName="current">
+            <Link to="/hats" activeclassname="current">
               HATS
             </Link>
           </button>
           <button>
-            <Link to="/accessories" activeClassName="current">
+            <Link to="/accessories" activeclassname="current">
               ACCESSORIES
             </Link>
           </button>
           <button>
-            <Link to="/admin" activeClassName="current">
+            <Link to="/admin" activeclassname="current">
               ADMIN
             </Link>
           </button>
