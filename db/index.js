@@ -49,6 +49,7 @@ async function getAllProducts() {
 
 
 module.exports = { 
+  client,
   createUsers,
   getAllUsers,
   createProducts,
