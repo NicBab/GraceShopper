@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import {
-  Header, 
+  Header,  
   Pages
 } from './components'
 
@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <header>
-        <Header />
+        <Header />  
       </header>
 
       <main>

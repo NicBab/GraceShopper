@@ -6,7 +6,12 @@ import {
     Shoes,
     Hats,
     Accessories,
-    Admin
+    Admin,
+    Register,
+    Login,
+    MyCart,
+    MyProfile,
+    MyOrders,
 } from "../components";
 
 
@@ -31,6 +36,26 @@ const Pages = () => {
 
       <Route exact path="/admin">
         <Admin />
+      </Route>
+
+      <Route exact path="/register">
+        <Register />
+      </Route>
+
+      <Route exact path="/login">
+        <Login />
+      </Route>
+
+      <Route exact path="/mycart">
+        <MyCart />
+      </Route>
+
+      <Route exact path="/myprofile">
+        <MyProfile/>
+      </Route>
+
+      <Route exact path="/myorders">
+        <MyOrders/>
       </Route>
     </>
   );

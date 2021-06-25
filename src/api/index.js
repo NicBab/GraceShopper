@@ -19,6 +19,7 @@ export async function createUser({ name, email, password = [] }) {
 export async function getAllUsers() {
   try {
     const { data } = await axios.get(`/api/users`)
+    console.log(data)
     return data;
   } catch (error) {
     throw error
