@@ -4,7 +4,6 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
-
 async function createUser({ name, email, password = [] }) {
   try {
     const SALT_COUNT = 10;
@@ -27,7 +26,6 @@ async function createUser({ name, email, password = [] }) {
     throw error;
   }
 }
-
 
 async function getUserById(userId) {
   try {
@@ -68,7 +66,6 @@ async function getAllUsers() {
   }
 }
 
-
 async function createProduct({ name, description, SKU, price = [] }) {
   try {
     const {
@@ -87,7 +84,6 @@ async function createProduct({ name, description, SKU, price = [] }) {
   }
 }
 
-
 async function getAllProducts() {
   try {
     const { rows } = await client.query(`
@@ -100,6 +96,7 @@ async function getAllProducts() {
   }
 }
 
+//Rashon Test push
 
 module.exports = {
   client,
