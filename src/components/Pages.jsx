@@ -7,7 +7,10 @@ import {
     Hats,
     Accessories,
     Admin,
+    Register,
+    Login,
     MyCart,
+    MyProfile
 } from "../components";
 
 
@@ -34,8 +37,20 @@ const Pages = () => {
         <Admin />
       </Route>
 
+      <Route exact path="/register">
+        <Register />
+      </Route>
+
+      <Route exact path="/login">
+        <Login />
+      </Route>
+
       <Route exact path="/mycart">
         <MyCart />
+      </Route>
+
+      <Route exact path="/myprofile">
+        <MyProfile/>
       </Route>
     </>
   );
