@@ -1,19 +1,19 @@
 import axios from 'axios';
 
 
-// export async function createUser({ name, email, password = [] }) {
-//   try {
-//     const data = await axios.post(`/api/users`, {
-//       name: `${name}`,
-//       email: `${email}`, 
-//       password: `${password}`
-//     })
+export async function createUser({ name, email, password = [] }) {
+  try {
+    const data = await axios.post(`/api/users`, {
+      name: `${name}`,
+      email: `${email}`, 
+      password: `${password}`
+    })
 
-//     return data
-//   } catch (error) {
-//     throw error
-//   }
-// }
+    return data
+  } catch (error) {
+    throw error
+  }
+}
 
 
 export async function getAllUsers() {
