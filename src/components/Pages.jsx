@@ -10,7 +10,8 @@ import {
     Register,
     Login,
     MyCart,
-    MyProfile
+    MyProfile,
+    MyOrders,
 } from "../components";
 
 
@@ -51,6 +52,10 @@ const Pages = () => {
 
       <Route exact path="/myprofile">
         <MyProfile/>
+      </Route>
+
+      <Route exact path="/myorders">
+        <MyOrders/>
       </Route>
     </>
   );

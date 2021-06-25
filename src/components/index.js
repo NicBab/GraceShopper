@@ -28,5 +28,7 @@ export { default as Login } from './Login';
 
 export { default as MyProfile } from './MyProfile';
 
+export { default as MyOrders } from './MyOrders';
+
 
 
