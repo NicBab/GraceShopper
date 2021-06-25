@@ -28,7 +28,6 @@ async function createUser({ name, email, admin, password = [] }) {
   }
 }
 
-
 async function getUserById(userId) {
   try {
     const {
@@ -68,7 +67,6 @@ async function getAllUsers() {
   }
 }
 
-
 async function createProduct({ name, description, SKU, price = [] }) {
   try {
     const {
@@ -87,7 +85,6 @@ async function createProduct({ name, description, SKU, price = [] }) {
   }
 }
 
-
 async function getAllProducts() {
   try {
     const { rows } = await client.query(`
@@ -100,6 +97,7 @@ async function getAllProducts() {
   }
 }
 
+//Rashon Test push
 
 module.exports = {
   client,
