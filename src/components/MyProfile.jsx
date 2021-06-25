@@ -32,7 +32,7 @@ const MyProfile = () => {
                 <Card.Title>Welcome, {user}</Card.Title>
                 <Card.Text>{user.username}username</Card.Text>
                 <Card.Text>{user.email}email</Card.Text>
-              <Button variant="primary">LogOut</Button>
+              <Link to="/Home"><Button variant="primary">LogOut</Button></Link>
             </Card.Body>
         </Card>
       </>
