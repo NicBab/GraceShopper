@@ -22,6 +22,7 @@ async function dropTables() {
   }
 }
 
+//PUT images after line 38
 async function createTables() {
   try {
     console.log('Starting to build tables...');
@@ -93,10 +94,18 @@ async function createInitialProducts() {
     try {
       const productsToCreate = [
         {
+          img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
           name: "Shoe",
           description: "Very comfortable",
           SKU: 12345,
           price: 30.99
+        },
+        {
+          img: "",
+          name: "vans",
+          description: "skate",
+          SKU: 54321,
+          price: 70.99
         }
       ];
       const products = await Promise.all(productsToCreate.map(createProduct));

@@ -67,6 +67,7 @@ async function getAllUsers() {
   }
 }
 
+// IMG add image insertions here 
 async function createProduct({ name, description, SKU, price = [] }) {
   try {
     const {

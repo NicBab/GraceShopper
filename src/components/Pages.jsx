@@ -6,7 +6,8 @@ import {
     Shoes,
     Hats,
     Accessories,
-    Admin
+    Admin,
+    MyCart,
 } from "../components";
 
 
@@ -31,6 +32,10 @@ const Pages = () => {
 
       <Route exact path="/admin">
         <Admin />
+      </Route>
+
+      <Route exact path="/mycart">
+        <MyCart />
       </Route>
     </>
   );
