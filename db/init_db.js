@@ -31,7 +31,7 @@ async function createTables() {
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL UNIQUE,
       password VARCHAR(255) NOT NULL,
-      admin BOOLEAN NOT NULL
+      admin BOOLEAN DEFAULT FALSE
       );
       CREATE TABLE products(
         id SERIAL PRIMARY KEY,
