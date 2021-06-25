@@ -4,7 +4,8 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
-async function createUser({ name, email, password = [] }) {
+
+async function createUser({ name, email, admin, password = [] }) {
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -12,12 +13,12 @@ async function createUser({ name, email, password = [] }) {
       rows: [users],
     } = await client.query(
       `
-      INSERT INTO users(name, email, password)
-      VALUES($1, $2, $3)
+      INSERT INTO users(name, email, password, admin)
+      VALUES($1, $2, $3, $4)
       ON CONFLICT (email) DO NOTHING
       RETURNING *;
       `,
-      [name, email, hashedPassword]
+      [name, email, hashedPassword, admin]
     );
     password = hashedPassword;
     delete users.password;
