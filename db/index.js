@@ -4,7 +4,6 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
-
 async function createUser({ name, email, admin, password = [] }) {
   try {
     const SALT_COUNT = 10;
@@ -67,20 +66,45 @@ async function getAllUsers() {
   }
 }
 
-// IMG add image insertions here 
-async function createProduct({ name, description, SKU, price = [] }) {
+// IMG add image insertions here
+async function createProduct({
+  img,
+  name,
+  description,
+  SKU,
+  price,
+  categoryID = [],
+}) {
   try {
     const {
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(name, description, SKU, price)
-      VALUES($1, $2, $3, $4)
+      INSERT INTO products(img, name, description, SKU, price, categoryID)
+      VALUES($1, $2, $3, $4, $5, $6)
       RETURNING *;
       `,
-      [name, description, SKU, price]
+      [img, name, description, SKU, price, categoryID]
     );
     return products;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function createCategories({ name, description }) {
+  try {
+    const {
+      rows: [categories],
+    } = await client.query(
+      `
+      INSERT INTO category(name, description)
+      VALUES($1, $2)
+      RETURNING *;
+      `,
+      [name, description]
+    );
+    return categories;
   } catch (error) {
     throw error;
   }
@@ -104,6 +128,7 @@ module.exports = {
   client,
   createUser,
   getAllUsers,
+  createCategories,
   createProduct,
   getAllProducts,
 };
