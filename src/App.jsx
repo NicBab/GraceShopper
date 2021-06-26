@@ -11,6 +11,7 @@ function App() {
     getAllProducts()
       .then((response) => {
         setProducts(response);
+        console.log(response);
       })
       .catch((error) => {
       });
@@ -25,7 +26,6 @@ function App() {
         console.error(error);
       });
   }, []);
-
   
   return (
     <>
@@ -34,7 +34,7 @@ function App() {
       </header>
 
       <main>
-        <Pages users={users} products={products} setProducts={setProducts} />
+      <Pages users={users} products={products} setProducts={setProducts} />
       </main>
     </>
   );

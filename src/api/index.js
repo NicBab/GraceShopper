@@ -1,31 +1,35 @@
-import axios from "axios";
+import axios from 'axios';
 
-export async function createUser(name, email, password) {
+
+export async function createUser({ name, email, password = [] }) {
   try {
-    const { data } = await axios.post("/api/users", {
-      name: name,
-      email: email,
-      password: password,
-    });
+    const data = await axios.post(`/api/users`, {
+      name: `${name}`,
+      email: `${email}`, 
+      password: `${password}`
+    })
 
-    return data;
+    return data
   } catch (error) {
-    throw error;
+    throw error
   }
 }
+
 
 export async function getAllUsers() {
   try {
-    const { data } = await axios.get("/api/users");
+    const { data } = await axios.get(`/api/users`)
+    console.log(data)
     return data;
   } catch (error) {
-    throw error;
+    throw error
   }
 }
 
+
 // export async function getUserById(id) {
 //   try {
-//     const { data } = await axios.get(`/api/users/${id}`)
+//     const { data } = await axios.get(`/api/users/:id`)
 
 //     return data
 //   } catch (error) {
@@ -33,12 +37,13 @@ export async function getAllUsers() {
 //   }
 // }
 
+
 export async function getAllProducts() {
   try {
-    const { data } = await axios.get(`/api/products`);
+    const { data } = await axios.get(`/api/products`)
     return data;
   } catch (error) {
-    throw error;
+    throw error
   }
 }
 
@@ -63,3 +68,4 @@ export async function createProduct(
     throw error;
   }
 } 
+

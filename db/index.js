@@ -73,7 +73,7 @@ const createProduct = async ({
   description,
   SKU,
   price,
-  categoryId
+  categoryId,
 }) => {
   try {
     const {
@@ -86,7 +86,7 @@ const createProduct = async ({
       `,
       [img_url, name, description, SKU, price, categoryId]
     );
-    console.log(products)
+    return products;
   } catch (error) {
     throw error;
   }
