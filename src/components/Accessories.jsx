@@ -6,15 +6,10 @@ import './Accessories.css'
 
 
 const Accessories= () => {
-    const [product, setProduct] = useState([])
-
-    useEffect(() => {
-        getAllProducts()
-    }, [])
 
     return (
         <>
-        <div className="accessories">Accessories</div>
+        {/* <div className="accessories">Accessories</div>
           <Card style={{ width: '18rem' }}>
             <Card.Img variant="top" src="holder.js/100px180"/>
              <Card.Body>
@@ -24,7 +19,7 @@ const Accessories= () => {
                 <Card.Text>{product.price}Price</Card.Text>
               <Link to="/MyCart"><Button variant="primary">Add to Cart</Button></Link>
             </Card.Body>
-          </Card>
+          </Card> */}
         </>
     )
 }

@@ -1,22 +1,23 @@
 
-import React, { useEffect, useState }from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Button, } from 'react-bootstrap';
-import { getAllProducts } from '../api';
 import './Shoes.css';
 
+const Shoes = ({products}) => {
 
-const Shoes = () => {
-    const [product, setProduct] = useState([])
+  //for the map
+    // look into mapping object
+    // Object.key(products)
+    // products.length
 
-    useEffect(() => {
-        getAllProducts()
-    }, [])
-
-    return (
+  console.log(products)
+  return (
         <>
         <div className="shoes">Shoes</div>
-          <Card style={{ width: '18rem' }}>
+        {products[0] && products.map((product) => {
+
+          <Card key={product.id} style={{ width: '18rem' }}>
             <Card.Img variant="top" src="holder.js/100px180"/>
              <Card.Body>
               <Card.Title>{product.name}Name</Card.Title>
@@ -26,6 +27,9 @@ const Shoes = () => {
               <Link to="/MyCart"><Button variant="primary">Add to Cart</Button></Link>
             </Card.Body>
           </Card>
+
+        }) }
+
         </>
     )
 }
