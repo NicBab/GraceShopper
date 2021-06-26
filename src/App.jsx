@@ -15,6 +15,17 @@ function App() {
       .catch((error) => {
       });
   }, []);
+
+  useEffect(() => {
+    getAllUsers()
+      .then((response) => {
+        setUsers(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   
   return (
     <>
@@ -23,9 +34,9 @@ function App() {
       </header>
 
       <main>
-        <Pages 
-          products={products} 
-          setProducts={setProducts} />
+
+      <Pages users={users} products={products} setProducts={setProducts} />
+
       </main>
     </>
   );

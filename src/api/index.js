@@ -55,19 +55,17 @@ export async function loginUser() {
 //   }
 // }
 
+
 export async function getAllUsers() {
   try {
     const { data } = await axios.get("/api/users")
     console.log(data)
+
     return data;
   } catch (error) {
     throw error
   }
 }
-
-
-
-
 
 
 export async function getAllProducts() {
@@ -77,6 +75,7 @@ export async function getAllProducts() {
   } catch (error) {
     throw error
   }
+
 }
 
 
@@ -88,3 +87,7 @@ export async function getAllProducts() {
 //     throw error
 //   }
 // }
+
+} 
+
+

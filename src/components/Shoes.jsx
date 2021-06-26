@@ -15,28 +15,32 @@ const Shoes = ({products}) => {
     }
 
   return (
-        <>
-        <div className="shoes">Shoes</div>
-        {products.products
+    <>
+      <div className="shoes">Shoes</div>
+      {products.products
         ? products.products.map((product) => {
-            return (
-              <Card key={product.id} style={{ width: "18rem" }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
-                <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>{product.description}</Card.Text>
-                  <Card.Text>{product.SKU}</Card.Text>
-                  <Card.Text>${product.price}</Card.Text>
-                  <Link to="/MyCart">
-                    <Button onClick={onAddToCart} variant="primary">Add to Cart</Button>
-                  </Link>
-                </Card.Body>
-              </Card>
-            );
-          })
+              return (
+                <Row>
+                  <Col>
+                    <Card key={product.id} style={{ width: "18rem" }}>
+                      <Card.Img variant="top" src={product.img_url} />
+                      <Card.Body>
+                        <Card.Title>{product.name}Name</Card.Title>
+                        <Card.Text>{product.description}description</Card.Text>
+                        <Card.Text>{product.SKU}sku</Card.Text>
+                        <Card.Text>{product.price}Price</Card.Text>
+                        <Link to="/MyCart">
+                          <Button variant="primary">Add to Cart</Button>
+                        </Link>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                </Row>
+              );
+            })
         : null}
-      </>
-    )
-}
+    </>
+  );
+};
 
 export default Shoes;

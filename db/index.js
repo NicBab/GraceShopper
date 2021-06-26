@@ -89,8 +89,9 @@ async function createProduct({
   description,
   SKU,
   price,
-  categoryID = [],
-}) {
+  categoryId,
+}) => {
+
   try {
     const {
       rows: [products],
