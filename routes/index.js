@@ -5,6 +5,7 @@ const {
   createUser,
   getAllUsers,
   getAllProducts,
+  createProduct
  } = require("../db");
 
  
@@ -67,5 +68,38 @@ apiRouter.post("/users", async (req, res, next) => {
   }
 })
 
+apiRouter.post("/products", async (req, res, next) => {
+  const { name, description, img_url, price, SKU } = req.body;
+  const productData = {};
+
+  try {
+    productData.name = name;
+    productData.description = description;
+    productData.img_url = img_url;
+    productData.price = price;
+    productData.SKU = SKU;
+
+    if (!name) {
+      res.send(next(console.error({message: "Must include name"})))
+    }
+
+    if (!description) {
+      res.send(next(console.error({message: "Must include description"})))
+    }
+
+    if (!price) {
+      res.send(next(console.error({message: "Must include price"})))
+    }
+
+    const newProduct = await createProduct(productData);
+
+    res.send({
+      message: "Product successfully created!",
+      newProduct,
+    });
+  } catch ({name, message}) {
+    next({ name: "ProductCreateError", message: "Unable to create new Product." })
+  }
+})
 
 module.exports = {apiRouter}
