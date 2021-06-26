@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
-import './Register.css';
+import './css/Register.css';
 
 const Register = ( ) => {
     return (
