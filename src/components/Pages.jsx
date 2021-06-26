@@ -12,12 +12,10 @@ import {
     MyCart,
     MyProfile,
     MyOrders,
-    Users,
-    Inventory
 } from "../components";
 
 
-const Pages = ({products, setProducts, users, setUsers}) => {
+const Pages = ({products, setProducts}) => {
   return (
     <>
       <Route exact path="/home">
@@ -37,7 +35,7 @@ const Pages = ({products, setProducts, users, setUsers}) => {
       </Route>
 
       <Route exact path="/admin">
-        <Admin users={users} setProducts={setProducts} />
+        <Admin setProducts={setProducts} />
       </Route>
 
       <Route exact path="/register">
@@ -58,14 +56,6 @@ const Pages = ({products, setProducts, users, setUsers}) => {
 
       <Route exact path="/myorders">
         <MyOrders/>
-      </Route>
-
-      <Route exact path="/admin/users">
-        <Users users={users} />
-      </Route>
-
-      <Route exact path="/admin/inventory">
-        <Inventory products={products} />
       </Route>
     </>
   );

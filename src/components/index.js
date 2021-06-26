@@ -30,7 +30,5 @@ export { default as MyProfile } from './MyProfile';
 
 export { default as MyOrders } from './MyOrders';
 
-export { default as Inventory } from './Inventory';
 
-export { default as Users } from './Users';
 
