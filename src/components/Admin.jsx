@@ -14,7 +14,7 @@ const Admin = ({users}) => {
             Users
           </Button>
         </Link>
-        {"  "}
+        {"   "}
         <Link to="/admin/inventory">
           <Button variant="secondary" size="lg">
             Inventory
