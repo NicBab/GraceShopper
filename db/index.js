@@ -5,7 +5,7 @@ const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
 
-async function createUser({ name, email, admin, password = [] }) {
+async function createUser({ name, email, admin, password }) {
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -71,19 +71,19 @@ async function getUserByUsername(username) {
 async function getAllUsers() {
   // select and return an array of all users
   try {
-    const { rows } = await client.query(`
-        SELECT *
+    const { rows: id } = await client.query(`
+        SELECT id
         FROM users;
         `);
-    //const users = await Promise.all(id.map((user) => getUserById(user.id)))
-    return rows;
+    const users = await Promise.all(id.map((user) => getUserById(user.id)))
+    return users;
   } catch (error) {
     throw error;
   }
 }
 
 // IMG add image insertions here
-async function createProduct({
+const createProduct = async ({
   img,
   name,
   description,
@@ -101,7 +101,7 @@ async function createProduct({
       VALUES($1, $2, $3, $4, $5, $6)
       RETURNING *;
       `,
-      [img, name, description, SKU, price, categoryID]
+      [img, name, description, SKU, price, categoryId]
     );
     return products;
   } catch (error) {
@@ -131,11 +131,11 @@ async function createCategories({ name, description }) {
 
 async function getAllProducts() {
   try {
-    const { rows } = await client.query(`
+    const { rows: products } = await client.query(`
       SELECT *
       FROM products
     `);
-    return rows;
+    return products;
   } catch (error) {
     throw error;
   }

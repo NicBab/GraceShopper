@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
-import { getAllProducts } from "./api";
+import { getAllProducts, getAllUsers } from "./api";
 import { Header, Pages } from "./components";
 
 function App() {
   const [products, setProducts] = useState([]);
-
+  const [users, setUsers] = useState([]);
+  
   useEffect(() => {
     getAllProducts()
       .then((response) => {

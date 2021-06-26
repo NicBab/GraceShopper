@@ -88,6 +88,26 @@ export async function getAllProducts() {
 //   }
 // }
 
+export async function createProduct(
+  name,
+  description,
+  img_url,
+  price,
+  SKU
+) {
+  try {
+    const { data } = await axios.post("/api/products", {
+      name: name,
+      description: description,
+      img_url: img_url,
+      price: price,
+      SKU: SKU
+    });
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
 } 
 
 

@@ -1,11 +1,7 @@
 import React from 'react';
 import './css/Admin.css';
-
-const Admin = () => {
-    return (
-        <div className="admin">Admin</div>
-    )
-}
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Admin = ({users}) => {
   return (
@@ -17,7 +13,7 @@ const Admin = ({users}) => {
             Users
           </Button>
         </Link>
-        {"  "}
+        {"   "}
         <Link to="/admin/inventory">
           <Button variant="secondary" size="lg">
             Inventory

@@ -4,7 +4,7 @@ const {
   createUser,
   getAllUsers,
   getAllProducts,
-  getUserByUsername
+  createProduct
  } = require("../db");
 
 apiRouter.get("/", (req, res, next) => {
@@ -42,7 +42,63 @@ apiRouter.get("/products", async ( req, res, next) => {
 })
 
 
+apiRouter.post("/users", async (req, res, next) => {
+  const { name, email, password } = req.body
+  try {
+    const userData = {
+      name: name,
+      email: email,
+      password: password
+    }
+    const newUser = await createUser(userData)
 
+    if (newUser) {
+      res.send({ userData })
+    } else {
+      next({
+        name: "Create User Error",
+        message: "Error Creating User"
+      })
+    }
+
+  } catch ({name, messages}) {
+    next({name, messages})
+  }
+})
+
+apiRouter.post("/products", async (req, res, next) => {
+  const { name, description, img_url, price, SKU } = req.body;
+  const productData = {};
+
+  try {
+    productData.name = name;
+    productData.description = description;
+    productData.img_url = img_url;
+    productData.price = price;
+    productData.SKU = SKU;
+
+    if (!name) {
+      res.send(next(console.error({message: "Must include name"})))
+    }
+
+    if (!description) {
+      res.send(next(console.error({message: "Must include description"})))
+    }
+
+    if (!price) {
+      res.send(next(console.error({message: "Must include price"})))
+    }
+
+    const newProduct = await createProduct(productData);
+
+    res.send({
+      message: "Product successfully created!",
+      newProduct,
+    });
+  } catch ({name, message}) {
+    next({ name: "ProductCreateError", message: "Unable to create new Product." })
+  }
+})
 
 
 //createUser
