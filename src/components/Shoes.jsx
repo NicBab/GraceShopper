@@ -4,30 +4,42 @@ import { Link } from 'react-router-dom'
 import { Card, Button, } from 'react-bootstrap';
 import { getAllProducts } from '../api';
 import './Shoes.css';
+import axios from 'axios';
 
 
 const Shoes = () => {
-    const [product, setProduct] = useState([])
+    const [products, setProducts] = useState();
 
-    useEffect(() => {
+    useEffect(async () => {
         getAllProducts()
-    }, [])
+        .then((response) => {
+          setProducts(response);
+        })
+        .catch((error)=>{
+          console.error('Unable to get Products')
+        })
+    }, []);
 
-    return (
+    { products && products.length > 0 ? products.map((product) => {
+
+      return (
         <>
-        <div className="shoes">Shoes</div>
-          <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="{product.img}"/>
-             <Card.Body>
-              <Card.Title>{product.name}Name</Card.Title>
-                <Card.Text>{product.description}description</Card.Text>
-                <Card.Text>{product.SKU}sku</Card.Text>
-                <Card.Text>{product.price}Price</Card.Text>
-              <Link to="/MyCart"><Button variant="primary">Add to Cart</Button></Link>
-            </Card.Body>
-          </Card>
+        <div class="cards">
+  <div class="item">
+    <img id="shoe" src="https://robbreport.com/wp-content/uploads/2020/02/nba-allstar-3_0-digi.jpg?w=1000"/>  
+  </div>  
+  
+  <div class="description">
+    <h4> Nike</h4>
+    <small> AME x NBA </small>
+    
+    <h5 id="price">$65</h5>
+  </div>
+  </div>
+  <button class="btn">Add to Cart</button>
+
         </>
     )
+}) : null}
 }
-
 export default Shoes;
