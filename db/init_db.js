@@ -159,6 +159,24 @@ async function createInitialProducts() {
         price: 19.99,
         categoryID: 2,
       },
+      {
+        img:
+          "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        name: "Snapback",
+        description: "White",
+        SKU: 1962,
+        price: 19.99,
+        categoryID: 2,
+      },
+      {
+        img:
+          "https://images.unsplash.com/photo-1618354691792-d1d42acfd860?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+        name: "Beanie",
+        description: "Black",
+        SKU: 1962,
+        price: 15.99,
+        categoryID: 2,
+      },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");
