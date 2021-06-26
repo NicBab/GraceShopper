@@ -1,9 +1,10 @@
 const apiRouter = require('express').Router();
-
+// const jwt = require('jsonwebtoken');
 const { 
   createUser,
   getAllUsers,
   getAllProducts,
+  getUserByUsername
  } = require("../db");
 
 apiRouter.get("/", (req, res, next) => {
@@ -42,30 +43,45 @@ apiRouter.get("/products", async ( req, res, next) => {
 
 
 
+
+
 //createUser
-apiRouter.post("/users/register", async (req, res, next) => {
-  const { name, email, password } = req.body
-  try {
-    const userData = {
-      name: name,
-      email: email,
-      password: password
-    }
-    const newUser = await createUser(userData)
+// apiRouter.post('/api/register', async (req, res, next) => {
+//   const { username, email, password} = req.body;
 
-    if (newUser) {
-      res.send({ userData })
-    } else {
-      next({
-        name: "Create User Error",
-        message: "Error Creating User"
-      })
-    }
+//   try {
+//     const _user = await getUserByUsername(username);
 
-  } catch ({name, messages}) {
-    next({name, messages})
-  }
-})
+//     if (_user) {
+//       next({
+//         name: 'UserExistsError',
+//         message: 'A user by that username already exists'
+//       });
+//     }
+
+//     const user = await createUser({
+//       username,
+//       email,
+//       password,
+    
+//     });
+
+//     const token = jwt.sign({ 
+//       id: user.id, 
+//       username
+//     }, process.env.JWT_SECRET, {
+//       expiresIn: '1w'
+//     });
+
+//     res.send({ 
+//       message: "thank you for signing up",
+//       token 
+//     });
+//   } catch ({ name, message }) {
+//     next({ name, message })
+//   } 
+// });
+
 
 
 

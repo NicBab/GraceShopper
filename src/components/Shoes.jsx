@@ -3,13 +3,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Button, } from 'react-bootstrap';
 import './css/Shoes.css';
-import { addToCart } from '../api';
+// import { addToCart } from '../api';
 
 const Shoes = ({products}) => {
  
     const onAddToCart = (event) => {
         event.preventDefault()
-        addToCart()
+        // addToCart()
         console.log('add to cart clicked')
         
     }
