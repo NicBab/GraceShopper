@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { getAllProducts } from "./api";
+import { getAllProducts, getAllUsers } from "./api";
 import { Header, Pages } from "./components";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getAllProducts()
       .then((response) => {
         setProducts(response);
-        console.log(response);
       })
       .catch((error) => {
       });
   }, []);
+
+  useEffect(() => {
+    getAllUsers()
+      .then((response) => {
+        setUsers(response);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   
   return (
     <>
@@ -23,7 +34,7 @@ function App() {
       </header>
 
       <main>
-        <Pages products={products} setProducts={setProducts} />
+        <Pages users={users} products={products} setProducts={setProducts} />
       </main>
     </>
   );
