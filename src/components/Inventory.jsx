@@ -7,7 +7,7 @@ const Inventory = ({ products, setProducts }) => {
   const [description, setDescription] = useState("");
   const [img_url, setImgUrl] = useState("");
   const [price, setPrice] = useState("");
-  const [SKU, setSKU] = useState("");
+  const [SKU, setSKU] = useState(""); 
 
   const handleCreateProduct = async (event) => {
     try {
