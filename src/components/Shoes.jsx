@@ -17,7 +17,7 @@ const Shoes = () => {
         <>
         <div className="shoes">Shoes</div>
           <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src="holder.js/100px180"/>
+            <Card.Img variant="top" src="{product.img}"/>
              <Card.Body>
               <Card.Title>{product.name}Name</Card.Title>
                 <Card.Text>{product.description}description</Card.Text>
