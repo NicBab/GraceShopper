@@ -1,20 +1,18 @@
 const apiRouter = require('express').Router();
 
-
 const { 
   createUser,
   getAllUsers,
   getAllProducts,
  } = require("../db");
 
- 
 apiRouter.get("/", (req, res, next) => {
   res.send({
     message: "API is under construction!"
   });
 });
 
-
+//getUsers
 apiRouter.get("/users", async (_, res, next) => {
     try {
         const users = await getAllUsers();
@@ -28,7 +26,7 @@ apiRouter.get("/users", async (_, res, next) => {
     }
 })
 
-
+//getProducts
 apiRouter.get("/products", async ( req, res, next) => {
   try {
     const products = await getAllProducts()
@@ -43,7 +41,9 @@ apiRouter.get("/products", async ( req, res, next) => {
 })
 
 
-apiRouter.post("/users", async (req, res, next) => {
+
+//createUser
+apiRouter.post("/users/register", async (req, res, next) => {
   const { name, email, password } = req.body
   try {
     const userData = {
@@ -66,6 +66,16 @@ apiRouter.post("/users", async (req, res, next) => {
     next({name, messages})
   }
 })
+
+
+
+// apiRouter.post("/MyCart", async (req, res, next) => {
+//   try {
+    
+//   } catch (error) {
+//     next({name, messages})
+//   }
+// })
 
 
 module.exports = {apiRouter}
