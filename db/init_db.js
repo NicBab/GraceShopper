@@ -113,9 +113,9 @@ async function createInitialProducts() {
         categoryId: 1,
       },
       {
-        img_url: "https://images.unsplash.com/photo-1591222018978-ed27e9ee3f30?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2167&q=80",
-        name: "Asics",
-        description: "Gel Lyte V",
+        img_url: "",
+        name: "asycs",
+        description: "gel lyte III",
         SKU: 2468,
         price: 100.99,
         categoryId: 1,

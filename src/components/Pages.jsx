@@ -37,7 +37,7 @@ const Pages = ({products, setProducts, users, setUsers}) => {
       </Route>
 
       <Route exact path="/admin">
-        <Admin users={users} setProducts={setProducts} />
+        <Admin setProducts={setProducts} />
       </Route>
 
       <Route exact path="/register">

@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate } from '../components'
-
-import "./Header.css";
+import "./css/Header.css";
 
 const Header = () => {
 

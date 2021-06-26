@@ -1,10 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
-import "./Shoes.css";
-import axios from "axios";
 
-const Shoes = ({ products }) => {
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Card, Button, Row, Col } from 'react-bootstrap';
+import './css/Shoes.css';
+// import { addToCart } from '../api';
+
+const Shoes = ({products}) => {
+ 
+    const onAddToCart = (event) => {
+        event.preventDefault()
+        // addToCart()
+        console.log('add to cart clicked')
+        
+    }
+
   return (
     <>
       <div className="shoes">Shoes</div>
@@ -33,4 +42,5 @@ const Shoes = ({ products }) => {
     </>
   );
 };
+
 export default Shoes;
