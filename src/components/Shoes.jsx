@@ -1,42 +1,35 @@
 
-import React, { useEffect, useState }from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card, Button, } from 'react-bootstrap';
-import { getAllProducts } from '../api';
 import './Shoes.css';
 import axios from 'axios';
 
+const Shoes = ({products}) => {
+  //for the map
+    // look into mapping object
+    // Object.key(products)
+    // products.length
 
-const Shoes = () => {
-    const [products, setProducts] = useState();
-
-    useEffect(async () => {
-        getAllProducts()
-        .then((response) => {
-          setProducts(response);
-        })
-        .catch((error)=>{
-          console.error('Unable to get Products')
-        })
-    }, []);
-
-    { products && products.length > 0 ? products.map((product) => {
-
-      return (
+  console.log(products)
+  return (
         <>
-        <div class="cards">
-  <div class="item">
-    <img id="shoe" src="https://robbreport.com/wp-content/uploads/2020/02/nba-allstar-3_0-digi.jpg?w=1000"/>  
-  </div>  
-  
-  <div class="description">
-    <h4> Nike</h4>
-    <small> AME x NBA </small>
-    
-    <h5 id="price">$65</h5>
-  </div>
-  </div>
-  <button class="btn">Add to Cart</button>
+        <div className="shoes">Shoes</div>
+        {products[0] && products.map((product) => {
+
+          <Card key={product.id} style={{ width: '18rem' }}>
+            <Card.Img variant="top" src="holder.js/100px180"/>
+             <Card.Body>
+              <Card.Title>{product.name}Name</Card.Title>
+                <Card.Text>{product.description}description</Card.Text>
+                <Card.Text>{product.SKU}sku</Card.Text>
+                <Card.Text>{product.price}Price</Card.Text>
+              <Link to="/MyCart"><Button variant="primary">Add to Cart</Button></Link>
+            </Card.Body>
+          </Card>
+
+        }) }
+
 
         </>
     )

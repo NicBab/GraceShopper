@@ -15,7 +15,7 @@ import {
 } from "../components";
 
 
-const Pages = () => {
+const Pages = ({products, setProducts}) => {
   return (
     <>
       <Route exact path="/home">
@@ -23,7 +23,7 @@ const Pages = () => {
       </Route>
 
       <Route exact path="/shoes">
-        <Shoes />
+        <Shoes products={products} />
       </Route>
 
       <Route exact path="/hats">
@@ -35,7 +35,7 @@ const Pages = () => {
       </Route>
 
       <Route exact path="/admin">
-        <Admin />
+        <Admin setProducts={setProducts} />
       </Route>
 
       <Route exact path="/register">

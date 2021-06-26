@@ -210,6 +210,7 @@ async function createInitialCategories() {
     console.error("Error creating categories!");
     throw error;
   }
+
 }
 
 async function rebuildDB() {
