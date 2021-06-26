@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap'
-import './MyOrders.css';
+import './css/MyOrders.css';
 
 const MyOrders = () => {
     return (

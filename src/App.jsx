@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
+import './App.css';
 import { getAllProducts } from "./api";
 import { Header, Pages } from "./components";
 
@@ -34,7 +34,9 @@ function App() {
       </header>
 
       <main>
+
       <Pages users={users} products={products} setProducts={setProducts} />
+
       </main>
     </>
   );

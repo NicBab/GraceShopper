@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { Card, Nav, Button } from 'react-bootstrap'
 import { getAllUsers } from '../api';
-import './MyProfile.css'
+import './css/MyProfile.css'
 
 const MyProfile = () => {
     const [user, setUser] = useState([])

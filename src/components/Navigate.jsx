@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { DropdownButton, Dropdown} from 'react-bootstrap'
-import './Navigate.css';
+import './css/Navigate.css';
 
 const Navigate= () => {
     return (
