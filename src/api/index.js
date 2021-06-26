@@ -37,7 +37,6 @@ export async function getAllUsers() {
 //   }
 // }
 
-
 export async function getAllProducts() {
   try {
     const { data } = await axios.get(`/api/products`)
@@ -46,3 +45,15 @@ export async function getAllProducts() {
     throw error
   }
 }
+
+
+export async function getAllProducts() {
+  try {
+    const { data } = await axios.get(`/api/products`)
+    return data;
+  } catch (error) {
+    throw error
+  }
+} 
+
+
