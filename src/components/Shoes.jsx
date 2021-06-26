@@ -1,10 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
-import "./Shoes.css";
-import axios from "axios";
 
-const Shoes = ({ products }) => {
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Card, Button, } from 'react-bootstrap';
+import './Shoes.css';
+import axios from 'axios';
+
+const Shoes = ({products}) => {
+  //for the map
+    // look into mapping object
+    // Object.key(products)
+    // products.length
+
+  console.log(products)
   return (
     <>
       <div className="shoes">Shoes</div>

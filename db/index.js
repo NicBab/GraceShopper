@@ -4,12 +4,12 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
-async function createUser({ name, email, admin, password }) {
+async function createUser({ name, email, admin, password = [] }) {
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     const {
-      rows: [user],
+      rows: [users],
     } = await client.query(
       `
       INSERT INTO users(name, email, password, admin)
@@ -20,8 +20,8 @@ async function createUser({ name, email, admin, password }) {
       [name, email, hashedPassword, admin]
     );
     password = hashedPassword;
-    delete user.password;
-    return user;
+    delete users.password;
+    return users;
   } catch (error) {
     throw error;
   }
@@ -37,12 +37,12 @@ async function getUserById(userId) {
     WHERE id=${userId}
     `);
 
-    if (!user) {
-      throw {
-        name: "UserNotFoundError",
-        message: "Could not find a user with that id",
-      };
-    }
+    // if (!user) {
+    //   throw {
+    //     name: "UserNotFoundError",
+    //     message: "Could not find a user with that id",
+    //   };
+    // }
 
     return user;
   } catch (error) {
@@ -55,36 +55,37 @@ async function getUserById(userId) {
 async function getAllUsers() {
   // select and return an array of all users
   try {
-    const { rows: id } = await client.query(`
-        SELECT id
+    const { rows } = await client.query(`
+        SELECT *
         FROM users;
         `);
-    const users = await Promise.all(id.map((user) => getUserById(user.id)))
-    return users;
+    //const users = await Promise.all(id.map((user) => getUserById(user.id)))
+    return rows;
   } catch (error) {
     throw error;
   }
 }
 
 // IMG add image insertions here
-const createProduct = async ({
-  img_url,
+async function createProduct({
+  img,
   name,
   description,
   SKU,
   price,
   categoryId,
 }) => {
+
   try {
     const {
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(img_url, name, description, SKU, price, categoryId)
+      INSERT INTO products(img, name, description, SKU, price, categoryID)
       VALUES($1, $2, $3, $4, $5, $6)
       RETURNING *;
       `,
-      [img_url, name, description, SKU, price, categoryId]
+      [img, name, description, SKU, price, categoryID]
     );
     return products;
   } catch (error) {
@@ -112,11 +113,11 @@ async function createCategories({ name, description }) {
 
 async function getAllProducts() {
   try {
-    const { rows: products } = await client.query(`
+    const { rows } = await client.query(`
       SELECT *
       FROM products
     `);
-    return products;
+    return rows;
   } catch (error) {
     throw error;
   }

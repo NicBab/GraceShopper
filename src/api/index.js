@@ -37,7 +37,6 @@ export async function getAllUsers() {
 //   }
 // }
 
-
 export async function getAllProducts() {
   try {
     const { data } = await axios.get(`/api/products`)
@@ -47,25 +46,14 @@ export async function getAllProducts() {
   }
 }
 
-export async function createProduct(
-  name,
-  description,
-  img_url,
-  price,
-  SKU
-) {
-  try {
-    const { data } = await axios.post("/api/products", {
-      name: name,
-      description: description,
-      img_url: img_url,
-      price: price,
-      SKU: SKU
-    });
 
+export async function getAllProducts() {
+  try {
+    const { data } = await axios.get(`/api/products`)
     return data;
   } catch (error) {
-    throw error;
+    throw error
   }
 } 
+
 

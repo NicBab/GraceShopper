@@ -1,8 +1,11 @@
-import React from "react";
-import "./Admin.css";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './Admin.css';
 
+const Admin = () => {
+    return (
+        <div className="admin">Admin</div>
+    )
+}
 
 const Admin = ({users}) => {
   return (
