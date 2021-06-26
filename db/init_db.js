@@ -113,6 +113,13 @@ async function createInitialProducts() {
           description: "gel lyte III",
           SKU: 2468,
           price: 100.99
+        },
+        {
+          img: "",
+          name: "Nike",
+          description: "AF1's",
+          SKU: 10987,
+          price: 120.25
         }
       ];
       const products = await Promise.all(productsToCreate.map(createProduct));
