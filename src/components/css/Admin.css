@@ -4,3 +4,13 @@
     margin: 5px;
     font-size: 3em;
 }
+
+.mb-2{
+    display: flex; 
+    justify-content: center
+}
+
+.users-btn, .inventory-btn{
+
+    margin-right: 5px;
+}

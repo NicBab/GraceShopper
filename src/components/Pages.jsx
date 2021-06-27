@@ -21,7 +21,7 @@ const Pages = ({products, setProducts, users, setUsers}) => {
   return (
     <>
       <Route exact path="/home">
-        <Home />
+        <Home products={products} />
       </Route>
 
       <Route exact path="/shoes">
