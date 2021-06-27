@@ -10,11 +10,11 @@ const Users = ({users}) => {
     {users.users ? users.users.map((user) => {
       return (
 
-      <Card key={user.id} style={{ width: "18rem", height: "10rem" }}>
+      <Card key={user.id} style={{ width: "18rem" }}>
         <Card.Header>{user.name}</Card.Header>
         <ListGroup variant="flush">
           <ListGroup.Item>{user.email}</ListGroup.Item>
-          <ListGroup.Item>{user.admin}</ListGroup.Item>
+          <ListGroup.Item>Admin: {user.admin ? "yes" : "no"}</ListGroup.Item>
         </ListGroup>
       </Card>
 

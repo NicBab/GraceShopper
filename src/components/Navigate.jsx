@@ -1,26 +1,62 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
-import { DropdownButton, Dropdown} from 'react-bootstrap'
-import './css/Navigate.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  DropdownButton,
+  Dropdown,
+  Navbar,
+  Nav,
+  Form,
+  FormControl,
+  Button,
+  NavDropdown,
+} from "react-bootstrap";
+import { TiShoppingCart } from 'react-bootstrap-icons';
+import "./css/Navigate.css";
 
-const Navigate= () => {
-    return (
-      <>
-      <DropdownButton id="dropdown-item-button" title="Browse the Store">
-        <Link to="/home"><Dropdown.Item as="button">Home</Dropdown.Item></Link>
-        <Link to="/shoes"><Dropdown.Item as="button">Shoes</Dropdown.Item></Link>
-        <Link to="/hats"><Dropdown.Item as="button">Hats</Dropdown.Item></Link>
-        <Link to="/accessories"><Dropdown.Item as="button">Accessories</Dropdown.Item></Link>
-        <Dropdown.Divider />
-        <Link to="/admin"><Dropdown.Item as="button">Admin</Dropdown.Item></Link>
-        <Link to="/Register"><Dropdown.Item as="button">Register</Dropdown.Item></Link>
-        <Link to="/Login"><Dropdown.Item as="button">Login</Dropdown.Item></Link>
-        <Dropdown.Divider />
-        <Link to="/MyCart"><Dropdown.Item as="button">MyCart</Dropdown.Item></Link>
-        <Link to="/MyProfile"><Dropdown.Item as="button">MyProfile</Dropdown.Item></Link>
-      </DropdownButton>
-      </>
-    )
-}
+const Navigate = () => {
+  return (
+    <>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="/home">Oh Shoes</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/home">Home</Nav.Link>
+            <NavDropdown title="Categories" id="basic-nav-dropdown">
+            <Link to="/shoes">
+              <NavDropdown.Item href="#action/3.1">Shoes</NavDropdown.Item>
+            </Link>
+            <Link to="/hats">
+              <NavDropdown.Item href="#action/3.2">
+                Hats
+              </NavDropdown.Item>
+            </Link>
+            <Link to="/accessories">
+              <NavDropdown.Item href="#action/3.3">Accessories</NavDropdown.Item>
+            </Link>
+            </NavDropdown>
+          </Nav>
+          <Link to="/admin">
+            <Nav.Link href="#link">Admin</Nav.Link>
+          </Link>
+          <Link to="/mycart">
+          <Dropdown.Item as="button">My Cart (0)</Dropdown.Item> 
+        </Link>
+          <Form inline>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Button variant="outline-success">Search</Button>
+          </Form>
+          <Link to="/register">
+          <Dropdown.Item as="button">Register</Dropdown.Item>
+        </Link>
+        <Link to="/login">
+          <Dropdown.Item as="button">Login</Dropdown.Item>
+        </Link>
+        </Navbar.Collapse>
+      </Navbar>
 
-export default Navigate
+    </>
+  );
+};
+
+export default Navigate;
