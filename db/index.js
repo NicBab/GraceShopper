@@ -82,29 +82,29 @@ async function getAllUsers() {
   }
 }
 
-// IMG add image insertions here
 const createProduct = async ({
-  img,
+  img_url,
   name,
   description,
   SKU,
-  price,
-  categoryId,
+  price
 }) => {
-
+  console.log(img_url, name, description, SKU, price)
   try {
     const {
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(img, name, description, SKU, price, categoryID)
-      VALUES($1, $2, $3, $4, $5, $6)
+      INSERT INTO products(img_url, name, description, SKU, price)
+      VALUES($1, $2, $3, $4, $5)
       RETURNING *;
       `,
-      [img, name, description, SKU, price, categoryId]
+      [img_url, name, description, SKU, price]
     );
+    console.log(products, "**products**")
     return products;
   } catch (error) {
+    console.error("Error creating product in db/index.js")
     throw error;
   }
 }

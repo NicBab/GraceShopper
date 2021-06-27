@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
+import "./App.css";
 import { getAllProducts, getAllUsers } from "./api";
 import { Header, Pages } from "./components";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-  
+
   useEffect(() => {
     getAllProducts()
       .then((response) => {
         setProducts(response);
         console.log(response);
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
   }, []);
 
   useEffect(() => {
@@ -27,7 +26,6 @@ function App() {
       });
   }, []);
 
-  
   return (
     <>
       <header>
@@ -35,9 +33,7 @@ function App() {
       </header>
 
       <main>
-
-      <Pages users={users} products={products} setProducts={setProducts} />
-
+        <Pages users={users} products={products} setProducts={setProducts} />
       </main>
     </>
   );

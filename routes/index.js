@@ -88,12 +88,10 @@ apiRouter.post("/products", async (req, res, next) => {
     if (!price) {
       res.send(next(console.error({message: "Must include price"})))
     }
-
-    const newProduct = await createProduct(productData);
-
+    const newProduct = await createProduct(productData);  // req.body
     res.send({
       message: "Product successfully created!",
-      newProduct,
+      newProduct
     });
   } catch ({name, message}) {
     next({ name: "ProductCreateError", message: "Unable to create new Product." })

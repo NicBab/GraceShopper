@@ -65,7 +65,7 @@ const Pages = ({products, setProducts, users, setUsers}) => {
       </Route>
 
       <Route exact path="/admin/inventory">
-        <Inventory products={products} />
+        <Inventory products={products} setProducts={setProducts} />
       </Route>
     </>
   );

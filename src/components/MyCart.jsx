@@ -11,12 +11,12 @@ import {
 } from '@material-ui/core';
 
 const MyCart = () => {
-    const [MyCart, setMyCart] = useState()
+    const [cart, setCart] = useState([])
 
   
 
     useEffect(() => {
-
+    
     }, [])
 
     return (

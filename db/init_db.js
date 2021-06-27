@@ -49,8 +49,7 @@ async function createTables() {
         name VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
         SKU VARCHAR(255) NOT NULL,
-        price DECIMAL NOT NULL,
-        categoryId INT REFERENCES category(id) NOT NULL    
+        price DECIMAL NOT NULL
       );
       `);
     console.log("Finished building tables!");
