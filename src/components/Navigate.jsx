@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  DropdownButton,
   Dropdown,
   Navbar,
   Nav,
@@ -10,12 +9,11 @@ import {
   Button,
   NavDropdown,
 } from "react-bootstrap";
-import { TiShoppingCart } from 'react-bootstrap-icons';
 import "./css/Navigate.css";
 
 const Navigate = () => {
   return (
-    <>
+    <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/home">Oh Shoes</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -23,39 +21,38 @@ const Navigate = () => {
           <Nav className="mr-auto">
             <Nav.Link href="/home">Home</Nav.Link>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
-            <Link to="/shoes">
-              <NavDropdown.Item href="#action/3.1">Shoes</NavDropdown.Item>
-            </Link>
-            <Link to="/hats">
-              <NavDropdown.Item href="#action/3.2">
-                Hats
-              </NavDropdown.Item>
-            </Link>
-            <Link to="/accessories">
-              <NavDropdown.Item href="#action/3.3">Accessories</NavDropdown.Item>
-            </Link>
+              <Link to="/shoes">
+                <NavDropdown.Item href="#action/3.1">Shoes</NavDropdown.Item>
+              </Link>
+              <Link to="/hats">
+                <NavDropdown.Item href="#action/3.2">Hats</NavDropdown.Item>
+              </Link>
+              <Link to="/accessories">
+                <NavDropdown.Item href="#action/3.3">
+                  Accessories
+                </NavDropdown.Item>
+              </Link>
             </NavDropdown>
           </Nav>
           <Link to="/admin">
             <Nav.Link href="#link">Admin</Nav.Link>
           </Link>
           <Link to="/mycart">
-          <Dropdown.Item as="button">My Cart (0)</Dropdown.Item> 
-        </Link>
+            <Dropdown.Item as="button">My Cart (0)</Dropdown.Item>
+          </Link>
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form>
           <Link to="/register">
-          <Dropdown.Item as="button">Register</Dropdown.Item>
-        </Link>
-        <Link to="/login">
-          <Dropdown.Item as="button">Login</Dropdown.Item>
-        </Link>
+            <Dropdown.Item as="button">Register</Dropdown.Item>
+          </Link>
+          <Link to="/login">
+            <Dropdown.Item as="button">Login</Dropdown.Item>
+          </Link>
         </Navbar.Collapse>
       </Navbar>
-
-    </>
+    </div>
   );
 };
 

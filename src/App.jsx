@@ -1,12 +1,26 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
-import { getAllProducts, getAllUsers } from "./api";
+import "./App.css";
+import { getAllProducts, getAllUsers, getUserCart } from "./api";
 import { Header, Pages } from "./components";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-  
+  const [userCart, setUserCart] = useState({});
+
+  const handleAddToCart = async (productId, qty) => {
+    
+  }
+
+  useEffect(() => {
+    getUserCart()
+      .then((response) => {
+        setUserCart(response);
+        console.log(response);
+      })
+  }, [])
+
+
   useEffect(() => {
     getAllProducts()
       .then((response) => {
@@ -14,6 +28,7 @@ function App() {
         console.log(response);
       })
       .catch((error) => {
+        console.error(error)
       });
   }, []);
 
@@ -27,7 +42,6 @@ function App() {
       });
   }, []);
 
-  
   return (
     <>
       <header>
@@ -35,9 +49,7 @@ function App() {
       </header>
 
       <main>
-
-      <Pages users={users} products={products} setProducts={setProducts} />
-
+        <Pages users={users} products={products} setProducts={setProducts} onAddToCart={handleAddToCart} />
       </main>
     </>
   );

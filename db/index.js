@@ -4,6 +4,7 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
+// USER FUNCTIONS
 
 async function createUser({ name, email, admin, password }) {
   try {
@@ -28,6 +29,19 @@ async function createUser({ name, email, admin, password }) {
   }
 }
 
+async function getAllUsers() {
+  // select and return an array of all users
+  try {
+    const { rows: id } = await client.query(`
+        SELECT id
+        FROM users;
+        `);
+    const users = await Promise.all(id.map((user) => getUserById(user.id)))
+    return users;
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function getUserById(userId) {
   try {
@@ -68,47 +82,56 @@ async function getUserByUsername(username) {
 
 // build getUserByEmail
 
-async function getAllUsers() {
-  // select and return an array of all users
-  try {
-    const { rows: id } = await client.query(`
-        SELECT id
-        FROM users;
-        `);
-    const users = await Promise.all(id.map((user) => getUserById(user.id)))
-    return users;
-  } catch (error) {
-    throw error;
-  }
-}
 
-// IMG add image insertions here
+
+// PRODUCT FUNCTIONS
+
+
 const createProduct = async ({
-  img,
+  img_url,
   name,
   description,
-  SKU,
-  price,
-  categoryId,
+  price
 }) => {
-
+  console.log(img_url, name, description, price)
   try {
     const {
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(img, name, description, SKU, price, categoryID)
-      VALUES($1, $2, $3, $4, $5, $6)
+      INSERT INTO products(img_url, name, description, price)
+      VALUES($1, $2, $3, $4, $5)
       RETURNING *;
       `,
-      [img, name, description, SKU, price, categoryId]
+      [img_url, name, description, price]
     );
+    console.log(products, "**products**")
+    return products;
+  } catch (error) {
+    console.error("Error creating product in db/index.js")
+    throw error;
+  }
+}
+
+async function getAllProducts() {
+  try {
+    const { rows: products } = await client.query(`
+      SELECT *
+      FROM products
+    `);
     return products;
   } catch (error) {
     throw error;
   }
 }
 
+async function addToCart(user_id, product_id) {
+  try {
+
+  } catch (error) {
+    throw error;
+  }
+}
 
 async function createCategories({ name, description }) {
   try {
@@ -123,19 +146,6 @@ async function createCategories({ name, description }) {
       [name, description]
     );
     return categories;
-  } catch (error) {
-    throw error;
-  }
-}
-
-
-async function getAllProducts() {
-  try {
-    const { rows: products } = await client.query(`
-      SELECT *
-      FROM products
-    `);
-    return products;
   } catch (error) {
     throw error;
   }

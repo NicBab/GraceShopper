@@ -14,7 +14,6 @@ const Accessories = ({products}) => {
              <Card.Body>
               <Card.Title>Name</Card.Title>
                 <Card.Text>description</Card.Text>
-                <Card.Text>sku</Card.Text>
                 <Card.Text>Price</Card.Text>
               <Link to="/MyCart"><Button variant="primary">Add to Cart</Button></Link>
             </Card.Body>

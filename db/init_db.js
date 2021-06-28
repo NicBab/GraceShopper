@@ -24,17 +24,20 @@ async function dropTables() {
   }
 }
 
-//PUT images after line 38
+// Temporarily pulled out categoryId INT REFERENCES category(id) NOT NULL  
+
 async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
      CREATE TABLE users(
       id SERIAL PRIMARY KEY,
+      username VARCHAR(255) UNIQUE NOT NULL,
       name VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL UNIQUE,
+      email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      admin BOOLEAN DEFAULT FALSE
+      admin BOOLEAN DEFAULT FALSE,
+      UNIQUE(username, email)
       );
 
       CREATE TABLE category(
@@ -48,10 +51,24 @@ async function createTables() {
         img_url TEXT NOT NULL,
         name VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
-        SKU VARCHAR(255) NOT NULL,
-        price DECIMAL NOT NULL,
-        categoryId INT REFERENCES category(id) NOT NULL    
+        price DECIMAL NOT NULL
       );
+
+      CREATE TABLE user_cart(
+        id SERIAL PRIMARY KEY,
+        user_id REFERENCES users(id)
+        active BOOLEAN DEFAULT TRUE,
+        UNIQUE(user_id)
+      );
+
+      CREATE TABLE cart_item(
+        id SERIAL PRIMARY KEY,
+        session_id INT REFERENCES user_cart(id)
+        product_id INT REFERENCES products(id)
+        qty INTEGER NOT NULL,
+        UNIQUE(product_id)
+      );
+
       `);
     console.log("Finished building tables!");
   } catch (error) {
@@ -108,15 +125,13 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
         name: "Shoe",
         description: "Very comfortable",
-        SKU: 12345,
         price: 30.99,
         categoryId: 1,
       },
       {
-        img_url: "",
-        name: "asycs",
-        description: "gel lyte III",
-        SKU: 2468,
+        img_url: "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        name: "Asics",
+        description: "ASICS X Mita GEL-Kayano Trainer",
         price: 100.99,
         categoryId: 1,
       },
@@ -126,7 +141,6 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1597248881519-db089d3744a5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG5pa2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Jordan",
         description: "Nike Jordan",
-        SKU: 6824,
         price: 110.99,
         categoryId: 1,
       },
@@ -136,7 +150,6 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzh8fG5pa2UlMjBzaG9lc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Vans",
         description: "Maroon and White Vans",
-        SKU: 1992,
         price: 59.99,
         categoryId: 1,
       },
@@ -146,7 +159,6 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTF8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "VA RVCA",
         description: "Grey and White Hat",
-        SKU: 1988,
         price: 29.99,
         categoryId: 2,
       },
@@ -155,7 +167,6 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1533603531139-2c4d04df8f16?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "NY Baseball Hat",
         description: "Navy and Red",
-        SKU: 1980,
         price: 19.99,
         categoryId: 2,
       },
@@ -164,7 +175,6 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Snapback",
         description: "White",
-        SKU: 1962,
         price: 19.99,
         categoryId: 2,
       },
@@ -173,7 +183,6 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1618354691792-d1d42acfd860?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Beanie",
         description: "Black",
-        SKU: 1962,
         price: 15.99,
         categoryId: 2,
       },
