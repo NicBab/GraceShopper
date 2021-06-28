@@ -42,4 +42,4 @@ const Shoes = ({products}) => {
   );
 };
 
-export default Shoes;
+export default Shoes; 
