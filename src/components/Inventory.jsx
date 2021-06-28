@@ -8,8 +8,6 @@ const Inventory = ({ products, setProducts }) => {
   const [description, setDescription] = useState("");
   const [img_url, setImgUrl] = useState("");
   const [price, setPrice] = useState("");
-  const [SKU, setSKU] = useState(""); 
-  const [categoryId, setCategoryId] = useState();
 
   const handleCreateProduct = async (event) => {
     try {
@@ -18,10 +16,7 @@ const Inventory = ({ products, setProducts }) => {
         name,
         description,
         img_url,
-        price,
-        SKU,
-        categoryId
-      });
+        price      });
       setProducts((prevProducts) => {
         return [...prevProducts.products, newProduct];
       });
@@ -29,8 +24,6 @@ const Inventory = ({ products, setProducts }) => {
       setDescription("");
       setImgUrl("");
       setPrice("");
-      setSKU("");
-      setCategoryId();
     } catch (err) {
       throw err;
     }
@@ -60,11 +53,6 @@ const Inventory = ({ products, setProducts }) => {
             <Form.Control value={price} onInput={(event) => {
                 setPrice(event.target.value)
             }} placeholder="Price" />
-          </Col>
-          <Col>
-            <Form.Control value={SKU} onInput={(event) => {
-                setSKU(event.target.value)
-            }} placeholder="SKU" />
           </Col>
         </Form.Row>
         <Button type="submit" variant="secondary">

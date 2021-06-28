@@ -22,14 +22,21 @@ const Product = ({ product }) => {
               <h6 className="card-subtitle">{product.price}</h6>
               <br></br>
               <Button variant="primary">Add to cart</Button>
+              
+              <Button variant="secondary">Edit</Button>
+              <Button variant="secondary">Delete</Button>
+
             </Card.Body>
           </Card>
         </Col>
       </Row>
     </>
         ); 
-};
+}; 
 
 export default Product;
+
+// Add ternary to button element on product card *********
+    // if(admin) render Edit/Delete, else render Add to Cart
 
 //getProductById

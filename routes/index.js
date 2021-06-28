@@ -67,7 +67,7 @@ apiRouter.post("/users", async (req, res, next) => {
 })
 
 apiRouter.post("/products", async (req, res, next) => {
-  const { name, description, img_url, price, SKU } = req.body;
+  const { name, description, img_url, price } = req.body;
   const productData = {};
 
   try {
@@ -75,7 +75,6 @@ apiRouter.post("/products", async (req, res, next) => {
     productData.description = description;
     productData.img_url = img_url;
     productData.price = price;
-    productData.SKU = SKU;
 
     if (!name) {
       res.send(next(console.error({message: "Must include name"})))
