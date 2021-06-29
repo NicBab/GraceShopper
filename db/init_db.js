@@ -11,8 +11,9 @@ async function dropTables() {
   try {
     console.log("Starting to drop tables...");
     client.query(`
+        DROP TABLE IF EXISTS cart_item;
+        DROP TABLE IF EXISTS user_cart;
         DROP TABLE IF EXISTS products;
-        DROP TABLE IF EXISTS category;
         DROP TABLE IF EXISTS users_payment;
         DROP TABLE IF EXISTS users_address;
         DROP TABLE IF EXISTS users;
@@ -30,20 +31,13 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
+
      CREATE TABLE users(
       id SERIAL PRIMARY KEY,
-      username VARCHAR(255) UNIQUE NOT NULL,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
-      admin BOOLEAN DEFAULT FALSE,
-      UNIQUE(username, email)
-      );
-
-      CREATE TABLE category(
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        description VARCHAR(255) NOT NULL
+      admin BOOLEAN DEFAULT FALSE
       );
 
       CREATE TABLE products(
@@ -54,21 +48,6 @@ async function createTables() {
         price DECIMAL NOT NULL
       );
 
-      CREATE TABLE user_cart(
-        id SERIAL PRIMARY KEY,
-        user_id REFERENCES users(id)
-        active BOOLEAN DEFAULT TRUE,
-        UNIQUE(user_id)
-      );
-
-      CREATE TABLE cart_item(
-        id SERIAL PRIMARY KEY,
-        session_id INT REFERENCES user_cart(id)
-        product_id INT REFERENCES products(id)
-        qty INTEGER NOT NULL,
-        UNIQUE(product_id)
-      );
-
       `);
     console.log("Finished building tables!");
   } catch (error) {
@@ -76,6 +55,28 @@ async function createTables() {
     throw error;
   }
 }
+
+// CREATE TABLE user_cart(
+//   id SERIAL PRIMARY KEY,
+//   user_id REFERENCES users(id)
+//   active BOOLEAN DEFAULT TRUE,
+//   UNIQUE(user_id)
+// );
+
+// CREATE TABLE cart_item(
+//   id SERIAL PRIMARY KEY,
+//   session_id INT REFERENCES user_cart(id)
+//   product_id INT REFERENCES products(id)
+//   qty INTEGER NOT NULL,
+//   UNIQUE(product_id)
+// );
+
+
+// CREATE TABLE category(
+//   id SERIAL PRIMARY KEY,
+//   name VARCHAR(255) NOT NULL,
+//   description VARCHAR(255) NOT NULL
+// );
 
 async function createInitialUsers() {
   console.log("Starting to create users...");
@@ -125,15 +126,15 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
         name: "Shoe",
         description: "Very comfortable",
-        price: 30.99,
-        categoryId: 1,
+        price: 30.99
+        //categoryId: 1,
       },
       {
         img_url: "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
         name: "Asics",
         description: "ASICS X Mita GEL-Kayano Trainer",
-        price: 100.99,
-        categoryId: 1,
+        price: 100.99
+        //categoryId: 1,
       },
 
       {
@@ -141,8 +142,8 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1597248881519-db089d3744a5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG5pa2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Jordan",
         description: "Nike Jordan",
-        price: 110.99,
-        categoryId: 1,
+        price: 110.99
+        //categoryId: 1,
       },
 
       {
@@ -150,8 +151,8 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzh8fG5pa2UlMjBzaG9lc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Vans",
         description: "Maroon and White Vans",
-        price: 59.99,
-        categoryId: 1,
+        price: 59.99
+       // categoryId: 1,
       },
 
       {
@@ -159,32 +160,32 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTF8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "VA RVCA",
         description: "Grey and White Hat",
-        price: 29.99,
-        categoryId: 2,
+        price: 29.99
+        //categoryId: 2,
       },
       {
         img_url:
           "https://images.unsplash.com/photo-1533603531139-2c4d04df8f16?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "NY Baseball Hat",
         description: "Navy and Red",
-        price: 19.99,
-        categoryId: 2,
+        price: 19.99
+        //categoryId: 2,
       },
       {
         img_url:
           "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Snapback",
         description: "White",
-        price: 19.99,
-        categoryId: 2,
+        price: 19.99
+        //categoryId: 2,
       },
       {
         img_url:
           "https://images.unsplash.com/photo-1618354691792-d1d42acfd860?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Beanie",
         description: "Black",
-        price: 15.99,
-        categoryId: 2,
+        price: 15.99
+        //categoryId: 2,
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));

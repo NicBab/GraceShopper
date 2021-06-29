@@ -2,8 +2,22 @@ import React from "react";
 import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+//import { FlipToBackRounded } from "@material-ui/icons";
+//import { deleteProduct } from "../api";
 
-const Product = ({ product }) => {
+const Product = ({ product, setProducts }) => {
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await deleteProduct(id);
+  //     const activeProducts = products.filter(
+  //       (fProducts) => fProduct.id !== product.id
+  //     );
+  //     setProducts(activeProducts);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+
+
   return (
     <>
       <Row>
@@ -19,24 +33,23 @@ const Product = ({ product }) => {
             <Card.Body>
               <Card.Title>{product.name}</Card.Title>
               <Card.Text>{product.description}</Card.Text>
-              <h6 className="card-subtitle">{product.price}</h6>
+              <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
               <Button variant="primary">Add to cart</Button>
-              
+
               <Button variant="secondary">Edit</Button>
               <Button variant="secondary">Delete</Button>
-
             </Card.Body>
           </Card>
         </Col>
       </Row>
     </>
-        ); 
-}; 
+  );
+};
 
 export default Product;
 
 // Add ternary to button element on product card *********
-    // if(admin) render Edit/Delete, else render Add to Cart
+// if(admin) render Edit/Delete, else render Add to Cart
 
 //getProductById
