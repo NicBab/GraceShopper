@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from '../contexts/AuthContext'
+import { Cart, Head, Home } from './icons'
+
 import {
   Dropdown,
   Navbar,
@@ -13,11 +14,10 @@ import {
 import "./css/Navigate.css";
 
 const Navigate = ({currentUser}) => {
-  // const { currentUser } = useAuth()
+
   
   return (
     <>
-
       <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/home">Oh Shoes</Navbar.Brand>
@@ -28,7 +28,7 @@ const Navigate = ({currentUser}) => {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form>
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/home">{Home}</Nav.Link>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
               <Link to="/shoes">
                 <NavDropdown.Item href="#action/3.1">Shoes</NavDropdown.Item>
@@ -47,11 +47,11 @@ const Navigate = ({currentUser}) => {
             <Nav.Link href="#link">Admin</Nav.Link>
           </Link>
           <Link to="/mycart">
-            <Dropdown.Item as="button">My Cart (0)</Dropdown.Item>
+            <Dropdown.Item as="button">{Cart}</Dropdown.Item>
           </Link>
 
           <Link to="/dashboard">
-            <Dropdown.Item as="button">Dashboard</Dropdown.Item>
+            <Dropdown.Item as="button">{Head}</Dropdown.Item>
           </Link>
           <Link to="/register">
             <Dropdown.Item as="button">Register</Dropdown.Item>
@@ -63,7 +63,6 @@ const Navigate = ({currentUser}) => {
       </Navbar>
     </div>
   </>
-    
   );
 };
 
