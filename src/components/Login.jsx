@@ -1,24 +1,32 @@
 import React, { useState, useRef, } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap'
+import { loginUser } from '../api'
+import { useAuth } from '../contexts/AuthContext'
 
 const Login = () => {
     const [loading, setLoading] = useState()
     const [error, setError] = useState()
+    const { login } = useAuth()
     const emailRef = useRef()
     const passwordRef = useRef()
+    const history = useHistory()
     
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        loginUser()
 
         try {
-            
+            setError("")
+            setLoading(true)
+            await login(emailRef.currentValue, passwordRef.current.value)
+            history.pushState("/")
         } catch (error) {
             console.error("Failed to sign in!")
         }
+        setLoading(false)
     }
-
 
     return (
       <>
@@ -51,7 +59,7 @@ const Login = () => {
                     </Card.Body>
                     </Card>
                 <div className="w-100 text-center mt-2">
-                    Need an account? <Link to="/signup">Sign Up here</Link> 
+                    Need an account? <Link to="/register">Sign Up here</Link> 
                 </div>
                 <div className="w-100 text-center mt-2">
                     <Link to="/home">Return to home page</Link>
