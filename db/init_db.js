@@ -2,21 +2,26 @@ const {
   client,
   createUser,
   getAllUsers,
-  createProduct,
   createCategories,
+  createProduct,
   getAllProducts,
+  addToCart,
+  getUserByUsername,
+  getUserByEmail,
 } = require("./index");
 
 async function dropTables() {
   try {
     console.log("Starting to drop tables...");
     client.query(`
+        DROP TABLE IF EXISTS customer_orders;
         DROP TABLE IF EXISTS cart_item;
         DROP TABLE IF EXISTS user_cart;
         DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS users_payment;
         DROP TABLE IF EXISTS users_address;
         DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS category;
       `);
     console.log("Finished dropping tables!");
   } catch (error) {
@@ -25,28 +30,59 @@ async function dropTables() {
   }
 }
 
-// Temporarily pulled out categoryId INT REFERENCES category(id) NOT NULL  
-
 async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
 
-     CREATE TABLE users(
+    CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      state VARCHAR(255) NOT NULL,
+      zipcode INT NOT NULL,
       admin BOOLEAN DEFAULT FALSE
       );
+	  
+	   CREATE TABLE category(
+   id SERIAL PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   description VARCHAR(255) NOT NULL
+ );
 
       CREATE TABLE products(
         id SERIAL PRIMARY KEY,
         img_url TEXT NOT NULL,
         name VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
-        price DECIMAL NOT NULL
+        price DECIMAL NOT NULL,
+        quantity INT NOT NULL, 
+        categoryId INT REFERENCES category(id) NOT NULL
       );
+
+  CREATE TABLE user_cart(
+   id SERIAL PRIMARY KEY,
+   user_Id INT REFERENCES users(id) UNIQUE NOT NULL,
+   active BOOLEAN DEFAULT TRUE
+--    UNIQUE(user_id)
+ );
+
+ CREATE TABLE cart_item(
+   id SERIAL PRIMARY KEY,
+   session_id INT REFERENCES user_cart(id) NOT NULL,
+   product_id INT REFERENCES products(id) NOT NULL,
+   qty INT NOT NULL,
+   cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
+   UNIQUE(product_id)
+ );
+
+ CREATE TABLE customer_orders(
+   id SERIAL PRIMARY KEY,
+   cartID INT REFERENCES user_cart(id) NOT NULL
+ )
 
       `);
     console.log("Finished building tables!");
@@ -56,27 +92,6 @@ async function createTables() {
   }
 }
 
-// CREATE TABLE user_cart(
-//   id SERIAL PRIMARY KEY,
-//   user_id REFERENCES users(id)
-//   active BOOLEAN DEFAULT TRUE,
-//   UNIQUE(user_id)
-// );
-
-// CREATE TABLE cart_item(
-//   id SERIAL PRIMARY KEY,
-//   session_id INT REFERENCES user_cart(id)
-//   product_id INT REFERENCES products(id)
-//   qty INTEGER NOT NULL,
-//   UNIQUE(product_id)
-// );
-
-// CREATE TABLE category(
-//   id SERIAL PRIMARY KEY,
-//   name VARCHAR(255) NOT NULL,
-//   description VARCHAR(255) NOT NULL
-// );
-
 async function createInitialUsers() {
   console.log("Starting to create users...");
   try {
@@ -85,24 +100,40 @@ async function createInitialUsers() {
         name: "Ryan",
         email: "sneakerhead123@gmail.com",
         password: "shoeguy123",
+        address: "1619 Washington AVE",
+        city: "Brooklyn",
+        state: "New York",
+        zipcode: "11201",
         admin: false,
       },
       {
         name: "Michelle",
         email: "michelle@admin.com",
         password: "admin123",
+        address: "1001 Bourbon Street",
+        city: "New Orleans",
+        state: "Lousiana",
+        zipcode: "70014",
         admin: true,
       },
       {
         name: "Rashon",
         email: "rashon@admin.com",
         password: "admin456",
+        address: "1619 Washington St.",
+        city: "Napoleonville",
+        state: "Louisiana",
+        zipcode: "70390",
         admin: true,
       },
       {
         name: "Nick",
         email: "nick@admin.com",
         password: "admin789",
+        address: "4545 Weschester St.",
+        city: "St. Louis",
+        state: "Missouri",
+        zipcode: "63101",
         admin: true,
       },
     ];
@@ -125,15 +156,18 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
         name: "Shoe",
         description: "Very comfortable",
-        price: 30.99
-        //categoryId: 1,
+        price: 30.99,
+        quantity: 100,
+        categoryId: 1,
       },
       {
-        img_url: "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+        img_url:
+          "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
         name: "Asics",
         description: "ASICS X Mita GEL-Kayano Trainer",
-        price: 100.99
-        //categoryId: 1,
+        price: 100.99,
+        quantity: 200,
+        categoryId: 1,
       },
 
       {
@@ -141,8 +175,9 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1597248881519-db089d3744a5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG5pa2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Jordan",
         description: "Nike Jordan",
-        price: 110.99
-        //categoryId: 1,
+        price: 110.99,
+        quantity: 80,
+        categoryId: 1,
       },
 
       {
@@ -150,8 +185,9 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzh8fG5pa2UlMjBzaG9lc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Vans",
         description: "Maroon and White Vans",
-        price: 59.99
-       // categoryId: 1,
+        price: 59.99,
+        quantity: 320,
+        categoryId: 1,
       },
 
       {
@@ -159,32 +195,36 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTF8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "VA RVCA",
         description: "Grey and White Hat",
-        price: 29.99
-        //categoryId: 2,
+        price: 29.99,
+        quantity: 90,
+        categoryId: 2,
       },
       {
         img_url:
           "https://images.unsplash.com/photo-1533603531139-2c4d04df8f16?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "NY Baseball Hat",
         description: "Navy and Red",
-        price: 19.99
-        //categoryId: 2,
+        price: 19.99,
+        quantity: 60,
+        categoryId: 2,
       },
       {
         img_url:
           "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Snapback",
         description: "White",
-        price: 19.99
-        //categoryId: 2,
+        price: 19.99,
+        quantity: 110,
+        categoryId: 2,
       },
       {
         img_url:
           "https://images.unsplash.com/photo-1618354691792-d1d42acfd860?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Beanie",
         description: "Black",
-        price: 15.99
-        //categoryId: 2,
+        price: 15.99,
+        quantity: 145,
+        categoryId: 2,
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
@@ -219,7 +259,6 @@ async function createInitialCategories() {
     console.error("Error creating categories!");
     throw error;
   }
-
 }
 
 async function rebuildDB() {

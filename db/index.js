@@ -6,7 +6,16 @@ const bcrypt = require("bcrypt");
 
 // USER FUNCTIONS
 
-async function createUser({ name, email, admin, password }) {
+async function createUser({
+  name,
+  email,
+  password,
+  address,
+  city,
+  state,
+  zipcode,
+  admin,
+}) {
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -14,12 +23,12 @@ async function createUser({ name, email, admin, password }) {
       rows: [users],
     } = await client.query(
       `
-      INSERT INTO users(name, email, password, admin)
-      VALUES($1, $2, $3, $4)
+      INSERT INTO users(name, email, password, address, city, state, zipcode, admin)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       ON CONFLICT (email) DO NOTHING
       RETURNING *;
       `,
-      [name, email, hashedPassword, admin]
+      [name, email, hashedPassword, address, city, state, zipcode, admin]
     );
     password = hashedPassword;
     delete users.password;
@@ -36,7 +45,7 @@ async function getAllUsers() {
         SELECT id
         FROM users;
         `);
-    const users = await Promise.all(id.map((user) => getUserById(user.id)))
+    const users = await Promise.all(id.map((user) => getUserById(user.id)));
     return users;
   } catch (error) {
     throw error;
@@ -68,50 +77,73 @@ async function getUserById(userId) {
 
 async function getUserByUsername(username) {
   try {
-    const { rows: [user] } = await client.query(`
+    const {
+      rows: [user],
+    } = await client.query(
+      `
     SELECT *
     FROM users
     WHERE username=$1;
-  `, [username]);
-  
+  `,
+      [username]
+    );
+
     return user;
-  } catch(error) {
-    throw error
+  } catch (error) {
+    throw error;
   }
 }
 
 // build getUserByEmail
 
+async function getUserByEmail(email) {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+    SELECT *
+    FROM users
+    WHERE email=$1;
+  `,
+      [email]
+    );
 
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
 
 // PRODUCT FUNCTIONS
-
 
 const createProduct = async ({
   img_url,
   name,
   description,
-  price
+  price,
+  quantity,
+  categoryId,
 }) => {
-  console.log(img_url, name, description, price)
+  console.log(img_url, name, description, price, quantity, categoryId);
   try {
     const {
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(img_url, name, description, price)
-      VALUES($1, $2, $3, $4)
+      INSERT INTO products(img_url, name, description, price, quantity, categoryId)
+      VALUES($1, $2, $3, $4, $5, $6)
       RETURNING *;
       `,
-      [img_url, name, description, price]
+      [img_url, name, description, price, quantity, categoryId]
     );
-    console.log(products, "**products**")
+    console.log(products, "**products**");
     return products;
   } catch (error) {
-    console.error("Error creating product in db/index.js")
+    console.error("Error creating product in db/index.js");
     throw error;
   }
-}
+};
 
 async function getAllProducts() {
   try {
@@ -127,7 +159,6 @@ async function getAllProducts() {
 
 async function addToCart(user_id, product_id) {
   try {
-
   } catch (error) {
     throw error;
   }
@@ -151,7 +182,6 @@ async function createCategories({ name, description }) {
   }
 }
 
-
 module.exports = {
   client,
   createUser,
@@ -159,4 +189,7 @@ module.exports = {
   createCategories,
   createProduct,
   getAllProducts,
+  addToCart,
+  getUserByUsername,
+  getUserByEmail,
 };
