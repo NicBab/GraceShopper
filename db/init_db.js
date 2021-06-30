@@ -14,6 +14,7 @@ async function dropTables() {
   try {
     console.log("Starting to drop tables...");
     client.query(`
+        DROP TABLE IF EXISTS customer_orders;
         DROP TABLE IF EXISTS cart_item;
         DROP TABLE IF EXISTS user_cart;
         DROP TABLE IF EXISTS products;
@@ -39,6 +40,10 @@ async function createTables() {
       name VARCHAR(255) NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
+      address VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      state VARCHAR(255) NOT NULL,
+      zipcode INT NOT NULL,
       admin BOOLEAN DEFAULT FALSE
       );
 	  
@@ -54,6 +59,7 @@ async function createTables() {
         name VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
         price DECIMAL NOT NULL,
+        quantity INT NOT NULL, 
         categoryId INT REFERENCES category(id) NOT NULL
       );
 
@@ -69,8 +75,14 @@ async function createTables() {
    session_id INT REFERENCES user_cart(id) NOT NULL,
    product_id INT REFERENCES products(id) NOT NULL,
    qty INT NOT NULL,
+   cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
    UNIQUE(product_id)
  );
+
+ CREATE TABLE customer_orders(
+   id SERIAL PRIMARY KEY,
+   cartID INT REFERENCES user_cart(id) NOT NULL
+ )
 
       `);
     console.log("Finished building tables!");
@@ -88,24 +100,40 @@ async function createInitialUsers() {
         name: "Ryan",
         email: "sneakerhead123@gmail.com",
         password: "shoeguy123",
+        address: "1619 Washington AVE",
+        city: "Brooklyn",
+        state: "New York",
+        zipcode: "11201",
         admin: false,
       },
       {
         name: "Michelle",
         email: "michelle@admin.com",
         password: "admin123",
+        address: "1001 Bourbon Street",
+        city: "New Orleans",
+        state: "Lousiana",
+        zipcode: "70014",
         admin: true,
       },
       {
         name: "Rashon",
         email: "rashon@admin.com",
         password: "admin456",
+        address: "1619 Washington St.",
+        city: "Napoleonville",
+        state: "Louisiana",
+        zipcode: "70390",
         admin: true,
       },
       {
         name: "Nick",
         email: "nick@admin.com",
         password: "admin789",
+        address: "4545 Weschester St.",
+        city: "St. Louis",
+        state: "Missouri",
+        zipcode: "63101",
         admin: true,
       },
     ];
@@ -129,6 +157,7 @@ async function createInitialProducts() {
         name: "Shoe",
         description: "Very comfortable",
         price: 30.99,
+        quantity: 100,
         categoryId: 1,
       },
       {
@@ -137,6 +166,7 @@ async function createInitialProducts() {
         name: "Asics",
         description: "ASICS X Mita GEL-Kayano Trainer",
         price: 100.99,
+        quantity: 200,
         categoryId: 1,
       },
 
@@ -146,6 +176,7 @@ async function createInitialProducts() {
         name: "Jordan",
         description: "Nike Jordan",
         price: 110.99,
+        quantity: 80,
         categoryId: 1,
       },
 
@@ -155,6 +186,7 @@ async function createInitialProducts() {
         name: "Vans",
         description: "Maroon and White Vans",
         price: 59.99,
+        quantity: 320,
         categoryId: 1,
       },
 
@@ -164,6 +196,7 @@ async function createInitialProducts() {
         name: "VA RVCA",
         description: "Grey and White Hat",
         price: 29.99,
+        quantity: 90,
         categoryId: 2,
       },
       {
@@ -172,6 +205,7 @@ async function createInitialProducts() {
         name: "NY Baseball Hat",
         description: "Navy and Red",
         price: 19.99,
+        quantity: 60,
         categoryId: 2,
       },
       {
@@ -180,6 +214,7 @@ async function createInitialProducts() {
         name: "Snapback",
         description: "White",
         price: 19.99,
+        quantity: 110,
         categoryId: 2,
       },
       {
@@ -188,6 +223,7 @@ async function createInitialProducts() {
         name: "Beanie",
         description: "Black",
         price: 15.99,
+        quantity: 145,
         categoryId: 2,
       },
     ];
