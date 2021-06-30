@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Cart, Head, Home } from './icons'
+import { CartIcon, HeadIcon, HomeIcon } from './icons'
 
 import {
   Dropdown,
@@ -28,7 +28,7 @@ const Navigate = ({currentUser}) => {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form>
-            <Nav.Link href="/home">{Home}</Nav.Link>
+            <Nav.Link href="/home">{HomeIcon}</Nav.Link>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
               <Link to="/shoes">
                 <NavDropdown.Item href="#action/3.1">Shoes</NavDropdown.Item>
@@ -47,11 +47,11 @@ const Navigate = ({currentUser}) => {
             <Nav.Link href="#link">Admin</Nav.Link>
           </Link>
           <Link to="/mycart">
-            <Dropdown.Item as="button">{Cart}</Dropdown.Item>
+            <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
           </Link>
 
           <Link to="/dashboard">
-            <Dropdown.Item as="button">{Head}</Dropdown.Item>
+            <Dropdown.Item as="button">{HeadIcon}</Dropdown.Item>
           </Link>
           <Link to="/register">
             <Dropdown.Item as="button">Register</Dropdown.Item>
