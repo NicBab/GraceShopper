@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { CartIcon, HeadIcon, HomeIcon } from './icons'
+
 import {
   Dropdown,
   Navbar,
@@ -11,9 +13,12 @@ import {
 } from "react-bootstrap";
 import "./css/Navigate.css";
 
-const Navigate = () => {
+const Navigate = ({currentUser}) => {
+
+  
   return (
-    <div>
+    <>
+      <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/home">Oh Shoes</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -23,7 +28,7 @@ const Navigate = () => {
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             <Button variant="outline-success">Search</Button>
           </Form>
-            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/home">{HomeIcon}</Nav.Link>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
               <Link to="/shoes">
                 <NavDropdown.Item href="#action/3.1">Shoes</NavDropdown.Item>
@@ -42,9 +47,12 @@ const Navigate = () => {
             <Nav.Link href="#link">Admin</Nav.Link>
           </Link>
           <Link to="/mycart">
-            <Dropdown.Item as="button">My Cart (0)</Dropdown.Item>
+            <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
           </Link>
-       
+
+          <Link to="/dashboard">
+            <Dropdown.Item as="button">{HeadIcon}</Dropdown.Item>
+          </Link>
           <Link to="/register">
             <Dropdown.Item as="button">Register</Dropdown.Item>
           </Link>
@@ -54,6 +62,7 @@ const Navigate = () => {
         </Navbar.Collapse>
       </Navbar>
     </div>
+  </>
   );
 };
 

@@ -1,29 +1,20 @@
 import React from "react";
+import { Route } from 'react-router-dom'
 import { Navigate } from '../components'
 import "./css/Header.css";
-// import { useAuth } from '../contexts/AuthContext'
 
 const Header = () => {
-  // const { curerntUser, isAdmin } = useAuth()
 
-  return <div><Navigate /></div>
+  return (
+    <Route>
+      <div>
+        <Navigate />
+      </div>
+    </Route>
+      
+  );
 };
 
 export default Header;
-
-
-    // <>
-    // { currentUser === isAdmin ?
-
-    //   <div id="head">
-    //     <Navigate />
-    //     <Admin />
-    //   </div>
-    //   :
-    //   <div>
-    //     <Navigate />
-    //   </div>
-    // }
-    // </>
 
 

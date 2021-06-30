@@ -11,10 +11,13 @@ import {
     Register,
     Login,
     MyCart,
-    MyProfile,
+    Dashboard,
     MyOrders,
     Users,
-    Inventory
+    Inventory,
+    PrivateRoute,
+    UpdateProfile,
+    ForgotPassword,
 } from "../components";
 
 
@@ -22,6 +25,9 @@ const Pages = ({products, setProducts, users, setUsers}) => {
   return (
     <>
     <AuthProvider>
+       <PrivateRoute exact path="/dashboard" component={Dashboard} />
+       <PrivateRoute path="/update-profile" component={UpdateProfile} />
+
         <Route exact path="/home">
           <Home products={products} />
         </Route>
@@ -50,12 +56,12 @@ const Pages = ({products, setProducts, users, setUsers}) => {
           <Login />
         </Route>
 
-        <Route exact path="/mycart">
-          <MyCart />
+        <Route exact path="/forgot-password">
+          <ForgotPassword />
         </Route>
 
-        <Route exact path="/myprofile">
-          <MyProfile/>
+        <Route exact path="/mycart">
+          <MyCart />
         </Route>
 
         <Route exact path="/myorders">
