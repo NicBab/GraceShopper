@@ -19,6 +19,10 @@ const Navigate = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
+          <Form inline>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Button variant="outline-success">Search</Button>
+          </Form>
             <Nav.Link href="/home">Home</Nav.Link>
             <NavDropdown title="Categories" id="basic-nav-dropdown">
               <Link to="/shoes">
@@ -40,10 +44,7 @@ const Navigate = () => {
           <Link to="/mycart">
             <Dropdown.Item as="button">My Cart (0)</Dropdown.Item>
           </Link>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+       
           <Link to="/register">
             <Dropdown.Item as="button">Register</Dropdown.Item>
           </Link>
