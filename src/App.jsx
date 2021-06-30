@@ -7,6 +7,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [userCart, setUserCart] = useState({});
+  const [currentUser, setCurrentUser] = useState()
 
 
   const handleAddToCart = async (productId, qty) => {
@@ -44,7 +45,10 @@ function App() {
   return (
     <>
       <header>
-        <Header />
+        <Header 
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
       </header>
 
       <main>

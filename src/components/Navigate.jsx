@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from '../contexts/AuthContext'
 import {
   Dropdown,
   Navbar,
@@ -11,9 +12,13 @@ import {
 } from "react-bootstrap";
 import "./css/Navigate.css";
 
-const Navigate = () => {
+const Navigate = ({currentUser}) => {
+  // const { currentUser } = useAuth()
+  
   return (
-    <div>
+    <>
+
+      <div>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/home">Oh Shoes</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -44,7 +49,10 @@ const Navigate = () => {
           <Link to="/mycart">
             <Dropdown.Item as="button">My Cart (0)</Dropdown.Item>
           </Link>
-       
+
+          <Link to="/dashboard">
+            <Dropdown.Item as="button">Dashboard</Dropdown.Item>
+          </Link>
           <Link to="/register">
             <Dropdown.Item as="button">Register</Dropdown.Item>
           </Link>
@@ -54,6 +62,8 @@ const Navigate = () => {
         </Navbar.Collapse>
       </Navbar>
     </div>
+  </>
+    
   );
 };
 

@@ -26,12 +26,16 @@ export { default as Register } from './Register';
 
 export { default as Login } from './Login';
 
-export { default as MyProfile } from './MyProfile';
+export { default as Dashboard } from './Dashboard';
 
 export { default as MyOrders } from './MyOrders';
 
 export { default as Inventory } from './Inventory';
 
 export { default as Users } from './Users';
+
+export { default as PrivateRoute } from './PrivateRoute'
+
+export { default as UpdateProfile } from './UpdateProfile'
 
 

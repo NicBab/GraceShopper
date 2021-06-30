@@ -2,10 +2,9 @@ import React, { useState, useRef, } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
-import { createUser } from '../api';
 import './css/Register.css';
 
-const Register = ( ) => {
+const Register = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const passwordConfirmRef = useRef()
@@ -16,8 +15,7 @@ const Register = ( ) => {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    createUser()
-
+   
     if (passwordRef.current.value !==
       passwordConfirmRef.current.value) {
         return setError("Passwords do not match")
@@ -26,16 +24,15 @@ const Register = ( ) => {
         setError("")
         setLoading(true)
         await register(emailRef.current.value, passwordRef.current.value)
-        history.push("/")
+        history.push("/dashboard")
 
       } catch (error) {
-        setError("Fail! Password length must be > 6 characters")
+        setError("Signup Failed!")
       }
       setLoading(false)
   }
 
   return (
-    <>
        <Container 
           className="d-flex align-items-center justify-content-center" 
           style={{ minHeight: "100vh"}}>
@@ -69,8 +66,7 @@ const Register = ( ) => {
           </div>
         </div>
       </Container>
-  </>
-  )
+   )
 }
 
 export default Register

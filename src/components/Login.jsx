@@ -1,7 +1,6 @@
 import React, { useState, useRef, } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap'
-import { loginUser } from '../api'
 import { useAuth } from '../contexts/AuthContext'
 
 const Login = () => {
@@ -12,24 +11,21 @@ const Login = () => {
     const passwordRef = useRef()
     const history = useHistory()
     
-
     const handleSubmit = async (e) => {
         e.preventDefault()
-        loginUser()
-
+        
         try {
             setError("")
             setLoading(true)
-            await login(emailRef.currentValue, passwordRef.current.value)
-            history.pushState("/")
+            await login(emailRef.current.value, passwordRef.current.value)
+            history.push("/dashboard")
         } catch (error) {
-            console.error("Failed to sign in!")
+          console.error("Failed to sign in!")
         }
         setLoading(false)
     }
 
     return (
-      <>
         <Container 
           className="d-flex align-items-center justify-content-center" 
           style={{ minHeight: "100vh"}}>
@@ -66,7 +62,6 @@ const Login = () => {
                 </div>
             </div>
          </Container>
-      </>
     )
 }
 
