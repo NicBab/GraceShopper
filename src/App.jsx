@@ -8,8 +8,8 @@ function App() {
   const [users, setUsers] = useState([]);
   const [userCart, setUserCart] = useState({});
 
+
   const handleAddToCart = async (productId, qty) => {
-    
   }
 
   useEffect(() => {
@@ -19,7 +19,6 @@ function App() {
         console.log(response);
       })
   }, [])
-
 
   useEffect(() => {
     getAllProducts()
@@ -49,7 +48,12 @@ function App() {
       </header>
 
       <main>
-        <Pages users={users} products={products} setProducts={setProducts} onAddToCart={handleAddToCart} />
+        <Pages 
+          users={users} 
+          products={products} 
+          setProducts={setProducts} 
+          onAddToCart={handleAddToCart} 
+        />
       </main>
     </>
   );

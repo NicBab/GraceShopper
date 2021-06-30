@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import { AuthProvider } from '../contexts/AuthContext'
 
 import {
     Home,
@@ -20,53 +21,55 @@ import {
 const Pages = ({products, setProducts, users, setUsers}) => {
   return (
     <>
-      <Route exact path="/home">
-        <Home products={products} />
-      </Route>
+    <AuthProvider>
+        <Route exact path="/home">
+          <Home products={products} />
+        </Route>
 
-      <Route exact path="/shoes">
-        <Shoes products={products} />
-      </Route>
+        <Route exact path="/shoes">
+          <Shoes products={products} />
+        </Route>
 
-      <Route exact path="/hats">
-        <Hats />
-      </Route>
+        <Route exact path="/hats">
+          <Hats />
+        </Route>
 
-      <Route exact path="/accessories">
-        <Accessories />
-      </Route>
+        <Route exact path="/accessories">
+          <Accessories />
+        </Route>
 
-      <Route exact path="/admin">
-        <Admin setProducts={setProducts} />
-      </Route>
+        <Route exact path="/admin">
+          <Admin setProducts={setProducts} />
+        </Route>
 
-      <Route exact path="/register">
-        <Register />
-      </Route>
+        <Route exact path="/register">
+          <Register />
+        </Route>
 
-      <Route exact path="/login">
-        <Login />
-      </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
 
-      <Route exact path="/mycart">
-        <MyCart />
-      </Route>
+        <Route exact path="/mycart">
+          <MyCart />
+        </Route>
 
-      <Route exact path="/myprofile">
-        <MyProfile/>
-      </Route>
+        <Route exact path="/myprofile">
+          <MyProfile/>
+        </Route>
 
-      <Route exact path="/myorders">
-        <MyOrders/>
-      </Route>
+        <Route exact path="/myorders">
+          <MyOrders/>
+        </Route>
 
-      <Route exact path="/admin/users">
-        <Users users={users} />
-      </Route>
+        <Route exact path="/admin/users">
+          <Users users={users} />
+        </Route>
 
-      <Route exact path="/admin/inventory">
-        <Inventory products={products} setProducts={setProducts} />
-      </Route>
+        <Route exact path="/admin/inventory">
+          <Inventory products={products} setProducts={setProducts} />
+        </Route>
+      </AuthProvider>
     </>
   );
 };
