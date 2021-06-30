@@ -17,6 +17,7 @@ import {
     Inventory,
     PrivateRoute,
     UpdateProfile,
+    ForgotPassword,
 } from "../components";
 
 
@@ -53,6 +54,10 @@ const Pages = ({products, setProducts, users, setUsers}) => {
 
         <Route exact path="/login">
           <Login />
+        </Route>
+
+        <Route exact path="/forgot-password">
+          <ForgotPassword />
         </Route>
 
         <Route exact path="/mycart">
