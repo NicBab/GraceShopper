@@ -22,7 +22,7 @@ const Shoes = ({products}) => {
               return (
                 <Row>
                   <Col>
-                    <Card key={product.id} style={{ width: "18rem" }}>
+                    <Card className="shoePgCard mb-4"key={product.id} style={{ width: "18rem" }}>
                       <Card.Img variant="top" src={product.img_url} />
                       <Card.Body>
                         <Card.Title>{product.name}Name</Card.Title>

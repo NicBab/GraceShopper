@@ -22,11 +22,11 @@ const Product = ({ product, setProducts }) => {
     <>
       <Row>
         <Col>
-          <Card bg="light" key={product.id} style={{ width: "18rem" }}>
+          <Card className="homePgCard ml-4 mb-4" bg="light" key={product.id} style={{ width: "18rem" }}>
             <Link to="/product/id">
               <Card.Img
                 variant="top"
-                style={{ maxHeight: "200px" }}
+                style={{ maxHeight: "200px"  }}
                 src={product.img_url}
               />
             </Link>
@@ -36,7 +36,6 @@ const Product = ({ product, setProducts }) => {
               <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
               <Button variant="primary">Add to cart</Button>
-
               <Button variant="secondary">Edit</Button>
               <Button variant="secondary">Delete</Button>
             </Card.Body>
