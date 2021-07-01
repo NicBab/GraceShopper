@@ -45,44 +45,45 @@ async function createTables() {
       state VARCHAR(255) NOT NULL,
       zipcode INT NOT NULL,
       admin BOOLEAN DEFAULT FALSE
-      );
+    );
 	  
-	   CREATE TABLE category(
-   id SERIAL PRIMARY KEY,
-   name VARCHAR(255) NOT NULL,
-   description VARCHAR(255) NOT NULL
- );
+	  CREATE TABLE category(
+      id SERIAL PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      description VARCHAR(255) NOT NULL
+    );
 
-      CREATE TABLE products(
-        id SERIAL PRIMARY KEY,
-        img_url TEXT NOT NULL,
-        name VARCHAR(255) NOT NULL,
-        description TEXT NOT NULL,
-        price DECIMAL NOT NULL,
-        quantity INT NOT NULL, 
-        categoryId INT REFERENCES category(id) NOT NULL
-      );
+    CREATE TABLE products(
+      id SERIAL PRIMARY KEY,
+      img_url TEXT NOT NULL,
+      name VARCHAR(255) NOT NULL,
+      description TEXT NOT NULL,
+      price DECIMAL NOT NULL,
+      quantity INT NOT NULL, 
+      categoryId INT REFERENCES category(id) NOT NULL,
+      active BOOLEAN DEFAULT TRUE
+    );
 
-  CREATE TABLE user_cart(
-   id SERIAL PRIMARY KEY,
-   user_Id INT REFERENCES users(id) UNIQUE NOT NULL,
-   active BOOLEAN DEFAULT TRUE
---    UNIQUE(user_id)
- );
+    CREATE TABLE user_cart(
+      id SERIAL PRIMARY KEY,
+      user_Id INT REFERENCES users(id) UNIQUE NOT NULL,
+      active BOOLEAN DEFAULT TRUE,
+      UNIQUE(user_id)
+    );
 
- CREATE TABLE cart_item(
-   id SERIAL PRIMARY KEY,
-   session_id INT REFERENCES user_cart(id) NOT NULL,
-   product_id INT REFERENCES products(id) NOT NULL,
-   qty INT NOT NULL,
-   cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
-   UNIQUE(product_id)
- );
+    CREATE TABLE cart_item(
+      id SERIAL PRIMARY KEY,
+      session_id INT REFERENCES user_cart(id) NOT NULL,
+      product_id INT REFERENCES products(id) NOT NULL,
+      qty INT NOT NULL,
+      cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
+      UNIQUE(product_id)
+    );
 
- CREATE TABLE customer_orders(
-   id SERIAL PRIMARY KEY,
-   cartID INT REFERENCES user_cart(id) NOT NULL
- )
+    CREATE TABLE customer_orders(
+      id SERIAL PRIMARY KEY,
+      cartID INT REFERENCES user_cart(id) NOT NULL
+    );
 
       `);
     console.log("Finished building tables!");
@@ -159,6 +160,7 @@ async function createInitialProducts() {
         price: 30.99,
         quantity: 100,
         categoryId: 1,
+        active: true,
       },
       {
         img_url:
@@ -168,6 +170,7 @@ async function createInitialProducts() {
         price: 100.99,
         quantity: 200,
         categoryId: 1,
+        active: true,
       },
 
       {
@@ -178,6 +181,7 @@ async function createInitialProducts() {
         price: 110.99,
         quantity: 80,
         categoryId: 1,
+        active: true,
       },
 
       {
@@ -188,6 +192,7 @@ async function createInitialProducts() {
         price: 59.99,
         quantity: 320,
         categoryId: 1,
+        active: true,
       },
 
       {
@@ -198,6 +203,7 @@ async function createInitialProducts() {
         price: 29.99,
         quantity: 90,
         categoryId: 2,
+        active: true,
       },
       {
         img_url:
@@ -207,6 +213,7 @@ async function createInitialProducts() {
         price: 19.99,
         quantity: 60,
         categoryId: 2,
+        active: true,
       },
       {
         img_url:
@@ -216,6 +223,7 @@ async function createInitialProducts() {
         price: 19.99,
         quantity: 110,
         categoryId: 2,
+        active: true,
       },
       {
         img_url:
@@ -225,6 +233,7 @@ async function createInitialProducts() {
         price: 15.99,
         quantity: 145,
         categoryId: 2,
+        active: true,
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
