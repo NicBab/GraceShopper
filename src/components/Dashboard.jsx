@@ -14,7 +14,7 @@ const Dashboard = () => {
 
     try {
       await logout()
-      history.push("/home")
+      history.push("/")
     } catch (error) {
       setError("Failed to logout!")
     }
@@ -23,7 +23,7 @@ const Dashboard = () => {
   return (
         <>
         <Container 
-          className="d-flex align-items-center justify-content-center" 
+          className="d-flex align-items-start justify-content-center" 
           style={{ minHeight: "100vh"}}>
             <div className="w-100" style={{maxWidth: "400px"}}>
           <Card>
@@ -31,14 +31,16 @@ const Dashboard = () => {
                   <h2 className="text-center mb-4">Dashboard</h2>
                       {error && <Alert variant="danger">{error}</Alert>}
                   <strong>Email: </strong>{currentUser.email}
+                  <Link to="order-history" className="btn btn-primary w-100 mt-3">
+                      Order History </Link>
                   <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
                       Update Profile </Link>
-                  <Link to="/home" className="btn btn-primary w-100 mt-3">
+                  <Link to="/" className="btn btn-primary w-100 mt-3">
                       Home </Link>
               </Card.Body>
             </Card> 
           <div className="w-100 text-center mt-2">
-              <Button variant="link" onClick={handleLogout}>Log Out</Button>
+              <Button variant="outline-primary" onClick={handleLogout}>Log Out</Button>
           </div>
           </div>
           </Container>

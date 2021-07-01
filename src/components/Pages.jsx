@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+
 import { AuthProvider } from "../contexts/AuthContext";
 
 import {
@@ -19,6 +20,26 @@ import {
   UpdateProfile,
   ForgotPassword,
   Landing,
+
+
+// import {
+//     Home,
+//     Shoes,
+//     Hats,
+//     Accessories,
+//     Admin,
+//     Register,
+//     Login,
+//     MyCart,
+//     Dashboard,
+//     OrderHistory,
+//     Users,
+//     Inventory,
+//     PrivateRoute,
+//     UpdateProfile,
+//     ForgotPassword,
+//     Landing
+
 } from "../components";
 
 const Pages = ({
@@ -35,6 +56,7 @@ const Pages = ({
 }) => {
   return (
     <>
+
       <AuthProvider>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/update-profile" component={UpdateProfile} />
@@ -44,6 +66,14 @@ const Pages = ({
         </Route>
 
         <Route exact path="/home">
+
+//        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+//        <PrivateRoute path="/update-profile" component={UpdateProfile} />
+//        <PrivateRoute path="/admin" component={Admin} />
+//        <PrivateRoute path="/inventory" component={Inventory} />
+
+//         <Route exact path="/">
+
           <Home products={products} />
         </Route>
 
@@ -79,18 +109,23 @@ const Pages = ({
           <MyCart cartItems={cartItems} setCartItems={setCartItems}/>
         </Route>
 
+
         <Route exact path="/myorders">
           <MyOrders />
+
+//         <Route exact path="/order-history">
+//           <OrderHistory/>
+
         </Route>
 
-        <Route exact path="/admin/users">
+        {/* <Route exact path="/admin/users">
           <Users users={users} />
         </Route>
 
         <Route exact path="/admin/inventory">
           <Inventory products={products} setProducts={setProducts} />
-        </Route>
-      </AuthProvider>
+        </Route> 
+     */}
     </>
   );
 };

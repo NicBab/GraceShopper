@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'react-bootstrap'
+import { NavItem, Table } from 'react-bootstrap'
 import './css/MyOrders.css';
 
 const MyOrders = () => {
@@ -10,29 +10,36 @@ const MyOrders = () => {
             <thead>
                 <tr>
                 <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Price</th>
                 </tr>
             </thead>
+
             <tbody>
                 <tr>
                 <td>1</td>
                 <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>Mark bought what</td>
+                <td>day</td>
+                <td>$</td>
                 </tr>
+
                 <tr>
                 <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+                <td>Nic</td>
+                <td>what did nic buy</td>
+                <td>when</td>
+                <td>$ how much</td>
                 </tr>
+
                 <tr>
                 <td>3</td>
                 <td colSpan="2">Larry the Bird</td>
-                <td>@twitter</td>
+                <td>$</td>
                 </tr>
+
             </tbody>
             </Table>
             </>

@@ -51,6 +51,7 @@ const Shoes = ({ products }) => {
               </Row>
             );
           })
+
         : null}
     </>
   );
