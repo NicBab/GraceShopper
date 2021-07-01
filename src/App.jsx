@@ -53,6 +53,8 @@ function App() {
 
       <main>
         <Pages 
+          // userCart={setUserCart}
+          // setUserCart={setUserCart}
           users={users} 
           products={products} 
           setProducts={setProducts} 
