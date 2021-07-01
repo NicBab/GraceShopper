@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import './css/Register.css';
+// import { SettingsBackupRestoreRounded } from '@material-ui/icons';
 
 const Register = () => {
   const emailRef = useRef()
@@ -12,6 +13,7 @@ const Register = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const history = useHistory()
+  const [token, setToken] = useState()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -21,6 +23,7 @@ const Register = () => {
         return setError("Passwords do not match")
       }
       try {
+        
         setError("")
         setLoading(true)
         await register(emailRef.current.value, passwordRef.current.value)
@@ -34,7 +37,7 @@ const Register = () => {
 
   return (
        <Container 
-          className="d-flex align-items-center justify-content-center" 
+          className="d-flex align-items-start justify-content-center" 
           style={{ minHeight: "100vh"}}>
           <div className="w-100" style={{maxWidth: "400px"}}>
         <Card>

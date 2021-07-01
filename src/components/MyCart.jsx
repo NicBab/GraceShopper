@@ -13,10 +13,7 @@ import {
 const MyCart = () => {
     const [cart, setCart] = useState([])
 
-  
-
     useEffect(() => {
-    
     }, [])
 
     return (

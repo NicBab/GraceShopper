@@ -12,19 +12,19 @@ import {
     Login,
     MyCart,
     Dashboard,
-    MyOrders,
+    OrderHistory,
     Users,
     Inventory,
     PrivateRoute,
     UpdateProfile,
     ForgotPassword,
+    Landing
 } from "../components";
 
 
 const Pages = ({products, setProducts, users, setUsers}) => {
   return (
     <>
-    
        <PrivateRoute exact path="/dashboard" component={Dashboard} />
        <PrivateRoute path="/update-profile" component={UpdateProfile} />
        <PrivateRoute path="/admin" component={Admin} />
@@ -70,8 +70,8 @@ const Pages = ({products, setProducts, users, setUsers}) => {
           <MyCart />
         </Route>
 
-        <Route exact path="/myorders">
-          <MyOrders/>
+        <Route exact path="/order-history">
+          <OrderHistory/>
         </Route>
 
         {/* <Route exact path="/admin/users">

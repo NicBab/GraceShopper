@@ -60,6 +60,9 @@ const Navigate = ({currentUser}) => {
           <Link to="/login">
             <Dropdown.Item as="button">Login</Dropdown.Item>
           </Link>
+          <Link to="/">
+            <Dropdown.Item as="button">Logout</Dropdown.Item>
+          </Link>
 
         </Navbar.Collapse>
       </Navbar>
