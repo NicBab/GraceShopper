@@ -7,18 +7,23 @@ function App() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [userCart, setUserCart] = useState({});
-  const [currentUser, setCurrentUser] = useState()
-
-
-  const handleAddToCart = async (productId, qty) => {
-  }
+  const [currentUser, setCurrentUser] = useState();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    getUserCart()
-      .then((response) => {
-        setUserCart(response);
-      })
-  }, [])
+    if (localStorage.getItem("token")) {
+      setLoggedIn(true);
+    }
+  }, [setLoggedIn]);
+
+  const handleAddToCart = async (productId, qty) => {};
+
+  useEffect(() => {
+    getUserCart().then((response) => {
+      setUserCart(response);
+    });
+  }, []);
 
   useEffect(() => {
     getAllProducts()
@@ -26,7 +31,7 @@ function App() {
         setProducts(response);
       })
       .catch((error) => {
-        console.error(error)
+        console.error(error);
       });
   }, []);
 
@@ -43,20 +48,24 @@ function App() {
   return (
     <>
       <header>
-        <Header 
+        <Header
+          admin={admin}
+          setAdmin={setAdmin}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
         />
       </header>
 
       <main>
-        <Pages 
+        <Pages
           // userCart={setUserCart}
           // setUserCart={setUserCart}
-          users={users} 
-          products={products} 
-          setProducts={setProducts} 
-          onAddToCart={handleAddToCart} 
+          users={users}
+          products={products}
+          setProducts={setProducts}
+          onAddToCart={handleAddToCart}
         />
       </main>
     </>

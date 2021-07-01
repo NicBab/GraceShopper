@@ -211,10 +211,13 @@ async function updateProduct(productId, fields = {}) {
 
 async function addToCart(user_id, product_id) {
   try {
+
+    
   } catch (error) {
     throw error;
   }
 }
+
 
 async function createCategories({ name, description }) {
   try {

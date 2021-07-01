@@ -1,35 +1,43 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { AuthProvider } from '../contexts/AuthContext'
+import { AuthProvider } from "../contexts/AuthContext";
 
 import {
-    Home,
-    Shoes,
-    Hats,
-    Accessories,
-    Admin,
-    Register,
-    Login,
-    MyCart,
-    Dashboard,
-    MyOrders,
-    Users,
-    Inventory,
-    PrivateRoute,
-    UpdateProfile,
-    ForgotPassword,
-    Landing
+  Home,
+  Shoes,
+  Hats,
+  Accessories,
+  Admin,
+  Register,
+  Login,
+  MyCart,
+  Dashboard,
+  MyOrders,
+  Users,
+  Inventory,
+  PrivateRoute,
+  UpdateProfile,
+  ForgotPassword,
+  Landing,
 } from "../components";
 
-
-const Pages = ({products, setProducts, users, setUsers}) => {
+const Pages = ({
+  products,
+  setProducts,
+  users,
+  setUsers,
+  admin,
+  setAdmin,
+  loggedIn,
+  setLoggedIn,
+}) => {
   return (
     <>
-    <AuthProvider>
-       <PrivateRoute exact path="/dashboard" component={Dashboard} />
-       <PrivateRoute path="/update-profile" component={UpdateProfile} />
+      <AuthProvider>
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/update-profile" component={UpdateProfile} />
 
-       <Route exact path="/">
+        <Route exact path="/">
           <Landing />
         </Route>
 
@@ -70,7 +78,7 @@ const Pages = ({products, setProducts, users, setUsers}) => {
         </Route>
 
         <Route exact path="/myorders">
-          <MyOrders/>
+          <MyOrders />
         </Route>
 
         <Route exact path="/admin/users">

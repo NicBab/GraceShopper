@@ -67,6 +67,7 @@ async function createTables() {
     CREATE TABLE user_cart(
       id SERIAL PRIMARY KEY,
       user_Id INT REFERENCES users(id) UNIQUE NOT NULL,
+      product_Id INT REFERENCES products(id),
       active BOOLEAN DEFAULT TRUE,
       UNIQUE(user_id)
     );
