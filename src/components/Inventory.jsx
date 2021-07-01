@@ -9,7 +9,7 @@ const Inventory = ({ products, setProducts }) => {
   const [img_url, setImgUrl] = useState("");
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+  const [category, setCategory] = useState("");
   //const [active, setActive] = useState(true);
 
   const handleCreateProduct = async (event) => {
@@ -21,7 +21,7 @@ const Inventory = ({ products, setProducts }) => {
         img_url,
         price,
         quantity,
-        categoryId,
+        category,
       });
       setProducts((prevProducts) => {
         return [...prevProducts.products, newProduct];
@@ -31,7 +31,7 @@ const Inventory = ({ products, setProducts }) => {
       setImgUrl("");
       setPrice("");
       setQuantity("");
-      setCategoryId("");
+      setCategory("");
       //setActive(true)
     } catch (err) {
       throw err;
@@ -91,9 +91,9 @@ const Inventory = ({ products, setProducts }) => {
           </Col>
           <Col>
             <Form.Control
-              value={categoryId}
+              value={category}
               onInput={(event) => {
-                setCategoryId(event.target.value);
+                setCategory(event.target.value);
               }}
               placeholder="Category"
             />

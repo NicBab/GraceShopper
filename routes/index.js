@@ -66,7 +66,7 @@ apiRouter.get("/products", async (req, res, next) => {
 // })
 
 apiRouter.post("/products", async (req, res, next) => {
-  const { img_url, name, description, price, quantity, categoryId, active } = req.body;
+  const { img_url, name, description, price, quantity, category, active } = req.body;
   const productData = {};
 
   try {
@@ -75,7 +75,7 @@ apiRouter.post("/products", async (req, res, next) => {
     productData.description = description;
     productData.price = price;
     productData.quantity = quantity;
-    productData.categoryId = categoryId;
+    productData.category = category;
     productData.active = active;
 
     if (!name) {

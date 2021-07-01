@@ -81,7 +81,7 @@ export async function createProduct({
   description,
   price,
   quantity,
-  categoryId,
+  category,
   active
 }) {
   try {
@@ -91,7 +91,7 @@ export async function createProduct({
       description,
       price,
       quantity,
-      categoryId,
+      category, 
       active
     });
 

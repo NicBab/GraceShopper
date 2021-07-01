@@ -30,6 +30,8 @@ const Pages = ({
   setAdmin,
   loggedIn,
   setLoggedIn,
+  cartItems,
+  setCartItems
 }) => {
   return (
     <>
@@ -74,7 +76,7 @@ const Pages = ({
         </Route>
 
         <Route exact path="/mycart">
-          <MyCart />
+          <MyCart cartItems={cartItems} setCartItems={setCartItems}/>
         </Route>
 
         <Route exact path="/myorders">

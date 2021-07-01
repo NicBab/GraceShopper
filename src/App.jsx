@@ -10,6 +10,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState();
   const [loggedIn, setLoggedIn] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -66,6 +67,8 @@ function App() {
           products={products}
           setProducts={setProducts}
           onAddToCart={handleAddToCart}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
         />
       </main>
     </>
