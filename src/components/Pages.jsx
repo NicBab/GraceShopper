@@ -18,6 +18,7 @@ import {
     PrivateRoute,
     UpdateProfile,
     ForgotPassword,
+    Landing
 } from "../components";
 
 
@@ -29,10 +30,7 @@ const Pages = ({products, setProducts, users, setUsers}) => {
        <PrivateRoute path="/update-profile" component={UpdateProfile} />
        <PrivateRoute path="/admin" component={Admin} />
        <PrivateRoute path="/inventory" component={Inventory} />
-{/* 
-       <Route exact path="/">
-          <Landing />
-        </Route> */}
+
 
         <Route exact path="/">
           <Home products={products} />
