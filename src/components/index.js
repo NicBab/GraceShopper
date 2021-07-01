@@ -23,7 +23,7 @@ export { default as Shoes } from './Shoes'
 export { default as UpdateProfile } from './UpdateProfile'
 export { default as Users } from './Users';
 export { default as InventoryItem } from './InventoryItem';
-export { default as Landing } from './Landing';
+
 
 
 
