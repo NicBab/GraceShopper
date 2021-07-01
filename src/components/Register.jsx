@@ -15,7 +15,7 @@ const Register = () => {
   const history = useHistory()
   const [token, setToken] = useState()
 
-  async function handleSubmit(e) {
+  async function handleRegister(e) {
     e.preventDefault()
    
     if (passwordRef.current.value !==
@@ -44,7 +44,7 @@ const Register = () => {
             <Card.Body>
                 <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
-                  <Form onSubmit={handleSubmit}>
+                  <Form onSubmit={handleRegister}>
                       <Form.Group id="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control type="email" ref={emailRef} required />

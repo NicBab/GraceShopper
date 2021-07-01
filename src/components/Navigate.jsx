@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CartIcon, HeadIcon, HomeIcon } from "./icons";
-// import { useAuth } from '../contexts/AuthContext'
-// import { SearchIcon, GearIcon } from './icons'
+import { useAuth } from '../contexts/AuthContext'
+import { SearchIcon, GearIcon } from './icons'
 import {
   Dropdown,
   Navbar,
@@ -13,14 +13,15 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import "./css/Navigate.css";
-import { auth } from "../firebase";
 
 const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
   return (
     <>
       <div>
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Oh Shoes</Navbar.Brand>
+          <Link to="/">
+            <Dropdown.Item as="button">{HomeIcon}</Dropdown.Item>
+           </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -30,7 +31,7 @@ const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
                   placeholder="Search"
                   className="mr-sm-2"
                 />
-                <Button variant="outline-success">Search</Button>
+                <Button variant="light">{SearchIcon}</Button>
               </Form>
 
               <NavDropdown title="Categories" id="basic-nav-dropdown">
@@ -48,16 +49,13 @@ const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
               </NavDropdown>
             </Nav>
             <Link to="/admin">
-              <Nav.Link href="#link">Admin</Nav.Link>
-            </Link>
-            <Link to="/">
-              <Dropdown.Item as="button">{HomeIcon}</Dropdown.Item>
-            </Link>
-            <Link to="/mycart">
-              <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
+              <Dropdown.Item as="button">{GearIcon}</Dropdown.Item>
             </Link>
             <Link to="/dashboard">
               <Dropdown.Item as="button">{HeadIcon}</Dropdown.Item>
+            </Link>
+            <Link to="/mycart">
+              <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
             </Link>
             <Link to="/register">
               <Dropdown.Item as="button">Register</Dropdown.Item>
