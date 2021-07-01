@@ -30,7 +30,6 @@ const Pages = ({products, setProducts, users, setUsers}) => {
        <PrivateRoute path="/admin" component={Admin} />
        <PrivateRoute path="/inventory" component={Inventory} />
 
-
         <Route exact path="/">
           <Home products={products} />
         </Route>
