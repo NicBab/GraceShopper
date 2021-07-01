@@ -51,11 +51,11 @@ const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
             <Link to="/admin">
               <Dropdown.Item as="button">{GearIcon}</Dropdown.Item>
             </Link>
-            <Link to="/mycart">
-              <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
-            </Link>
             <Link to="/dashboard">
               <Dropdown.Item as="button">{HeadIcon}</Dropdown.Item>
+            </Link>
+            <Link to="/mycart">
+              <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
             </Link>
             <Link to="/register">
               <Dropdown.Item as="button">Register</Dropdown.Item>
