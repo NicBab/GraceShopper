@@ -2,20 +2,8 @@ import React from "react";
 import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-//import { FlipToBackRounded } from "@material-ui/icons";
-//import { deleteProduct } from "../api";
 
 const Product = ({ product, setProducts }) => {
-  // const handleDelete = async (id) => {
-  //   try {
-  //     await deleteProduct(id);
-  //     const activeProducts = products.filter(
-  //       (fProducts) => fProduct.id !== product.id
-  //     );
-  //     setProducts(activeProducts);
-  //   } catch (error) {
-  //     throw error;
-  //   }
 
 
   return (
@@ -36,8 +24,6 @@ const Product = ({ product, setProducts }) => {
               <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
               <Button variant="primary">Add to cart</Button>
-              <Button variant="secondary">Edit</Button>
-              <Button variant="secondary">Delete</Button>
             </Card.Body>
           </Card>
         </Col>
@@ -47,8 +33,3 @@ const Product = ({ product, setProducts }) => {
 };
 
 export default Product;
-
-// Add ternary to button element on product card *********
-// if(admin) render Edit/Delete, else render Add to Cart
-
-//getProductById

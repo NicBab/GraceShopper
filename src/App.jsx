@@ -17,7 +17,6 @@ function App() {
     getUserCart()
       .then((response) => {
         setUserCart(response);
-        console.log(response);
       })
   }, [])
 
@@ -25,7 +24,6 @@ function App() {
     getAllProducts()
       .then((response) => {
         setProducts(response);
-        console.log(response);
       })
       .catch((error) => {
         console.error(error)

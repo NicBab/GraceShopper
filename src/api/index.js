@@ -34,8 +34,6 @@ export async function loginUser() {
 export async function getAllUsers() {
   try {
     const { data } = await axios.get("/api/users");
-    console.log(data);
-
     return data;
   } catch (error) {
     throw error;
@@ -66,7 +64,6 @@ export async function getAllUsers() {
 //   }
 // }
 
-
 /*********** PRODUCT FUNCTIONS ***********/
 
 export async function getAllProducts() {
@@ -79,19 +76,34 @@ export async function getAllProducts() {
 }
 
 export async function createProduct({
+  img_url,
   name,
   description,
-  img_url,
-  price
+  price,
+  quantity,
+  categoryId,
+  active
 }) {
   try {
     const { data } = await axios.post("/api/products", {
+      img_url,
       name,
       description,
-      img_url,
-      price
+      price,
+      quantity,
+      categoryId,
+      active
     });
 
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function deleteProduct(id) {
+  try {
+    const { data } = await axios.delete(`/api/${id}`);
     return data;
   } catch (error) {
     throw error;
@@ -107,9 +119,8 @@ export async function getUserCart() {
 
 export async function addToCart(user_id, product_id) {
   try {
-    const { data } = await axios.post(`/api/cart`)
-
-  } catch (error)  {
-    throw error
+    const { data } = await axios.post(`/api/cart`);
+  } catch (error) {
+    throw error;
   }
 }
