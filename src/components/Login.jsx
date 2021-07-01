@@ -11,7 +11,7 @@ const Login = () => {
     const passwordRef = useRef()
     const history = useHistory()
     
-    const handleSubmit = async (e) => {
+    const handleLogout = async (e) => {
         e.preventDefault()
         
         try {
@@ -34,7 +34,7 @@ const Login = () => {
                     <Card.Body>
                         <h2 className="text-center mb-4">Log In</h2>
                             {error && <Alert variant="danger">{error}</Alert>}
-                            <Form onSubmit={handleSubmit}>
+                            <Form onSubmit={handleLogout}>
                             <Form.Group id="email">
                                 <Form.Label>Email</Form.Label>
                                 <Form.Control type="email" ref={emailRef} required />
@@ -58,7 +58,7 @@ const Login = () => {
                     Need an account? <Link to="/register">Sign Up here</Link> 
                 </div>
                 <div className="w-100 text-center mt-2">
-                    <Link to="/home">Return to home page</Link>
+                    <Link to="/">Return to home page</Link>
                 </div>
             </div>
          </Container>

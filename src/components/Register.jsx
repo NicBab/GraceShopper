@@ -62,7 +62,7 @@ const Register = () => {
             Already have an account? <Link to="/login">Login Here</Link>
           </div>
           <div className="w-100 text-center mt-2">
-            <Link to="/home">Return to home page</Link>
+            <Link to="/">Return to home page</Link>
           </div>
         </div>
       </Container>

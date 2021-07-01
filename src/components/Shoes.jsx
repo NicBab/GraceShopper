@@ -27,7 +27,7 @@ const Shoes = ({products}) => {
                       <Card.Body>
                         <Card.Title>{product.name}Name</Card.Title>
                         <Card.Text>{product.description}description</Card.Text>
-                        <Card.Text>{product.price}Price</Card.Text>
+                        <Card.Text>${product.price}</Card.Text>
                         <Link to="/MyCart">
                           <Button variant="primary">Add to Cart</Button>
                         </Link>

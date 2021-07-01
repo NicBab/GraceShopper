@@ -5,11 +5,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     BrowserRouter as Router,
 } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext'
 
 
 ReactDOM.render(
     <Router>
+      <AuthProvider>
         <App />
-    </Router>, 
+      </AuthProvider>
+    </Router>
+    , 
     document.getElementById('root')
 );
