@@ -10,11 +10,11 @@ const Product = ({ product, setProducts }) => {
     <>
       <Row>
         <Col>
-          <Card bg="light" key={product.id} style={{ width: "18rem" }}>
+          <Card className="homePgCard ml-4 mb-4" bg="light" key={product.id} style={{ width: "18rem" }}>
             <Link to="/product/id">
               <Card.Img
                 variant="top"
-                style={{ maxHeight: "200px" }}
+                style={{ maxHeight: "200px"  }}
                 src={product.img_url}
               />
             </Link>
