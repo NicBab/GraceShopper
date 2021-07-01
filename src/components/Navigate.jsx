@@ -20,7 +20,7 @@ const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
     <>
       <div>
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">Oh Shoes</Navbar.Brand>
+          <Navbar.Brand><Link to="/">Oh Shoes</Link></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
