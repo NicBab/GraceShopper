@@ -18,6 +18,7 @@ import {
     PrivateRoute,
     UpdateProfile,
     ForgotPassword,
+    Landing
 } from "../components";
 
 
@@ -27,6 +28,10 @@ const Pages = ({products, setProducts, users, setUsers}) => {
     <AuthProvider>
        <PrivateRoute exact path="/dashboard" component={Dashboard} />
        <PrivateRoute path="/update-profile" component={UpdateProfile} />
+
+       <Route exact path="/">
+          <Landing />
+        </Route>
 
         <Route exact path="/home">
           <Home products={products} />
