@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CartIcon, HeadIcon, HomeIcon } from './icons'
+import { CartIcon, HeadIcon, HomeIcon, SearchIcon } from './icons'
 
 import {
   Dropdown,
@@ -20,14 +20,16 @@ const Navigate = ({currentUser}) => {
     <>
       <div>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/home">Oh Shoes</Navbar.Brand>
+          <Link to="/">
+            <Dropdown.Item as="button">{HomeIcon}</Dropdown.Item>
+          </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
 
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="light">{SearchIcon}</Button>
           </Form>
                 
             <NavDropdown title="Categories" id="basic-nav-dropdown">
@@ -42,19 +44,16 @@ const Navigate = ({currentUser}) => {
               </Link>
             </NavDropdown>
           </Nav>
-
           <Link to="/admin">
             <Nav.Link href="#link">Admin</Nav.Link>
-          </Link>
-          <Link to="/home">
-            <Dropdown.Item as="button">{HomeIcon}</Dropdown.Item>
-          </Link>
-          <Link to="/mycart">
-            <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
           </Link>
           <Link to="/dashboard">
             <Dropdown.Item as="button">{HeadIcon}</Dropdown.Item>
           </Link>
+          <Link to="/mycart">
+            <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
+          </Link>
+         
           <Link to="/register">
             <Dropdown.Item as="button">Register</Dropdown.Item>
           </Link>
