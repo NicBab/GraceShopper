@@ -12,7 +12,7 @@ import {
     Login,
     MyCart,
     Dashboard,
-    MyOrders,
+    OrderHistory,
     Users,
     Inventory,
     PrivateRoute,
@@ -25,12 +25,10 @@ import {
 const Pages = ({products, setProducts, users, setUsers}) => {
   return (
     <>
-    
        <PrivateRoute exact path="/dashboard" component={Dashboard} />
        <PrivateRoute path="/update-profile" component={UpdateProfile} />
        <PrivateRoute path="/admin" component={Admin} />
        <PrivateRoute path="/inventory" component={Inventory} />
-
 
         <Route exact path="/">
           <Home products={products} />
@@ -68,8 +66,8 @@ const Pages = ({products, setProducts, users, setUsers}) => {
           <MyCart />
         </Route>
 
-        <Route exact path="/myorders">
-          <MyOrders/>
+        <Route exact path="/order-history">
+          <OrderHistory/>
         </Route>
 
         {/* <Route exact path="/admin/users">

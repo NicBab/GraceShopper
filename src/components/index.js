@@ -11,7 +11,7 @@ export { default as Inventory } from './Inventory';
 export { default as Login } from './Login';
 export { default as Main } from './Main';
 export { default as MyCart } from './MyCart';
-export { default as MyOrders } from './MyOrders';
+export { default as OrderHistory } from './OrderHistory';
 export { default as Navigate } from './Navigate';
 export { default as Pages } from './Pages';
 export { default as PrivateRoute } from './PrivateRoute'
