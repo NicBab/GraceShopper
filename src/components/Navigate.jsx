@@ -15,7 +15,7 @@ import "./css/Navigate.css";
 
 const Navigate = ({currentUser}) => {
 
-  
+
   return (
     <>
       <div>
