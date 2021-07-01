@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
-import { createProduct } from "../api"
-import Product from "./Product";
+import { createProduct } from "../api";
+import InventoryItem from "./InventoryItem";
 
 const Inventory = ({ products, setProducts }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [img_url, setImgUrl] = useState("");
   const [price, setPrice] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [category, setCategory] = useState("");
+  //const [active, setActive] = useState(true);
 
   const handleCreateProduct = async (event) => {
     try {
@@ -16,7 +19,10 @@ const Inventory = ({ products, setProducts }) => {
         name,
         description,
         img_url,
-        price      });
+        price,
+        quantity,
+        category,
+      });
       setProducts((prevProducts) => {
         return [...prevProducts.products, newProduct];
       });
@@ -24,6 +30,9 @@ const Inventory = ({ products, setProducts }) => {
       setDescription("");
       setImgUrl("");
       setPrice("");
+      setQuantity("");
+      setCategory("");
+      //setActive(true)
     } catch (err) {
       throw err;
     }
@@ -35,27 +44,67 @@ const Inventory = ({ products, setProducts }) => {
       <Form onSubmit={handleCreateProduct}>
         <Form.Row>
           <Col>
-            <Form.Control value={name} onInput={(event) => {
-                setName(event.target.value)
-            }}placeholder="Product" />
+            <Form.Control
+              value={name}
+              onInput={(event) => {
+                setName(event.target.value);
+              }}
+              placeholder="Product"
+            />
           </Col>
           <Col>
-            <Form.Control value={description} onInput={(event) => {
-                setDescription(event.target.value)
-            }}placeholder="Description" />
+            <Form.Control
+              value={description}
+              onInput={(event) => {
+                setDescription(event.target.value);
+              }}
+              placeholder="Description"
+            />
           </Col>
           <Col>
-            <Form.Control value={img_url} onInput={(event) => {
-                setImgUrl(event.target.value)
-            }} placeholder="Image URL" />
+            <Form.Control
+              value={img_url}
+              onInput={(event) => {
+                setImgUrl(event.target.value);
+              }}
+              placeholder="Image URL"
+            />
           </Col>
           <Col>
-            <Form.Control value={price} onInput={(event) => {
-                setPrice(event.target.value)
-            }} placeholder="Price" />
+            <Form.Control
+              value={price}
+              onInput={(event) => {
+                setPrice(event.target.value);
+              }}
+              placeholder="Price"
+            />
+          </Col>
+          <Col>
+            <Form.Control
+              value={quantity}
+              type="number"
+              onInput={(event) => {
+                setQuantity(event.target.value);
+              }}
+              placeholder="Quantity"
+            />
+          </Col>
+          <Col>
+            <Form.Control
+              as="select"
+              value={category}
+              onInput={(event) => {
+                setCategory(event.target.value);
+              }}
+            >
+              <option>Shoes</option>
+              <option>Hats</option>
+              <option>Accessories</option>
+            </Form.Control>
           </Col>
         </Form.Row>
-        <Button type="submit" variant="secondary">
+        <br />
+        <Button type="submit" variant="primary">
           Submit
         </Button>
       </Form>
@@ -63,9 +112,7 @@ const Inventory = ({ products, setProducts }) => {
       <Row>
         {products.products &&
           products.products.map((product, idx) => {
-            return (
-              <Product key={idx} product={product} />
-            );
+            return <InventoryItem key={idx} product={product} />;
           })}
       </Row>
     </>

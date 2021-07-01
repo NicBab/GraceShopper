@@ -117,34 +117,6 @@ async function getUserByEmail(email) {
 
 // PRODUCT FUNCTIONS
 
-const createProduct = async ({
-  img_url,
-  name,
-  description,
-  price,
-  quantity,
-  categoryId,
-}) => {
-  console.log(img_url, name, description, price, quantity, categoryId);
-  try {
-    const {
-      rows: [products],
-    } = await client.query(
-      `
-      INSERT INTO products(img_url, name, description, price, quantity, categoryId)
-      VALUES($1, $2, $3, $4, $5, $6)
-      RETURNING *;
-      `,
-      [img_url, name, description, price, quantity, categoryId]
-    );
-    console.log(products, "**products**");
-    return products;
-  } catch (error) {
-    console.error("Error creating product in db/index.js");
-    throw error;
-  }
-};
-
 async function getAllProducts() {
   try {
     const { rows: products } = await client.query(`
@@ -157,39 +129,105 @@ async function getAllProducts() {
   }
 }
 
-async function addToCart(user_id, product_id) {
+async function getProductById(productId) {
   try {
+    const {
+      rows: [product],
+    } = await client.query(`
+    SELECT * 
+    FROM products
+    WHERE id=${productId}
+    `);
+    return product;
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const createProduct = async ({
+  img_url,
+  name,
+  description,
+  price,
+  quantity,
+  category,
+  active
+}) => {
+  try {
+    const {
+      rows: [products],
+    } = await client.query(
+      `
+      INSERT INTO products(img_url, name, description, price, quantity, category, active)
+      VALUES($1, $2, $3, $4, $5, $6, $7)
+      RETURNING *;
+      `,
+      [img_url, name, description, price, quantity, category, active]
+    );
+    return products;
+  } catch (error) {
+    console.error("Error creating product in db/index.js");
+    throw error;
+  }
+};
+
+
+async function updateProduct(productId, fields = {}) {
+  const { img_url, name, descripiton, quantity, category } = fields;
+  delete fields.img_url;
+  delete fields.name;
+  delete fields.descripiton;
+  delete fields.quantity;
+  delete fields.category;
+
+  // build the set string
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+  try {
+    // update any fields that need to be updated
+    if (setString.length > 0) {
+      await client.query(
+        `
+        UPDATE products
+        SET ${setString}
+        WHERE id=${productId}
+        RETURNING *;
+      `,
+        Object.values(fields)
+      );
+    }
+
+    // return early if there's no products to update
+    // if (products === undefined) {
+    //   return await getProductById(productId);
+    // }
+
+    return await getProductById(productId);
   } catch (error) {
     throw error;
   }
 }
 
-async function createCategories({ name, description }) {
+async function addToCart(user_id, product_id) {
   try {
-    const {
-      rows: [categories],
-    } = await client.query(
-      `
-      INSERT INTO category(name, description)
-      VALUES($1, $2)
-      RETURNING *;
-      `,
-      [name, description]
-    );
-    return categories;
+
+    
   } catch (error) {
     throw error;
   }
 }
+
+
 
 module.exports = {
   client,
   createUser,
   getAllUsers,
-  createCategories,
   createProduct,
   getAllProducts,
   addToCart,
   getUserByUsername,
   getUserByEmail,
+  getProductById
 };

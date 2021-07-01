@@ -1,34 +1,38 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getAllProducts, getAllUsers, getUserCart } from "./api";
-import { Header, Pages } from "./components";
+import { Header, Pages, Footer } from "./components";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
   const [userCart, setUserCart] = useState({});
-
-  const handleAddToCart = async (productId, qty) => {
-    
-  }
+  const [currentUser, setCurrentUser] = useState();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [admin, setAdmin] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    getUserCart()
-      .then((response) => {
-        setUserCart(response);
-        console.log(response);
-      })
-  }, [])
+    if (localStorage.getItem("token")) {
+      setLoggedIn(true);
+    }
+  }, [setLoggedIn]);
 
+  const handleAddToCart = async (productId, qty) => {};
+
+  useEffect(() => {
+    getUserCart().then((response) => {
+      setUserCart(response);
+    });
+  }, []);
 
   useEffect(() => {
     getAllProducts()
       .then((response) => {
         setProducts(response);
-        console.log(response);
       })
       .catch((error) => {
-        console.error(error)
+        console.error(error);
       });
   }, []);
 
@@ -45,12 +49,31 @@ function App() {
   return (
     <>
       <header>
-        <Header />
+        <Header
+          admin={admin}
+          setAdmin={setAdmin}
+          loggedIn={loggedIn}
+          setLoggedIn={setLoggedIn}
+          currentUser={currentUser}
+          setCurrentUser={setCurrentUser}
+        />
       </header>
 
       <main>
-        <Pages users={users} products={products} setProducts={setProducts} onAddToCart={handleAddToCart} />
+        <Pages
+          // userCart={setUserCart}
+          // setUserCart={setUserCart}
+          users={users}
+          products={products}
+          setProducts={setProducts}
+          onAddToCart={handleAddToCart}
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+        />
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }

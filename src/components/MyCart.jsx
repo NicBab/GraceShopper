@@ -10,13 +10,10 @@ import {
     TableBody,
 } from '@material-ui/core';
 
-const MyCart = () => {
-    const [cart, setCart] = useState([])
-
-  
+const MyCart = ({cartItems, setCartItems}) => {
+    //const [cart, setCart] = useState([])
 
     useEffect(() => {
-    
     }, [])
 
     return (

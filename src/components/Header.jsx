@@ -1,13 +1,17 @@
 import React from "react";
+import { Route } from 'react-router-dom'
 import { Navigate } from '../components'
 import "./css/Header.css";
 
-const Header = () => {
+const Header = ({loggedIn, setLoggedIn}) => {
 
   return (
-      <div id="head">
-        <Navigate />
+    <Route>
+      <div>
+        <Navigate loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </div>
+    </Route>
+      
   );
 };
 
