@@ -29,7 +29,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
     <>
       <Row>
         <Col>
-          <Card bg="light" key={product.id} style={{ width: "18rem" }}>
+          <Card className="homePgCard ml-4 mb-4" bg="light" key={product.id} style={{ width: "18rem" }}>
             <Link to="/product/id">
               <Card.Img
                 variant="top"
@@ -41,6 +41,9 @@ const InventoryItem = ({ product, products, setProducts }) => {
               <Card.Title>{product.name}</Card.Title>
               <Card.Text>{product.description}</Card.Text>
               <h6 className="card-subtitle">${product.price}</h6>
+              <br></br>
+
+              <h6 className="card-subtitle">Inventory: {product.quantity}</h6>
               <br></br>
               <Button variant="secondary">Edit</Button>
               {"  "}

@@ -3,12 +3,12 @@ import { Route } from 'react-router-dom'
 import { Navigate } from '../components'
 import "./css/Header.css";
 
-const Header = () => {
+const Header = ({loggedIn, setLoggedIn}) => {
 
   return (
     <Route>
       <div>
-        <Navigate />
+        <Navigate loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </div>
     </Route>
       

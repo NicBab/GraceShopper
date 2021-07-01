@@ -1,36 +1,79 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
+import { AuthProvider } from "../contexts/AuthContext";
 
 import {
-    Home,
-    Shoes,
-    Hats,
-    Accessories,
-    Admin,
-    Register,
-    Login,
-    MyCart,
-    Dashboard,
-    OrderHistory,
-    Users,
-    Inventory,
-    PrivateRoute,
-    UpdateProfile,
-    ForgotPassword,
-    Landing
+  Home,
+  Shoes,
+  Hats,
+  Accessories,
+  Admin,
+  Register,
+  Login,
+  MyCart,
+  Dashboard,
+  MyOrders,
+  Users,
+  Inventory,
+  PrivateRoute,
+  UpdateProfile,
+  ForgotPassword,
+  Landing,
+
+
+// import {
+//     Home,
+//     Shoes,
+//     Hats,
+//     Accessories,
+//     Admin,
+//     Register,
+//     Login,
+//     MyCart,
+//     Dashboard,
+//     OrderHistory,
+//     Users,
+//     Inventory,
+//     PrivateRoute,
+//     UpdateProfile,
+//     ForgotPassword,
+//     Landing
+
 } from "../components";
 
-
-const Pages = ({products, setProducts, users, setUsers}) => {
+const Pages = ({
+  products,
+  setProducts,
+  users,
+  setUsers,
+  admin,
+  setAdmin,
+  loggedIn,
+  setLoggedIn,
+  cartItems,
+  setCartItems
+}) => {
   return (
     <>
-       <PrivateRoute exact path="/dashboard" component={Dashboard} />
-       <PrivateRoute path="/update-profile" component={UpdateProfile} />
-       <PrivateRoute path="/admin" component={Admin} />
-       <PrivateRoute path="/inventory" component={Inventory} />
+
+      <AuthProvider>
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/update-profile" component={UpdateProfile} />
 
         <Route exact path="/">
+          <Landing />
+        </Route>
+
+        <Route exact path="/home">
+
+//        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+//        <PrivateRoute path="/update-profile" component={UpdateProfile} />
+//        <PrivateRoute path="/admin" component={Admin} />
+//        <PrivateRoute path="/inventory" component={Inventory} />
+
+//         <Route exact path="/">
+
           <Home products={products} />
         </Route>
 
@@ -39,7 +82,7 @@ const Pages = ({products, setProducts, users, setUsers}) => {
         </Route>
 
         <Route exact path="/hats">
-          <Hats />
+          <Hats products={products} />
         </Route>
 
         <Route exact path="/accessories">
@@ -63,11 +106,16 @@ const Pages = ({products, setProducts, users, setUsers}) => {
         </Route>
 
         <Route exact path="/mycart">
-          <MyCart />
+          <MyCart cartItems={cartItems} setCartItems={setCartItems}/>
         </Route>
 
-        <Route exact path="/order-history">
-          <OrderHistory/>
+
+        <Route exact path="/myorders">
+          <MyOrders />
+
+//         <Route exact path="/order-history">
+//           <OrderHistory/>
+
         </Route>
 
         {/* <Route exact path="/admin/users">

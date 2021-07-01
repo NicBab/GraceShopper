@@ -2,7 +2,6 @@ const {
   client,
   createUser,
   getAllUsers,
-  createCategories,
   createProduct,
   getAllProducts,
   addToCart,
@@ -46,12 +45,6 @@ async function createTables() {
       zipcode INT NOT NULL,
       admin BOOLEAN DEFAULT FALSE
     );
-	  
-	  CREATE TABLE category(
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(255) NOT NULL,
-      description VARCHAR(255) NOT NULL
-    );
 
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
@@ -60,13 +53,14 @@ async function createTables() {
       description TEXT NOT NULL,
       price DECIMAL NOT NULL,
       quantity INT NOT NULL, 
-      categoryId INT REFERENCES category(id) NOT NULL,
+      category VARCHAR(255) NOT NULL,
       active BOOLEAN DEFAULT TRUE
     );
 
     CREATE TABLE user_cart(
       id SERIAL PRIMARY KEY,
       user_Id INT REFERENCES users(id) UNIQUE NOT NULL,
+      product_Id INT REFERENCES products(id),
       active BOOLEAN DEFAULT TRUE,
       UNIQUE(user_id)
     );
@@ -159,7 +153,7 @@ async function createInitialProducts() {
         description: "Very comfortable",
         price: 30.99,
         quantity: 100,
-        categoryId: 1,
+        category: "shoes",
         active: true,
       },
       {
@@ -169,7 +163,7 @@ async function createInitialProducts() {
         description: "ASICS X Mita GEL-Kayano Trainer",
         price: 100.99,
         quantity: 200,
-        categoryId: 1,
+        category: "shoes",
         active: true,
       },
 
@@ -180,7 +174,7 @@ async function createInitialProducts() {
         description: "Nike Jordan",
         price: 110.99,
         quantity: 80,
-        categoryId: 1,
+        category: "shoes",
         active: true,
       },
 
@@ -191,7 +185,7 @@ async function createInitialProducts() {
         description: "Maroon and White Vans",
         price: 59.99,
         quantity: 320,
-        categoryId: 1,
+        category: "shoes",
         active: true,
       },
 
@@ -202,7 +196,7 @@ async function createInitialProducts() {
         description: "Grey and White Hat",
         price: 29.99,
         quantity: 90,
-        categoryId: 2,
+        category: "hats",
         active: true,
       },
       {
@@ -212,7 +206,7 @@ async function createInitialProducts() {
         description: "Navy and Red",
         price: 19.99,
         quantity: 60,
-        categoryId: 2,
+        category: "hats",
         active: true,
       },
       {
@@ -222,7 +216,7 @@ async function createInitialProducts() {
         description: "White",
         price: 19.99,
         quantity: 110,
-        categoryId: 2,
+        category: "hats",
         active: true,
       },
       {
@@ -232,9 +226,18 @@ async function createInitialProducts() {
         description: "Black",
         price: 15.99,
         quantity: 145,
-        categoryId: 2,
+        category: "hats",
         active: true,
       },
+      {
+        img_url: "https://cdn.shopify.com/s/files/1/0214/7974/products/NS_sacai_Cornell_SHIELD_set_ORANGE_angle_720x.jpg?v=1571440067",
+        name: "Native Sons",
+        description: "'Cornell' Shield Set - Brown Tort",
+        price: 750.00,
+        quantity: 50,
+        category: "accessories",
+        active: true,
+      }
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");
@@ -246,29 +249,6 @@ async function createInitialProducts() {
   }
 }
 
-async function createInitialCategories() {
-  try {
-    const categoriesToCreate = [
-      {
-        name: "Shoes",
-        description: "Shoes",
-      },
-      {
-        name: "Hats",
-        description: "Hats",
-      },
-    ];
-    const categories = await Promise.all(
-      categoriesToCreate.map(createCategories)
-    );
-    console.log("Categories created:");
-    console.log(categories);
-    console.log("Finished creating categories!");
-  } catch (error) {
-    console.error("Error creating categories!");
-    throw error;
-  }
-}
 
 async function rebuildDB() {
   try {
@@ -276,7 +256,6 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await createInitialUsers();
-    await createInitialCategories();
     await createInitialProducts();
   } catch (error) {
     console.log("Error during rebuildDB");

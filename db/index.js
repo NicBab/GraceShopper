@@ -150,7 +150,7 @@ const createProduct = async ({
   description,
   price,
   quantity,
-  categoryId,
+  category,
   active
 }) => {
   try {
@@ -158,11 +158,11 @@ const createProduct = async ({
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(img_url, name, description, price, quantity, categoryId, active)
+      INSERT INTO products(img_url, name, description, price, quantity, category, active)
       VALUES($1, $2, $3, $4, $5, $6, $7)
       RETURNING *;
       `,
-      [img_url, name, description, price, quantity, categoryId, active]
+      [img_url, name, description, price, quantity, category, active]
     );
     return products;
   } catch (error) {
@@ -173,12 +173,12 @@ const createProduct = async ({
 
 
 async function updateProduct(productId, fields = {}) {
-  const { img_url, name, descripiton, quantity, categoryId } = fields;
+  const { img_url, name, descripiton, quantity, category } = fields;
   delete fields.img_url;
   delete fields.name;
   delete fields.descripiton;
   delete fields.quantity;
-  delete fields.categoryId;
+  delete fields.category;
 
   // build the set string
   const setString = Object.keys(fields)
@@ -211,34 +211,19 @@ async function updateProduct(productId, fields = {}) {
 
 async function addToCart(user_id, product_id) {
   try {
+
+    
   } catch (error) {
     throw error;
   }
 }
 
-async function createCategories({ name, description }) {
-  try {
-    const {
-      rows: [categories],
-    } = await client.query(
-      `
-      INSERT INTO category(name, description)
-      VALUES($1, $2)
-      RETURNING *;
-      `,
-      [name, description]
-    );
-    return categories;
-  } catch (error) {
-    throw error;
-  }
-}
+
 
 module.exports = {
   client,
   createUser,
   getAllUsers,
-  createCategories,
   createProduct,
   getAllProducts,
   addToCart,

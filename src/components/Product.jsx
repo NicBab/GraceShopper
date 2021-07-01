@@ -3,9 +3,17 @@ import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Product = ({ product, setProducts }) => {
-
-
+const Product = ({ product, products, setProducts }) => {
+/*
+  onAdd = (product) => {
+    const exist = cartItems.find(x => x.id ===product.id );
+    if(exist) {
+      setCartItems(cartItems.map((x => x.id === product.id ? {...exist, qty: exist.qty + 1} :x ))
+    } else {
+      setCartItems([...cartItems, {...products, qty: 1}])
+    }
+  }
+  */
   return (
     <>
       <Row>

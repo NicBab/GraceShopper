@@ -1,45 +1,60 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Card, Button, Row, Col } from "react-bootstrap";
+import "./css/Shoes.css";
+import { getAllProducts } from "../api";
 
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Card, Button, Row, Col } from 'react-bootstrap';
-import './css/Shoes.css';
-// import { addToCart } from '../api';
+const Shoes = ({ products }) => {
+    //question for instructor -- better to use props here? or api endpoint getAllProducts()?
+  const [allShoes, setAllShoes] = useState();
 
-const Shoes = ({products}) => {
- 
-    const onAddToCart = (event) => {
-        event.preventDefault()
-        // addToCart()
-        console.log('add to cart clicked')
-        
+  const getAllShoes = async () => {
+    const products = await getAllProducts()
+    try {
+      let allShoes = products.products.filter((product) => {
+        return product.category.toLowerCase().includes("shoes");
+      });
+      setAllShoes(allShoes);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-  return (
+  useEffect(() => {
+    getAllShoes();
+  }, []);
+
+  return ( 
     <>
       <div className="shoes">Shoes</div>
-      {products.products
-        ? products.products.map((product) => {
-              return (
-                <Row>
-                  <Col>
-                    <Card className="shoePgCard mb-4"key={product.id} style={{ width: "18rem" }}>
-                      <Card.Img variant="top" src={product.img_url} />
-                      <Card.Body>
-                        <Card.Title>{product.name}Name</Card.Title>
-                        <Card.Text>{product.description}description</Card.Text>
-                        <Card.Text>${product.price}</Card.Text>
-                        <Link to="/MyCart">
-                          <Button variant="primary">Add to Cart</Button>
-                        </Link>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
-              );
-            })
+      {allShoes
+        ? allShoes.map((shoe) => {
+            return (
+              <Row>
+                <Col>
+                  <Card
+                    className="shoePgCard ml-4 mb-4"
+                    key={shoe.id}
+                    style={{ width: "18rem" }}
+                  >
+                    <Card.Img variant="top" src={shoe.img_url} />
+                    <Card.Body>
+                      <Card.Title>{shoe.name}</Card.Title>
+                      <Card.Text>{shoe.description}</Card.Text>
+                      <Card.Text>{shoe.price}</Card.Text>
+                      <Link to="/MyCart">
+                        <Button variant="primary">Add to Cart</Button>
+                      </Link>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            );
+          })
+
         : null}
     </>
   );
 };
 
-export default Shoes; 
+export default Shoes;
