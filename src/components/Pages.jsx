@@ -28,6 +28,8 @@ const Pages = ({products, setProducts, users, setUsers}) => {
     <AuthProvider>
        <PrivateRoute exact path="/dashboard" component={Dashboard} />
        <PrivateRoute path="/update-profile" component={UpdateProfile} />
+       <PrivateRoute path="/admin" component={Admin} />
+       <PrivateRoute path="/inventory" component={Inventory} />
 
        <Route exact path="/">
           <Landing />
@@ -73,13 +75,13 @@ const Pages = ({products, setProducts, users, setUsers}) => {
           <MyOrders/>
         </Route>
 
-        <Route exact path="/admin/users">
+        {/* <Route exact path="/admin/users">
           <Users users={users} />
         </Route>
 
         <Route exact path="/admin/inventory">
           <Inventory products={products} setProducts={setProducts} />
-        </Route>
+        </Route> */}
       </AuthProvider>
     </>
   );

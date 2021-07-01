@@ -16,12 +16,13 @@ const Shoes = ({products}) => {
 
   return (
     <>
+    <Row>
+      <Col>
       <div className="shoes">Shoes</div>
       {products.products
         ? products.products.map((product) => {
               return (
-                <Row>
-                  <Col>
+           
                     <Card className="shoePgCard mb-4"key={product.id} style={{ width: "18rem" }}>
                       <Card.Img variant="top" src={product.img_url} />
                       <Card.Body>
@@ -33,11 +34,12 @@ const Shoes = ({products}) => {
                         </Link>
                       </Card.Body>
                     </Card>
-                  </Col>
-                </Row>
+                
               );
             })
         : null}
+          </Col>
+       </Row>
     </>
   );
 };
