@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getAllProducts, getAllUsers, getUserCart } from "./api";
-import { Header, Pages } from "./components";
+import { Header, Pages, Footer } from "./components";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -59,6 +59,9 @@ function App() {
           onAddToCart={handleAddToCart} 
         />
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
