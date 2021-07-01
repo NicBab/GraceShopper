@@ -2,7 +2,6 @@ const {
   client,
   createUser,
   getAllUsers,
-  createCategories,
   createProduct,
   getAllProducts,
   addToCart,
@@ -197,7 +196,7 @@ async function createInitialProducts() {
         description: "Grey and White Hat",
         price: 29.99,
         quantity: 90,
-        category: "hat",
+        category: "hats",
         active: true,
       },
       {
@@ -207,7 +206,7 @@ async function createInitialProducts() {
         description: "Navy and Red",
         price: 19.99,
         quantity: 60,
-        category: "hat",
+        category: "hats",
         active: true,
       },
       {
@@ -217,7 +216,7 @@ async function createInitialProducts() {
         description: "White",
         price: 19.99,
         quantity: 110,
-        category: "hat",
+        category: "hats",
         active: true,
       },
       {
@@ -227,9 +226,18 @@ async function createInitialProducts() {
         description: "Black",
         price: 15.99,
         quantity: 145,
-        category: "hat",
+        category: "hats",
         active: true,
       },
+      {
+        img_url: "https://cdn.shopify.com/s/files/1/0214/7974/products/NS_sacai_Cornell_SHIELD_set_ORANGE_angle_720x.jpg?v=1571440067",
+        name: "Native Sons",
+        description: "'Cornell' Shield Set - Brown Tort",
+        price: 750.00,
+        quantity: 50,
+        category: "accessories",
+        active: true,
+      }
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");

@@ -52,7 +52,7 @@ const Pages = ({
         </Route>
 
         <Route exact path="/hats">
-          <Hats />
+          <Hats products={products} />
         </Route>
 
         <Route exact path="/accessories">

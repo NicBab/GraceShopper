@@ -91,12 +91,16 @@ const Inventory = ({ products, setProducts }) => {
           </Col>
           <Col>
             <Form.Control
+              as="select"
               value={category}
               onInput={(event) => {
                 setCategory(event.target.value);
               }}
-              placeholder="Category"
-            />
+            >
+              <option>Shoes</option>
+              <option>Hats</option>
+              <option>Accessories</option>
+            </Form.Control>
           </Col>
         </Form.Row>
         <br />
