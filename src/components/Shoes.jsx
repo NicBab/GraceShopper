@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import "./css/Shoes.css";
 import { getAllProducts } from "../api";
+import { useCart} from "react-use-cart";
+
 
 const Shoes = ({ products }) => {
     //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allShoes, setAllShoes] = useState();
+  const { addItem } = useCart();
 
   const getAllShoes = async () => {
     const products = await getAllProducts()
@@ -26,6 +29,7 @@ const Shoes = ({ products }) => {
 
   return ( 
     <>
+
       <div className="shoes">Shoes</div>
       {allShoes
         ? allShoes.map((shoe) => {
@@ -43,7 +47,7 @@ const Shoes = ({ products }) => {
                       <Card.Text>{shoe.description}</Card.Text>
                       <Card.Text>{shoe.price}</Card.Text>
                       <Link to="/MyCart">
-                        <Button variant="primary">Add to Cart</Button>
+                        <Button variant="primary" onClick={() => addItem(shoe)}>Add to Cart</Button>
                       </Link>
                     </Card.Body>
                   </Card>
