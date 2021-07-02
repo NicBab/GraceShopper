@@ -1,18 +1,19 @@
 import React from 'react';
 import { Container, Row, Col, } from 'react-bootstrap'
-import { FaceBookIcon, InstaIcon } from './icons'
+import { FaceBookIcon, InstaIcon, GitHubIcon } from './icons'
 
 const Footer = () => {
     return (
-      <Container className="foot" style={{minHeight: "25vh"}}>
+      <Container className="d-flex align-items-start justify-content-around mt-10" 
+        style={{minHeight: "25vh", marginTop: "10px"}}>
           <div>
-            <Row style={{marginLeft: "10px"}}>
-            {FaceBookIcon}
-            <Row style={{marginLeft: "10px"}}>
-            {InstaIcon}
-            </Row>
-            </Row>
-            
+          { FaceBookIcon } 
+          </div>
+          <div>
+          { InstaIcon }
+          </div>
+          <div>
+          { GitHubIcon }
           </div>
       </Container>
     )

@@ -38,6 +38,7 @@ const Product = ({ product, products, setProducts }) => {
               <br></br>
               <Button variant="primary">Add to cart</Button>
               <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon } </Button>
+              <Button variant="primary">{InfoIcon}</Button>
               <Button variant="primary" onClick={() => addItem(product.id)}>Add to cart</Button>
             </Card.Body>
           </Card>
