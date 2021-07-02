@@ -5,6 +5,7 @@ import "./css/Hats.css";
 import { getAllProducts } from "../api";
 import { InfoIcon } from './icons'
 import { CartProvider} from "react-use-cart";
+import Product from "./Product";
 
 const Hats = () => {
   //question for instructor -- better to use props here? or api endpoint getAllProducts()?
@@ -30,26 +31,11 @@ const Hats = () => {
     <>
       <div className="hats">Hats</div>
       {allHats
-        ? allHats.map((hat) => {
+        ? allHats.map((product) => {
             return (
               <Row>
                 <Col>
-                  <Card
-                    className="hatPgCard ml-4 mb-4"
-                    key={hat.id}
-                    style={{ width: "18rem" }}
-                  >
-                    <Card.Img variant="top" src={hat.img_url} />
-                    <Card.Body>
-                      <Card.Title>{hat.name}</Card.Title>
-                      <Card.Text>{hat.description}</Card.Text>
-                      <Card.Text>{hat.price}</Card.Text>
-                      <Link to="/MyCart">
-                        <Button variant="primary">Add to Cart</Button>
-                        </Link>
-                        <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon }</Button>
-                    </Card.Body>
-                  </Card>
+                  <Product product={product} />
                 </Col>
               </Row>
             );
