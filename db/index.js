@@ -94,7 +94,7 @@ async function getUserByUsername(username) {
   }
 }
 
-// build getUserByEmail
+// build getUserByEmail - Rashon//Trying to push
 
 async function getUserByEmail(email) {
   try {
