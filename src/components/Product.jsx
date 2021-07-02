@@ -2,6 +2,7 @@ import React from "react";
 import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { InfoIcon } from './icons'
 
 const Product = ({ product, products, setProducts }) => {
 /*
@@ -14,6 +15,9 @@ const Product = ({ product, products, setProducts }) => {
     }
   }
   */
+
+
+
   return (
     <>
       <Row>
@@ -32,6 +36,7 @@ const Product = ({ product, products, setProducts }) => {
               <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
               <Button variant="primary">Add to cart</Button>
+              <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon } </Button>
             </Card.Body>
           </Card>
         </Col>
