@@ -29,8 +29,8 @@ const ForgotPassword = () => {
     return (
         <>
         <Container 
-          className="d-flex align-items-center justify-content-center" 
-          style={{ minHeight: "100vh"}}>
+          className="d-flex align-items-start justify-content-center mt-10" 
+          style={{ minHeight: "100vh", marginTop: "5em"}}>
           <div className="w-100" style={{maxWidth: "400px"}}>
         <Card>
             <Card.Body>
