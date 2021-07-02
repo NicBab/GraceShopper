@@ -24,7 +24,7 @@ const Inventory = ({ products, setProducts }) => {
         category,
       });
       setProducts((prevProducts) => {
-        return [...prevProducts.products, newProduct];
+        return  [...prevProducts.products, newProduct];
       });
       setName("");
       setDescription("");
@@ -32,7 +32,6 @@ const Inventory = ({ products, setProducts }) => {
       setPrice("");
       setQuantity("");
       setCategory("");
-      //setActive(true)
     } catch (err) {
       throw err;
     }
