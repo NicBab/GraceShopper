@@ -10,6 +10,7 @@ const Shoes = ({ products }) => {
     //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allShoes, setAllShoes] = useState();
   const { addItem } = useCart();
+  const [showShoeInfo, setShowShoeInfo] = useState(false)
 
   const getAllShoes = async () => {
     const products = await getAllProducts()
@@ -44,12 +45,12 @@ const Shoes = ({ products }) => {
                     <Card.Img variant="top" src={shoe.img_url} />
                     <Card.Body>
                       <Card.Title>{shoe.name}</Card.Title>
-                      <Card.Text>{shoe.description}</Card.Text>
-                      <Card.Text>{shoe.price}</Card.Text>
-                      <Link to="/MyCart">
-                        <Button variant="primary" onClick={() => addItem(shoe)}>Add to Cart</Button>
-                      </Link>
-                      <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon } </Button>
+                      {showShoeInfo && 
+               (<Card.Text>{shoe.description}</Card.Text>)}
+              <h6 className="card-subtitle">${shoe.price}</h6>
+              <br></br>
+              <Button variant="primary">Add to cart</Button>
+              <Button onClick={() => setShowShoeInfo(!showShoeInfo)} style={{marginLeft: "5em"}} variant="light"> { InfoIcon } </Button>
                     </Card.Body>
                   </Card>
                 </Col>
