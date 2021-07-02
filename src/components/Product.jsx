@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InfoIcon } from './icons'
-import { useCart} from "react-use-cart";
+import { useCart } from "react-use-cart";
 
 const Product = ({ product, products, setProducts }) => {
+
   const { addItem } = useCart();
+  const[showProductInfo, setShowProductInfo] = useState(false)
 /*
   onAdd = (product) => {
     const exist = cartItems.find(x => x.id ===product.id );
@@ -17,6 +19,7 @@ const Product = ({ product, products, setProducts }) => {
     }
   }
   */
+
 
 
   return (
@@ -33,13 +36,13 @@ const Product = ({ product, products, setProducts }) => {
             </Link>
             <Card.Body>
               <Card.Title>{product.name}</Card.Title>
-              <Card.Text>{product.description}</Card.Text>
+              {showProductInfo && 
+               (<Card.Text>{product.description}</Card.Text>)}
               <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
               <Button variant="primary">Add to cart</Button>
-              <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon } </Button>
-              <Button variant="primary">{InfoIcon}</Button>
-              <Button variant="primary" onClick={() => addItem(product.id)}>Add to cart</Button>
+              <Button onClick={() => setShowProductInfo(!showProductInfo)} style={{marginLeft: "5em"}} variant="light"> { InfoIcon } </Button>
+            
             </Card.Body>
           </Card>
         </Col>

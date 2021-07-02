@@ -36,9 +36,9 @@ const Pages = ({
     <AuthProvider>
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/update-profile" component={UpdateProfile} />
-        <Route exact path="/admin">
+        <PrivateRoute exact path="/admin">
           <Admin setProducts={setProducts} />
-        </Route>
+        </PrivateRoute>
     </AuthProvider>
 
         <Route exact path="/">

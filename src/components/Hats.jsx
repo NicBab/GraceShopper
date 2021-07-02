@@ -47,7 +47,7 @@ const Hats = () => {
                       <Link to="/MyCart">
                         <Button variant="primary">Add to Cart</Button>
                         </Link>
-                        <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon } </Button>
+                        <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon }</Button>
                     </Card.Body>
                   </Card>
                 </Col>

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { getAllProducts, getAllUsers, getUserCart } from "./api";
 import { Header, Pages, Footer } from "./components";
+import { useAuth } from './contexts/AuthContext'
+
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -11,7 +13,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-
+  const {logout} = useAuth()
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setLoggedIn(true);
@@ -56,6 +58,7 @@ function App() {
           setLoggedIn={setLoggedIn}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
+          logout={logout}
         />
       </header>
 
@@ -71,6 +74,7 @@ function App() {
           setCartItems={setCartItems}
         />
       </main>
+    
       <footer>
         <Footer />
       </footer>

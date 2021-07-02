@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { CartIcon, HeadIcon, HomeIcon } from "./icons";
 import { useAuth } from '../contexts/AuthContext'
 import { SearchIcon, GearIcon } from './icons'
@@ -14,7 +14,30 @@ import {
 } from "react-bootstrap";
 import "./css/Navigate.css";
 
-const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
+const Navigate = ({ loggedIn, setLoggedIn, admin, setAdmin, logout }) => {
+const{ currentUser } = useAuth()
+const [error, setError] = useState("")
+const history = useHistory()
+const [showLogout, setShowLogout] = useState(!!currentUser)
+
+
+useEffect(() => {
+  setShowLogout(!!currentUser)
+}, [currentUser])
+
+
+  const handleLogout = async (e) => {
+    e.preventDefault()
+    setError("")
+console.log("logout")
+    try {
+      await logout()
+      history.push("/")
+    } catch (error) {
+      setError("Failed to logout!")
+    }
+  }
+
   return (
     <>
       <div>
@@ -56,12 +79,23 @@ const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
             <Link to="/mycart">
               <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
             </Link>
-            <Link to="/register">
-              <Dropdown.Item as="button">Register</Dropdown.Item>
-            </Link>
-            <Link to="/login">
-              <Dropdown.Item as="button">Login</Dropdown.Item>
-            </Link>
+                { showLogout ? (
+                    <Link to="/">
+                    <Dropdown.Item onClick={handleLogout} as="button">Logout</Dropdown.Item>
+                    </Link>
+                )
+                :
+                (
+                  <>
+                    <Link to="/register">
+                    <Dropdown.Item as="button">Register</Dropdown.Item>
+                  </Link>
+
+                  <Link to="/login">
+                    <Dropdown.Item as="button">Login</Dropdown.Item>
+                  </Link>
+                  </>
+                )}
           </Navbar.Collapse>
         </Navbar>
       </div>
