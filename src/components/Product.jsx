@@ -17,6 +17,8 @@ const Product = ({ product, products, setProducts }) => {
     }
   }
   */
+
+
   return (
     <>
       <Row>
@@ -35,6 +37,7 @@ const Product = ({ product, products, setProducts }) => {
               <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
               <Button variant="primary">Add to cart</Button>
+              <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon } </Button>
               <Button variant="primary">{InfoIcon}</Button>
               <Button variant="primary" onClick={() => addItem(product.id)}>Add to cart</Button>
             </Card.Body>
