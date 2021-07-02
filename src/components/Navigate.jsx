@@ -28,8 +28,9 @@ useEffect(() => {
 
   const handleLogout = async (e) => {
     e.preventDefault()
+    alert("You have Logged Out!")
     setError("")
-console.log("logout")
+
     try {
       await logout()
       history.push("/")
@@ -81,7 +82,7 @@ console.log("logout")
             </Link>
                 { showLogout ? (
                     <Link to="/">
-                    <Dropdown.Item onClick={handleLogout} as="button">Logout</Dropdown.Item>
+                      <Dropdown.Item onClick={handleLogout} as="button">Logout</Dropdown.Item>
                     </Link>
                 )
                 :

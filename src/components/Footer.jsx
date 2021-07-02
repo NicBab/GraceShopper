@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, } from 'react-bootstrap'
-import { FaceBookIcon, InstaIcon,} from './icons'
+import { FaceBookIcon, InstaIcon, GitHubIcon } from './icons'
 
 const Footer = () => {
     return (
@@ -13,7 +13,7 @@ const Footer = () => {
           { InstaIcon }
           </div>
           <div>
-      
+          { GitHubIcon }
           </div>
       </Container>
     )

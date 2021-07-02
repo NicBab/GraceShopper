@@ -9,6 +9,7 @@ const Product = ({ product, products, setProducts }) => {
 
   const { addItem } = useCart();
   const[showProductInfo, setShowProductInfo] = useState(false)
+  
 /*
   onAdd = (product) => {
     const exist = cartItems.find(x => x.id ===product.id );
@@ -19,8 +20,6 @@ const Product = ({ product, products, setProducts }) => {
     }
   }
   */
-
-
 
   return (
     <>
@@ -42,7 +41,6 @@ const Product = ({ product, products, setProducts }) => {
               <br></br>
               <Button variant="primary">Add to cart</Button>
               <Button onClick={() => setShowProductInfo(!showProductInfo)} style={{marginLeft: "5em"}} variant="light"> { InfoIcon } </Button>
-            
             </Card.Body>
           </Card>
         </Col>

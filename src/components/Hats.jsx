@@ -9,6 +9,8 @@ import { CartProvider} from "react-use-cart";
 const Hats = () => {
   //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allHats, setAllHats] = useState();
+  const[showHatInfo, setShowHatInfo] = useState(false)
+  
 
   const getAllHats = async () => {
     try {
@@ -42,12 +44,12 @@ const Hats = () => {
                     <Card.Img variant="top" src={hat.img_url} />
                     <Card.Body>
                       <Card.Title>{hat.name}</Card.Title>
-                      <Card.Text>{hat.description}</Card.Text>
-                      <Card.Text>{hat.price}</Card.Text>
-                      <Link to="/MyCart">
-                        <Button variant="primary">Add to Cart</Button>
-                        </Link>
-                        <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon }</Button>
+                     {showHatInfo && 
+                      (<Card.Text>{hat.description}</Card.Text>)}
+                      <h6 className="card-subtitle">${hat.price}</h6>
+                      <br></br>
+                      <Button variant="primary">Add to cart</Button>
+                      <Button onClick={() => setShowHatInfo(!showHatInfo)} style={{marginLeft: "5em"}} variant="light"> { InfoIcon } </Button>
                     </Card.Body>
                   </Card>
                 </Col>
