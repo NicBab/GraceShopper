@@ -33,7 +33,6 @@ const Navigate = ({ currentUser, loggedIn, setLoggedIn, admin, setAdmin }) => {
                 />
                 <Button variant="light">{SearchIcon}</Button>
               </Form>
-
               <NavDropdown title="Categories" id="basic-nav-dropdown">
                 <Link to="/shoes">
                   <NavDropdown.Item href="#action/3.1">Shoes</NavDropdown.Item>

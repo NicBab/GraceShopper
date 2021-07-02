@@ -2,6 +2,7 @@ import React from "react";
 import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { InfoIcon } from './icons'
 import { useCart} from "react-use-cart";
 
 const Product = ({ product, products, setProducts }) => {
@@ -33,6 +34,8 @@ const Product = ({ product, products, setProducts }) => {
               <Card.Text>{product.description}</Card.Text>
               <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
+              <Button variant="primary">Add to cart</Button>
+              <Button variant="primary">{InfoIcon}</Button>
               <Button variant="primary" onClick={() => addItem(product.id)}>Add to cart</Button>
             </Card.Body>
           </Card>
