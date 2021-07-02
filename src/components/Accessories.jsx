@@ -4,9 +4,12 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import "./css/Accessories.css";
 import { getAllProducts } from "../api";
 import { InfoIcon } from './icons'
+import {useCart} from "react-use-cart";
+
 const Accessories = ({ products }) => {
     //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allAccessories, setAllAccessories] = useState();
+  const { addItem } = useCart();
 
   const getAllAccessories = async () => {
     const products = await getAllProducts()
@@ -26,6 +29,7 @@ const Accessories = ({ products }) => {
 
   return ( 
     <>
+
       <div className="accessories">Accessories</div>
       {allAccessories
         ? allAccessories.map((accessory) => {
@@ -43,7 +47,7 @@ const Accessories = ({ products }) => {
                       <Card.Text>{accessory.description}</Card.Text>
                       <Card.Text>{accessory.price}</Card.Text>
                       <Link to="/MyCart">
-                        <Button variant="primary">Add to Cart</Button>
+                        <Button variant="primary" onClick={() => addItem(accessory)}>Add to Cart</Button>
                       </Link>
                       <Button style={{marginLeft: "5em"}} variant="light">{ InfoIcon } </Button>
                     </Card.Body>

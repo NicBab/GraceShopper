@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './css/MyCart.css'
+import { useCart} from "react-use-cart";
 import {
     Paper,
     TableContainer,
@@ -12,13 +13,32 @@ import {
 
 const MyCart = ({cartItems, setCartItems}) => {
     //const [cart, setCart] = useState([])
+    const{
+        isEmpty, 
+        totalUniqueItems, 
+        items, 
+        totalItems, 
+        cartTotal, 
+        updateItemQuantity, 
+        removeItem, 
+        emptyCart,
+    } = useCart();
+    
+    
 
     useEffect(() => {
     }, [])
 
+    if (isEmpty) return <h1 class="emptyCart">Your Cart is Empty</h1>
+
     return (
         <>
-          <div className="cart">MyCart</div>
+
+      
+          <div className="cart">MyCart
+          
+          <h5> Total Items: ({totalItems})</h5>
+          </div>
             <TableContainer component={Paper}>
               <Table>
                   <TableHead>
