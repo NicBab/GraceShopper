@@ -66,7 +66,7 @@ apiRouter.get("/products", async (req, res, next) => {
 // })
 
 apiRouter.post("/products", async (req, res, next) => {
-  const { img_url, name, description, price, quantity, category, active } = req.body;
+  const { img_url, name, description, price, quantity, category } = req.body;
   const productData = {};
 
   try {
@@ -76,7 +76,6 @@ apiRouter.post("/products", async (req, res, next) => {
     productData.price = price;
     productData.quantity = quantity;
     productData.category = category;
-    productData.active = active;
 
     if (!name) {
       res.send(next(console.error({ message: "Must include name" })));
@@ -102,9 +101,9 @@ apiRouter.post("/products", async (req, res, next) => {
   }
 });
 
-apiRouter.delete("/:productId", async (req, res, next) => {
+apiRouter.delete("/:product_id", async (req, res, next) => {
   try {
-    const product = await getProductById(req.params.productId);
+    const product = await getProductById(req.params.product_id);
     if (product.active) {
       const updatedProduct = await updateProduct(product.id, { active: false });
       res.send({ product: updatedProduct });

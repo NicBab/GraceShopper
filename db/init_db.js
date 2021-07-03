@@ -54,13 +54,13 @@ async function createTables() {
       price DECIMAL NOT NULL,
       quantity INT NOT NULL, 
       category VARCHAR(255) NOT NULL,
-      active BOOLEAN DEFAULT TRUE
+      active boolean DEFAULT true
     );
 
     CREATE TABLE user_cart(
       id SERIAL PRIMARY KEY,
       user_Id INT REFERENCES users(id) UNIQUE NOT NULL,
-      product_Id INT REFERENCES products(id),
+      product_id INT REFERENCES products(id),
       active BOOLEAN DEFAULT TRUE,
       UNIQUE(user_id)
     );
@@ -154,7 +154,6 @@ async function createInitialProducts() {
         price: 30.99,
         quantity: 100,
         category: "shoes",
-        active: true,
       },
       {
         img_url:
@@ -164,7 +163,6 @@ async function createInitialProducts() {
         price: 100.99,
         quantity: 200,
         category: "shoes",
-        active: true,
       },
 
       {
@@ -175,7 +173,6 @@ async function createInitialProducts() {
         price: 110.99,
         quantity: 80,
         category: "shoes",
-        active: true,
       },
 
       {
@@ -186,7 +183,6 @@ async function createInitialProducts() {
         price: 59.99,
         quantity: 320,
         category: "shoes",
-        active: true,
       },
 
       {
@@ -197,7 +193,6 @@ async function createInitialProducts() {
         price: 29.99,
         quantity: 90,
         category: "hats",
-        active: true,
       },
       {
         img_url:
@@ -207,7 +202,6 @@ async function createInitialProducts() {
         price: 19.99,
         quantity: 60,
         category: "hats",
-        active: true,
       },
       {
         img_url:
@@ -217,7 +211,6 @@ async function createInitialProducts() {
         price: 19.99,
         quantity: 110,
         category: "hats",
-        active: true,
       },
       {
         img_url:
@@ -227,7 +220,6 @@ async function createInitialProducts() {
         price: 15.99,
         quantity: 145,
         category: "hats",
-        active: true,
       },
       {
         img_url: "https://cdn.shopify.com/s/files/1/0214/7974/products/NS_sacai_Cornell_SHIELD_set_ORANGE_angle_720x.jpg?v=1571440067",
@@ -236,7 +228,6 @@ async function createInitialProducts() {
         price: 750.00,
         quantity: 50,
         category: "accessories",
-        active: true,
       }
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
