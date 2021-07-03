@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { CartIcon, HeadIcon, HomeIcon } from "./icons";
+import "./css/Navigate.css";
 import { useAuth } from '../contexts/AuthContext'
 import { SearchIcon, GearIcon } from './icons'
+import OhShoesLogo from "../img/oh-shoes-logo.png"
 import {
   Dropdown,
   Navbar,
@@ -43,7 +45,7 @@ console.log("logout")
       <div>
         <Navbar bg="light" expand="lg">
           <Link to="/">
-            <Dropdown.Item as="button">{HomeIcon}</Dropdown.Item>
+            <img className="os-logo" src={OhShoesLogo}></img>
            </Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
