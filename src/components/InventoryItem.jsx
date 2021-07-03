@@ -15,7 +15,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
 
   const handleDelete = async (id) => {
     try {
-      console.log(products,"***********")
+      //onRemoveProduct()
       await deleteProduct(id)
       const activeProducts = products.products.filter(
         (fProduct) => fProduct.id !== product.id
@@ -25,6 +25,14 @@ const InventoryItem = ({ product, products, setProducts }) => {
       throw err;
     }
   };
+
+  /*
+  const onRemoveProduct = (idx) => {
+		const copy = [...products];
+		copy.splice(idx, 1);
+		setProducts(copy);
+	};
+  */ // NEED TO RENDER PRODUCTS AFTER DELETE WITHOUT PAGE RELOAD!
 
   return (
     <>

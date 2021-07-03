@@ -1,4 +1,15 @@
+.os-logo {
+    max-width: 150px;
+    padding: 1px;
+    margin-right: 50px;
+}
 
+a:hover {
+    text-decoration: none !important;
+}
 
+img:hover {
+    text-decoration: none;
+}
 
 
