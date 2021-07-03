@@ -15,8 +15,9 @@ const InventoryItem = ({ product, products, setProducts }) => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteProduct(id);
-      const activeProducts = products.filter(
+      console.log(products,"***********")
+      await deleteProduct(id)
+      const activeProducts = products.products.filter(
         (fProduct) => fProduct.id !== product.id
       );
       setProducts(activeProducts);
@@ -27,6 +28,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
 
   return (
     <>
+    {product.active ?
       <Row>
         <Col>
           <Card className="homePgCard ml-4 mb-4" bg="light" key={product.id} style={{ width: "18rem" }}>
@@ -59,6 +61,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
           </Card>
         </Col>
       </Row>
+      : null}
     </>
   );
 };

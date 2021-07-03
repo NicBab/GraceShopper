@@ -10,7 +10,6 @@ const Inventory = ({ products, setProducts }) => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
-  //const [active, setActive] = useState(true);
 
   const handleCreateProduct = async (event) => {
     try {
@@ -111,7 +110,7 @@ const Inventory = ({ products, setProducts }) => {
       <Row>
         {products.products &&
           products.products.map((product, idx) => {
-            return <InventoryItem key={idx} product={product} />;
+            return <InventoryItem key={idx} setProducts={setProducts} product={product} products={products} />;
           })}
       </Row>
     </>
