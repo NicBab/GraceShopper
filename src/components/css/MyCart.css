@@ -1,6 +1,13 @@
-.cart{
-    color: #BECAE6;
-    text-align: center;
-    margin: 5px;
-    font-size: 3em;
+.cart {
+  color: #becae6;
+  text-align: center;
+  margin: 5px;
+  font-size: 3em;
+}
+
+.emptyCart {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: grey;
 }

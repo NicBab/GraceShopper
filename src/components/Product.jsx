@@ -2,32 +2,11 @@ import React, { useState } from "react";
 import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { InfoIcon, CartIcon } from './icons'
-import Navigate from "./Navigate";
+import { InfoIcon, CartIcon } from './icons';
 
 
-
-
-const Product = ({ product, products, setProducts }) => {
-  const [cart, setCart] = useState([]);
-  const[showProductInfo, setShowProductInfo] = useState(false)
-/*
-  onAdd = (product) => {
-    const exist = cartItems.find(x => x.id ===product.id );
-    if(exist) {
-      setCartItems(cartItems.map((x => x.id === product.id ? {...exist, qty: exist.qty + 1} :x ))
-    } else {
-      setCartItems([...cartItems, {...products, qty: 1}])
-    }
-  }
-  */
-
-  const addToCart = (product) => {
-    console.log('We are adding to the cart')
-    setCart([...cart, product])
-  }
-
-
+const Product = ({ product, products, setProducts, cart, setCart, addToCart}) => {
+  const[showProductInfo, setShowProductInfo] = useState(false);
 
   return (
     <>

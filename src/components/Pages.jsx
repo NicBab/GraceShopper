@@ -29,7 +29,13 @@ const Pages = ({
   loggedIn,
   setLoggedIn,
   cartItems,
-  setCartItems
+  setCartItems,
+  cart,
+  setCart,
+  addToCart,
+  onAdd,
+  userCart,
+  setUserCart
 }) => {
   return (
     <>
@@ -42,7 +48,7 @@ const Pages = ({
     </AuthProvider>
 
         <Route exact path="/">
-          <Home products={products} />
+          <Home products={products} addToCart={addToCart} onAdd={onAdd} userCart={userCart} setUserCart={setUserCart}/>
         </Route>
 
         <Route exact path="/shoes">
@@ -72,7 +78,8 @@ const Pages = ({
         </Route>
 
         <Route exact path="/mycart">
-          <MyCart cartItems={cartItems} setCartItems={setCartItems}/>
+          <MyCart cartItems={cartItems} setCartItems={setCartItems} cart={cart}
+          setCart={setCart} addToCart={addToCart} onAdd={onAdd}/>
         </Route>
 
 

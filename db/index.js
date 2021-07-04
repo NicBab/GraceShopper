@@ -52,14 +52,14 @@ async function getAllUsers() {
   }
 }
 
-async function getUserById(userId) {
+async function getUserById(id) {
   try {
     const {
       rows: [user],
     } = await client.query(`
     SELECT * 
     FROM users
-    WHERE id=${userId}
+    WHERE id=$1;
     `);
 
     // if (!user) {
@@ -75,7 +75,7 @@ async function getUserById(userId) {
   }
 }
 
-async function getUserByUsername(username) {
+async function getUserByUsername(name) {
   try {
     const {
       rows: [user],
@@ -83,9 +83,9 @@ async function getUserByUsername(username) {
       `
     SELECT *
     FROM users
-    WHERE username=$1;
+    WHERE name=$1;
   `,
-      [username]
+      [name]
     );
 
     return user;
@@ -93,8 +93,6 @@ async function getUserByUsername(username) {
     throw error;
   }
 }
-
-// build getUserByEmail - Rashon//Trying to push
 
 async function getUserByEmail(email) {
   try {
@@ -140,7 +138,7 @@ async function getProductById(productId) {
     `);
     return product;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 
@@ -151,7 +149,7 @@ const createProduct = async ({
   price,
   quantity,
   category,
-  active
+  active,
 }) => {
   try {
     const {
@@ -170,7 +168,6 @@ const createProduct = async ({
     throw error;
   }
 };
-
 
 async function updateProduct(productId, fields = {}) {
   const { img_url, name, descripiton, quantity, category } = fields;
@@ -209,16 +206,83 @@ async function updateProduct(productId, fields = {}) {
   }
 }
 
-async function addToCart(user_id, product_id) {
+async function createCart({ orderid, user_id }) {
   try {
-
-    
+    const {
+      rows: [cart],
+    } = await client.query(
+      `
+      INSERT INTO user_cart(orderid, user_id)
+      VALUES($1, $2)
+      RETURNING *;
+      `,
+      [orderid, user_id]
+    );
+    return cart;
   } catch (error) {
+    console.error("Error adding to usercart in db");
     throw error;
   }
 }
 
+async function addToCart({
+  cartid,
+  product_id,
+  product_name,
+  product_quantity,
+  product_price,
+}) {
+  try {
+    const {
+      rows: [items],
+    } = await client.query(
+      `
+      INSERT INTO cart_items(cartid, product_id, product_name, product_quantity, product_price)
+      VALUES($1, $2, $3, $4, $5)
+      RETURNING *;
+      `,
+      [cartid, product_id, product_name, product_quantity, product_price]
+    );
+    return items;
+  } catch (error) {
+    console.error("Error adding to items to cart in db");
+    throw error;
+  }
+}
 
+async function createOrders({ cart_id, order_id }) {
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+      INSERT INTO customer_orders(cart_id, order_id)
+      VALUES($1, $2)
+      RETURNING *;
+      `,
+      [cart_id, order_id]
+    );
+    return order;
+  } catch (error) {
+    console.error("Error adding to order in db");
+    throw error;
+  }
+}
+
+async function getUserCart(userId) {
+  const user = await getUserById();
+  console.log(user, "this is your cart.");
+  try {
+    const { rows: cart } = await client.query(`
+      SELECT *
+      FROM user_cart
+      WHERE user_id=${userId};
+    `);
+    return cart;
+  } catch (error) {
+    throw error;
+  }
+}
 
 module.exports = {
   client,
@@ -226,8 +290,11 @@ module.exports = {
   getAllUsers,
   createProduct,
   getAllProducts,
+  createCart,
   addToCart,
+  createOrders,
   getUserByUsername,
   getUserByEmail,
-  getProductById
+  getProductById,
+  getUserCart,
 };

@@ -7,7 +7,7 @@ import { InfoIcon } from './icons'
 import {useCart} from "react-use-cart";
 import Product from "./Product";
 
-const Accessories = ({ products }) => {
+const Accessories = ({ products, addToCart }) => {
     //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allAccessories, setAllAccessories] = useState();
   const { addItem } = useCart();
@@ -37,7 +37,7 @@ const Accessories = ({ products }) => {
             return (
               <Row>
                 <Col>
-                  <Product product={product} />
+                  <Product product={product} addToCart={addToCart} />
                 </Col>
               </Row>
             );
