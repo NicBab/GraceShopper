@@ -29,7 +29,7 @@ const MyCart = ({cartItems, setCartItems}) => {
     useEffect(() => {
     }, [])
 
-    if (isEmpty) return <h1 class="emptyCart">Your Cart is Empty</h1>
+    if (isEmpty) return <h1 className="emptyCart">Your Cart is Empty</h1>
 
     return (
         <>
