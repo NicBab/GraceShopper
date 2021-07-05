@@ -121,7 +121,7 @@ async function createInitialUsers() {
       },
       {
         name: "Rashon",
-        email: "shonwms@gmail.com",
+        email: "rashon@admin.com",
         password: "admin456",
         address: "1619 Washington St.",
         city: "Napoleonville",
@@ -237,7 +237,8 @@ async function createInitialProducts() {
         price: 750.0,
         quantity: 50,
         category: "accessories",
-      }
+      },
+
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");

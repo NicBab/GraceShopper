@@ -10,7 +10,6 @@ footer {
 .site-footer {
     display: flex;
 }
-
 footer > section {
     margin-right: 5rem;
     display: flex;
@@ -55,4 +54,3 @@ section:last-of-type {
 section {
     flex-direction: row;
 }
-
