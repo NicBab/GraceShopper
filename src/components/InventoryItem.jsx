@@ -15,8 +15,9 @@ const InventoryItem = ({ product, products, setProducts }) => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteProduct(id);
-      const activeProducts = products.filter(
+      //onRemoveProduct()
+      await deleteProduct(id)
+      const activeProducts = products.products.filter(
         (fProduct) => fProduct.id !== product.id
       );
       setProducts(activeProducts);
@@ -25,8 +26,17 @@ const InventoryItem = ({ product, products, setProducts }) => {
     }
   };
 
+  /*
+  const onRemoveProduct = (idx) => {
+		const copy = [...products];
+		copy.splice(idx, 1);
+		setProducts(copy);
+	};
+  */ // NEED TO RENDER PRODUCTS AFTER DELETE WITHOUT PAGE RELOAD!
+
   return (
     <>
+    {product.active ?
       <Row>
         <Col>
           <Card className="homePgCard ml-4 mb-4" bg="light" key={product.id} style={{ width: "18rem" }}>
@@ -59,6 +69,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
           </Card>
         </Col>
       </Row>
+      : null}
     </>
   );
 };

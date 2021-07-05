@@ -129,14 +129,14 @@ async function getAllProducts() {
   }
 }
 
-async function getProductById(productId) {
+async function getProductById(product_id) {
   try {
     const {
       rows: [product],
     } = await client.query(`
     SELECT * 
     FROM products
-    WHERE id=${productId}
+    WHERE id=${product_id}
     `);
     return product;
   } catch (error) {
@@ -150,19 +150,18 @@ const createProduct = async ({
   description,
   price,
   quantity,
-  category,
-  active
+  category
 }) => {
   try {
     const {
       rows: [products],
     } = await client.query(
       `
-      INSERT INTO products(img_url, name, description, price, quantity, category, active)
-      VALUES($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO products(img_url, name, description, price, quantity, category)
+      VALUES($1, $2, $3, $4, $5, $6)
       RETURNING *;
       `,
-      [img_url, name, description, price, quantity, category, active]
+      [img_url, name, description, price, quantity, category]
     );
     return products;
   } catch (error) {
@@ -172,7 +171,7 @@ const createProduct = async ({
 };
 
 
-async function updateProduct(productId, fields = {}) {
+async function updateProduct(product_id, fields = {}) {
   const { img_url, name, descripiton, quantity, category } = fields;
   delete fields.img_url;
   delete fields.name;
@@ -191,7 +190,7 @@ async function updateProduct(productId, fields = {}) {
         `
         UPDATE products
         SET ${setString}
-        WHERE id=${productId}
+        WHERE id=${product_id}
         RETURNING *;
       `,
         Object.values(fields)
@@ -200,10 +199,10 @@ async function updateProduct(productId, fields = {}) {
 
     // return early if there's no products to update
     // if (products === undefined) {
-    //   return await getProductById(productId);
+    //   return await getProductById(product_id);
     // }
 
-    return await getProductById(productId);
+    return await getProductById(product_id);
   } catch (error) {
     throw error;
   }
@@ -229,5 +228,6 @@ module.exports = {
   addToCart,
   getUserByUsername,
   getUserByEmail,
-  getProductById
+  getProductById,
+  updateProduct
 };

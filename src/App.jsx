@@ -20,7 +20,7 @@ function App() {
     }
   }, [setLoggedIn]);
 
-  const handleAddToCart = async (productId, qty) => {};
+  const handleAddToCart = async (product_id, qty) => {};
 
   useEffect(() => {
     getUserCart().then((response) => {
@@ -36,7 +36,7 @@ function App() {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, []);  
 
   useEffect(() => {
     getAllUsers()
