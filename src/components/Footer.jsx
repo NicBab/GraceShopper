@@ -15,6 +15,7 @@ const Footer = () => {
             { InstaIcon }
             </div>
             <div>
+
             <footer className="site-footer">
               <section className="footer-links">
                 <h2>Customer Care</h2>

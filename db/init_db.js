@@ -239,9 +239,13 @@ async function createInitialProducts() {
         category: "accessories",
 <<<<<<< HEAD
       },
+<<<<<<< HEAD
 =======
       }
 >>>>>>> 34a7cadea207008330e9bc2bc7d425654d1c4f57
+=======
+
+>>>>>>> e500a48a741942f68277e19e1b7c06c3657b2f90
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");
