@@ -237,8 +237,11 @@ async function createInitialProducts() {
         price: 750.0,
         quantity: 50,
         category: "accessories",
+
       },
 
+
+      }
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");

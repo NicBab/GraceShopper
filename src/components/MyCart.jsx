@@ -24,15 +24,8 @@ const MyCart = ({cartItems}) => {
             console.log(data);
           }
          
-
-    //if (isEmpty) return <h1 className="emptyCart">Your Cart is Empty</h1>
-
- /*   useEffect(() => {
-        getUserCart().then((response) => {
-          setUserCart(response);
         });
       }, []);
-*/
 
     return (
         <>
