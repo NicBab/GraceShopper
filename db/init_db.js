@@ -1,7 +1,7 @@
 const {
   client,
   createUser,
-  getAllUsers,
+  //getAllUsers,
   createProduct,
   getAllProducts,
   createCart,

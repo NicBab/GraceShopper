@@ -7,6 +7,13 @@ footer {
     justify-content: center;
 }
 
+<<<<<<< HEAD
+=======
+.site-footer {
+    display: flex;
+}
+
+>>>>>>> 75db5c322a8faf8e0996bda580e9430937c490da
 footer > section {
     margin-right: 5rem;
     display: flex;
@@ -50,4 +57,9 @@ section:last-of-type {
 
 section {
     flex-direction: row;
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> 75db5c322a8faf8e0996bda580e9430937c490da
