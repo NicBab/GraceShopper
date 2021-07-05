@@ -19,11 +19,6 @@ const InventoryItem = ({ product, products, setProducts }) => {
       //onRemoveProduct()
       await deleteProduct(id)
 
-      await deleteProduct(id);
-
-      await deleteProduct(id);
-
-      await deleteProduct(id);
       const activeProducts = products.products.filter(
         (fProduct) => fProduct.id !== product.id
       );
@@ -47,7 +42,6 @@ const InventoryItem = ({ product, products, setProducts }) => {
 		setProducts(copy);
 	};
   */ // NEED TO RENDER PRODUCTS AFTER DELETE WITHOUT PAGE RELOAD!
-
 
   /*
   const onRemoveProduct = (idx) => {

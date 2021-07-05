@@ -24,7 +24,6 @@ const MyCart = ({cartItems}) => {
             console.log(data);
           }
          
-
         });
       }, []);
 

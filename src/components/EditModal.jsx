@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/button";
 import Modal from "react-bootstrap/modal"
 const EditModal = ({ 
-  //products
   //products, 
   product, 
   //setProducts 
