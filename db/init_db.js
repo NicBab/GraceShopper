@@ -64,6 +64,7 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       orderid SERIAL NOT NULL UNIQUE,
       user_id INT REFERENCES users(id) NOT NULL,
+
       active BOOLEAN DEFAULT TRUE,
       cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
       UNIQUE(user_id, orderid)
