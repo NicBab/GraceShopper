@@ -25,11 +25,11 @@ function App() {
 
   const handleAddToCart = async (product_id, qty) => {};
 
-  useEffect(() => {
-    getUserCart().then((response) => {
-      setUserCart(response);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getUserCart().then((response) => {
+  //     setUserCart(response);
+  //   });
+  // }, []);
 
   useEffect(() => {
     getAllProducts()
