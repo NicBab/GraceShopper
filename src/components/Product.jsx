@@ -10,7 +10,7 @@ const Product = ({ product, products, setProducts, cart, setCart, addToCart}) =>
 
   return (
     <>
-
+    {product.active ?
       <Row>
         <Col>
           <Card className="homePgCard ml-4 mb-4" bg="light" key={product.id} style={{ width: "18rem" }}>
@@ -34,6 +34,7 @@ const Product = ({ product, products, setProducts, cart, setCart, addToCart}) =>
           </Card>
         </Col>
       </Row>
+      : null}
     </>
   );
 };

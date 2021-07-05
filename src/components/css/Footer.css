@@ -1,0 +1,53 @@
+footer {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(10, 9, 48);
+    color: white;
+    padding: 1rem;
+    justify-content: center;
+}
+
+footer > section {
+    margin-right: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+footer > section > h2 {
+    color: white;
+    border-bottom: 1px solid white;
+    padding-bottom: 4px;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    font-size: 1rem;
+}
+
+footer > section > a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 9px;
+    font-size: .8rem;
+    flex-direction: row;
+}
+
+footer > section > a:hover {
+    border-bottom: 1px solid white;
+    margin-bottom: 8px;
+}
+
+section:last-of-type {
+    margin-right: 0;
+}
+
+/* .footer-links {
+    flex-direction: row;
+} */
+
+/* a {
+    flex-direction: column;
+} */
+
+section {
+    flex-direction: row;
+}
