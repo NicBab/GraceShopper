@@ -9,16 +9,20 @@ import {
     TableCell,
     TableBody,
 } from '@material-ui/core';
-
-import { getUserCart } from "../api";
+import axios from 'axios';
 
 const MyCart = ({cartItems}) => {
 
     const [userCart, setUserCart] = useState({});
 
-    useEffect(() => {
-        getUserCart().then((response) => {
-          setUserCart(response);
+    useEffect(async () => {
+      axios.get(`${process.env.REACT_APP_GRACE_SHOPPER}/MyCart`)
+        .then(({data}) => {
+          if (data.length) {
+            setUserCart(data);
+            console.log(data);
+          }
+          
         });
       }, []);
 

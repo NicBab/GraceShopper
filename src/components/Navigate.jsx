@@ -15,12 +15,6 @@ import {
 import "./css/Navigate.css";
 
 
-// function Products({cart, setCart}) {
-// const handleAddItem = useCallback(event => {
-//   addToCart(event.target.value)
-// }, [addToCart])
-// }
-
 
 
 const Navigate = ({ loggedIn, setLoggedIn, admin, setAdmin, logout, cart, setCart}) => {
