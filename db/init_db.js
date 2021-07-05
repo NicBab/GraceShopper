@@ -1,7 +1,7 @@
 const {
   client,
   createUser,
-  getAllUsers,
+  //getAllUsers,
   createProduct,
   getAllProducts,
   createCart,
@@ -10,6 +10,7 @@ const {
   getUserByUsername,
   getUserByEmail,
   getCart,
+
 } = require("./index");
 
 async function dropTables() {
@@ -237,6 +238,7 @@ async function createInitialProducts() {
         quantity: 50,
         category: "accessories",
       },
+
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");
