@@ -57,7 +57,7 @@ async function createTables() {
       price DECIMAL NOT NULL UNIQUE,
       quantity INT NOT NULL, 
       category VARCHAR(255) NOT NULL,
-      active BOOLEAN DEFAULT TRUE
+      active boolean DEFAULT true
     );
 
     CREATE TABLE user_cart(
@@ -119,7 +119,7 @@ async function createInitialUsers() {
       },
       {
         name: "Rashon",
-        email: "shonwms@gmail.com",
+        email: "rashon@admin.com",
         password: "admin456",
         address: "1619 Washington St.",
         city: "Napoleonville",
@@ -160,7 +160,6 @@ async function createInitialProducts() {
         price: 30.99,
         quantity: 100,
         category: "shoes",
-        active: true,
       },
       {
         img_url:
@@ -170,7 +169,6 @@ async function createInitialProducts() {
         price: 100.99,
         quantity: 200,
         category: "shoes",
-        active: true,
       },
 
       {
@@ -181,7 +179,6 @@ async function createInitialProducts() {
         price: 110.99,
         quantity: 80,
         category: "shoes",
-        active: true,
       },
 
       {
@@ -192,7 +189,6 @@ async function createInitialProducts() {
         price: 59.99,
         quantity: 320,
         category: "shoes",
-        active: true,
       },
 
       {
@@ -203,7 +199,6 @@ async function createInitialProducts() {
         price: 29.99,
         quantity: 90,
         category: "hats",
-        active: true,
       },
       {
         img_url:
@@ -213,7 +208,6 @@ async function createInitialProducts() {
         price: 19.99,
         quantity: 60,
         category: "hats",
-        active: true,
       },
       {
         img_url:
@@ -223,7 +217,6 @@ async function createInitialProducts() {
         price: 69.99,
         quantity: 110,
         category: "hats",
-        active: true,
       },
       {
         img_url:
@@ -233,7 +226,6 @@ async function createInitialProducts() {
         price: 15.99,
         quantity: 145,
         category: "hats",
-        active: true,
       },
       {
         img_url:
@@ -243,7 +235,6 @@ async function createInitialProducts() {
         price: 750.0,
         quantity: 50,
         category: "accessories",
-        active: true,
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));

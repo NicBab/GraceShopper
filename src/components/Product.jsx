@@ -3,7 +3,7 @@ import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InfoIcon, CartIcon } from './icons';
-import { response } from "express";
+// import { response } from "express";
 
 
 const Product = ({ product, products, setProducts, cart, setCart, addToCart}) => {
@@ -40,7 +40,7 @@ const Product = ({ product, products, setProducts, cart, setCart, addToCart}) =>
 
   return (
     <>
-
+    {product.active ?
       <Row>
         <Col>
           <Card className="homePgCard ml-4 mb-4" bg="light" key={product.id} style={{ width: "18rem" }}>
@@ -65,6 +65,7 @@ const Product = ({ product, products, setProducts, cart, setCart, addToCart}) =>
           </Card>
         </Col>
       </Row>
+      : null}
     </>
   );
 };

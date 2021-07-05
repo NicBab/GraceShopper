@@ -81,8 +81,7 @@ export async function createProduct({
   description,
   price,
   quantity,
-  category,
-  active,
+  category
 }) {
   try {
     const { data } = await axios.post("/api/products", {
@@ -91,10 +90,8 @@ export async function createProduct({
       description,
       price,
       quantity,
-      category,
-      active,
-    });
-
+      category
+    }); 
     return data;
   } catch (error) {
     throw error;
