@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { CartIcon, HeadIcon } from "./icons";
 import "./css/Navigate.css";
@@ -16,11 +16,21 @@ import {
 } from "react-bootstrap";
 import "./css/Navigate.css";
 
-const Navigate = ({ loggedIn, setLoggedIn, admin, setAdmin, logout }) => {
+
+// function Products({cart, setCart}) {
+// const handleAddItem = useCallback(event => {
+//   addToCart(event.target.value)
+// }, [addToCart])
+// }
+
+
+
+const Navigate = ({ loggedIn, setLoggedIn, admin, setAdmin, logout, cart, setCart}) => {
 const{ currentUser } = useAuth()
 const [error, setError] = useState("")
 const history = useHistory()
-const [showLogout, setShowLogout] = useState(!!currentUser)
+const [showLogout, setShowLogout] = useState(!!currentUser);
+
 
 
 useEffect(() => {
@@ -42,6 +52,7 @@ console.log("logout")
 
   return (
     <>
+
       <div>
         <Navbar bg="light" expand="lg">
           <Link to="/">
@@ -79,7 +90,7 @@ console.log("logout")
               <Dropdown.Item as="button">{HeadIcon}</Dropdown.Item>
             </Link>
             <Link to="/mycart">
-              <Dropdown.Item as="button">{CartIcon}</Dropdown.Item>
+              <Dropdown.Item as="button">{CartIcon}({cart.length})</Dropdown.Item>
             </Link>
                 { showLogout ? (
                     <Link to="/">

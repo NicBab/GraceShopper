@@ -4,13 +4,12 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import "./css/Shoes.css";
 import { getAllProducts } from "../api";
 import { InfoIcon } from './icons'
-import { useCart} from "react-use-cart";
 import Product from "./Product"
 
-const Shoes = ({ products }) => {
+const Shoes = ({ products, addToCart }) => {
     //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allShoes, setAllShoes] = useState();
-  const { addItem } = useCart();
+
 
   const getAllShoes = async () => {
     const products = await getAllProducts()
@@ -37,7 +36,7 @@ const Shoes = ({ products }) => {
             return (
               <Row>
                 <Col>
-                  <Product product={product} />
+                  <Product product={product} addToCart={addToCart} />
                 </Col>
               </Row>
             );

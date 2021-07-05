@@ -2,25 +2,11 @@ import React, { useState } from "react";
 import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { InfoIcon } from './icons'
-import { useCart } from "react-use-cart";
-
-const Product = ({ product, products, setProducts }) => {
-
-  const { addItem } = useCart();
-  const[showProductInfo, setShowProductInfo] = useState(false)
-/*
-  onAdd = (product) => {
-    const exist = cartItems.find(x => x.id ===product.id );
-    if(exist) {
-      setCartItems(cartItems.map((x => x.id === product.id ? {...exist, qty: exist.qty + 1} :x ))
-    } else {
-      setCartItems([...cartItems, {...products, qty: 1}])
-    }
-  }
-  */
+import { InfoIcon, CartIcon } from './icons';
 
 
+const Product = ({ product, products, setProducts, cart, setCart, addToCart}) => {
+  const[showProductInfo, setShowProductInfo] = useState(false);
 
   return (
     <>
@@ -41,7 +27,7 @@ const Product = ({ product, products, setProducts }) => {
                (<Card.Text>{product.description}</Card.Text>)}
               <h6 className="card-subtitle">${product.price}</h6>
               <br></br>
-              <Button variant="primary">Add to cart</Button>
+              <Button onClick={() => addToCart(product)} variant="primary">Add to cart</Button>
               <Button onClick={() => setShowProductInfo(!showProductInfo)} style={{marginLeft: "5em"}} variant="light"> { InfoIcon } </Button>
             
             </Card.Body>

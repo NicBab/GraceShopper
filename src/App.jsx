@@ -13,7 +13,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const {logout} = useAuth()
+  const {logout} = useAuth();
+  const [cart, setCart] = useState([]);
+
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       setLoggedIn(true);
@@ -48,6 +51,22 @@ function App() {
       });
   }, []);
 
+
+  const addToCart = (product) => {
+    console.log('We are adding to the cart')
+    setCart([...cart, {...product}])
+  }
+
+  const onAdd = (product) => {
+    const exists = cartItems.find(x => x.id === product.id);
+    if(exists){
+      setCartItems(cartItems.map(x => x.id === product.id ? {...exists, qty: exists.qty +1} : x )
+      )
+
+    }else {
+      setCartItems([...cartItems, {...product, qty: 1}])
+    }
+  }
   return (
     <>
       <header>
@@ -59,19 +78,26 @@ function App() {
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
           logout={logout}
+          cart={cart}
+          setCart={setCart}
+          onAdd={onAdd}
         />
       </header>
 
       <main>
         <Pages
-          // userCart={setUserCart}
-          // setUserCart={setUserCart}
+         cart={cart}
+         setCart={setCart}
+         userCart={userCart}
+         setUserCart={setUserCart}
           users={users}
           products={products}
           setProducts={setProducts}
           onAddToCart={handleAddToCart}
           cartItems={cartItems}
           setCartItems={setCartItems}
+          addToCart={addToCart}
+          onAdd={onAdd}
         />
       </main>
     

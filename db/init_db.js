@@ -3,10 +3,14 @@ const {
   createUser,
   //getAllUsers,
   createProduct,
-  //getAllProducts,
-  //addToCart,
-  //getUserByUsername,
-  //getUserByEmail,
+  getAllProducts,
+  createCart,
+  addToCart,
+  createOrders,
+  getUserByUsername,
+  getUserByEmail,
+  getCart,
+
 } = require("./index");
 
 async function dropTables() {
@@ -14,7 +18,7 @@ async function dropTables() {
     console.log("Starting to drop tables...");
     client.query(`
         DROP TABLE IF EXISTS customer_orders;
-        DROP TABLE IF EXISTS cart_item;
+        DROP TABLE IF EXISTS cart_items;
         DROP TABLE IF EXISTS user_cart;
         DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS users_payment;
@@ -49,9 +53,9 @@ async function createTables() {
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       img_url TEXT NOT NULL,
-      name VARCHAR(255) NOT NULL,
+      name VARCHAR(255) NOT NULL UNIQUE,
       description TEXT NOT NULL,
-      price DECIMAL NOT NULL,
+      price DECIMAL NOT NULL UNIQUE,
       quantity INT NOT NULL, 
       category VARCHAR(255) NOT NULL,
       active boolean DEFAULT true
@@ -59,24 +63,28 @@ async function createTables() {
 
     CREATE TABLE user_cart(
       id SERIAL PRIMARY KEY,
-      user_Id INT REFERENCES users(id) UNIQUE NOT NULL,
-      product_id INT REFERENCES products(id),
+      orderid SERIAL NOT NULL UNIQUE,
+      user_id INT REFERENCES users(id) NOT NULL,
+
       active BOOLEAN DEFAULT TRUE,
-      UNIQUE(user_id)
+      cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
+      UNIQUE(user_id, orderid)
     );
 
-    CREATE TABLE cart_item(
+    CREATE TABLE cart_items(
       id SERIAL PRIMARY KEY,
-      session_id INT REFERENCES user_cart(id) NOT NULL,
-      product_id INT REFERENCES products(id) NOT NULL,
-      qty INT NOT NULL,
-      cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
-      UNIQUE(product_id)
+      cartID INT REFERENCES user_cart(id) NOT NULL,
+      product_id INT REFERENCES products(id) NOT NULL UNIQUE,
+      product_name VARCHAR(255) REFERENCES products(name) NOT NULL UNIQUE,
+      product_quantity INT NOT NULL,
+      product_price DECIMAL REFERENCES products(price) NOT NULL,
+      UNIQUE(product_id, product_name)
     );
 
     CREATE TABLE customer_orders(
       id SERIAL PRIMARY KEY,
-      cartID INT REFERENCES user_cart(id) NOT NULL
+      cart_id INT REFERENCES user_cart(id) NOT NULL,
+      order_id INT REFERENCES user_cart(orderid) NOT NULL
     );
 
       `);
@@ -113,7 +121,7 @@ async function createInitialUsers() {
       },
       {
         name: "Rashon",
-        email: "rashon@admin.com",
+        email: "shonwms@gmail.com",
         password: "admin456",
         address: "1619 Washington St.",
         city: "Napoleonville",
@@ -208,7 +216,7 @@ async function createInitialProducts() {
           "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
         name: "Snapback",
         description: "White",
-        price: 19.99,
+        price: 69.99,
         quantity: 110,
         category: "hats",
       },
@@ -222,10 +230,11 @@ async function createInitialProducts() {
         category: "hats",
       },
       {
-        img_url: "https://cdn.shopify.com/s/files/1/0214/7974/products/NS_sacai_Cornell_SHIELD_set_ORANGE_angle_720x.jpg?v=1571440067",
+        img_url:
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/NS_sacai_Cornell_SHIELD_set_ORANGE_angle_720x.jpg?v=1571440067",
         name: "Native Sons",
         description: "'Cornell' Shield Set - Brown Tort",
-        price: 750.00,
+        price: 750.0,
         quantity: 50,
         category: "accessories",
       }
@@ -240,6 +249,72 @@ async function createInitialProducts() {
   }
 }
 
+async function createInitialUserCart() {
+  console.log("Starting to create User Cart!");
+  try {
+    const cartToCreate = [
+      {
+        orderid: "1",
+        user_id: "3",
+      },
+    ];
+    const cart = await Promise.all(cartToCreate.map(createCart));
+    console.log("Cart created:");
+    console.log(cart);
+    console.log("Finished creating cart!");
+  } catch (error) {
+    console.error("Error creating cart!");
+    throw error;
+  }
+}
+
+async function createInitialCartItems() {
+  console.log("Starting to add to Cart!");
+  try {
+    const productsToAdd = [
+      {
+        cartid: "1",
+        product_id: "1",
+        product_name: "Shoe",
+        product_quantity: "1",
+        product_price: "30.99",
+      },
+      {
+        cartid: "1",
+        product_id: "3",
+        product_name: "Jordan",
+        product_quantity: "1",
+        product_price: "110.99",
+      },
+    ];
+    const cartItems = await Promise.all(productsToAdd.map(addToCart));
+    console.log("Products added to cart:");
+    console.log(cartItems);
+    console.log("Finished adding products to cart!");
+  } catch (error) {
+    console.error("Error adding products to cart!");
+    throw error;
+  }
+}
+
+async function createInitialOrders() {
+  console.log("Starting to create Order!");
+  try {
+    const orderToCreate = [
+      {
+        cart_id: "1",
+        order_id: "1",
+      },
+    ];
+    const cart = await Promise.all(orderToCreate.map(createOrders));
+    console.log("Order created:");
+    console.log(cart);
+    console.log("Finished creating order!");
+  } catch (error) {
+    console.error("Error creating order!");
+    throw error;
+  }
+}
 
 async function rebuildDB() {
   try {
@@ -248,25 +323,14 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
+    await createInitialUserCart();
+    await createInitialOrders();
+    await createInitialCartItems();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;
   }
 }
-
-// async function testDB() {
-//   try {
-//     console.log("Starting to test database...");
-
-//     console.log("Calling getAllUsers");
-//     const users = await getAllUsers();
-//     console.log("Result:", users);
-
-//   } catch (error) {
-//     console.log("Error during testDB");
-//     throw error;
-//   }
-// }
 
 rebuildDB()
   .then(console.log("testDB goes here"))

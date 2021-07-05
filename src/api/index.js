@@ -92,7 +92,6 @@ export async function createProduct({
       quantity,
       category
     }); 
-
     return data;
   } catch (error) {
     throw error;
@@ -110,14 +109,79 @@ export async function deleteProduct(id) {
 
 export async function getUserCart() {
   try {
+    const myCart = await getUserCart();
+    console.log(myCart);
+  } catch (error) {
+    console.error("Error getting user's cart");
+    throw error;
+  }
+}
+
+export async function createCart({ orderid, user_id }) {
+  try {
+    const { data } = await axios
+      .post(`/api/cart`, {
+        orderid,
+        user_id,
+      })
+      .then(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  } catch (error) {
+    console.error("Error creating cart api");
+    throw error;
+  }
+}
+
+export async function addToCart({
+  cartid,
+  product_id,
+  product_name,
+  product_quantity,
+  product_price,
+}) {
+  try {
+    const { data } = await axios
+      .post(`/api/cart/items`, {
+        cartid,
+        product_id,
+        product_name,
+        product_quantity,
+        product_price,
+      })
+      .then(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   } catch (error) {
     throw error;
   }
 }
 
-export async function addToCart(user_id, product_id) {
+export async function createOrders({ cart_id, order_id }) {
   try {
-    const { data } = await axios.post(`/api/cart`);
+    const { data } = await axios
+      .post(`/api/orders`, {
+        cart_id,
+        order_id,
+      })
+      .then(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   } catch (error) {
     throw error;
   }

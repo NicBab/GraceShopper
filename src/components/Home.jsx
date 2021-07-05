@@ -5,7 +5,7 @@ import Product from "./Product";
 import {CartProvider} from "react-use-cart";
 
 
-const Home = ({ products }) => {
+const Home = ({ products, addToCart, cartItems, setCartItems, onAdd, userCart, setUserCart }) => {
   return (
     <>
     <CartProvider>
@@ -14,7 +14,7 @@ const Home = ({ products }) => {
         {products.products &&
           products.products.map((product, idx) => {
             return (
-              <Product key={idx} product={product} />
+              <Product key={idx} product={product} addToCart={addToCart} cartItems={cartItems} setCartItems={setCartItems} onAdd={onAdd} userCart={userCart} setUserCart={setUserCart}/>
             );
           })}
       </Row>
