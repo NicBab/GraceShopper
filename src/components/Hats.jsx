@@ -4,10 +4,9 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import "./css/Hats.css";
 import { getAllProducts } from "../api";
 import { InfoIcon } from './icons'
-import { CartProvider} from "react-use-cart";
 import Product from "./Product";
 
-const Hats = () => {
+const Hats = ({addToCart}) => {
   //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allHats, setAllHats] = useState();
 
@@ -35,7 +34,7 @@ const Hats = () => {
             return (
               <Row>
                 <Col>
-                  <Product product={product} />
+                  <Product product={product} addToCart={addToCart} />
                 </Col>
               </Row>
             );

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './css/MyCart.css'
-import { useCart} from "react-use-cart";
 import {
     Paper,
     TableContainer,
@@ -11,33 +10,23 @@ import {
     TableBody,
 } from '@material-ui/core';
 
-const MyCart = ({cartItems, setCartItems}) => {
-    //const [cart, setCart] = useState([])
-    const{
-        isEmpty, 
-        totalUniqueItems, 
-        items, 
-        totalItems, 
-        cartTotal, 
-        updateItemQuantity, 
-        removeItem, 
-        emptyCart,
-    } = useCart();
-    
-    
+import { getUserCart } from "../api";
+
+const MyCart = ({cartItems}) => {
+
+    const [userCart, setUserCart] = useState({});
 
     useEffect(() => {
-    }, [])
-
-    if (isEmpty) return <h1 class="emptyCart">Your Cart is Empty</h1>
+        getUserCart().then((response) => {
+          setUserCart(response);
+        });
+      }, []);
 
     return (
         <>
 
-      
-          <div className="cart">MyCart
-          
-          <h5> Total Items: ({totalItems})</h5>
+{cartItems.length === 0 && <h1 class="emptyCart">Your Cart is Empty</h1>}
+<div className="cart">
           </div>
             <TableContainer component={Paper}>
               <Table>
@@ -45,21 +34,25 @@ const MyCart = ({cartItems, setCartItems}) => {
                       <TableRow>
                           <TableCell align="left">ID</TableCell>
                           <TableCell align="left">Name</TableCell>
-                          <TableCell align="left">Description</TableCell>
+                          <TableCell align="left">Quantity</TableCell>
                           <TableCell align="left">Price</TableCell>
                       </TableRow>
                   </TableHead>
                   <TableBody>
-                      {/* {MyCart.map((product) => {
-                          return (
-                            <TableRow key={product.name}>
+{cartItems.length > 0 &&
+          cartItems.map((product) => {
+              console.log(product)
+            return (
+                <TableRow key={product}>
                                 <TableCell component="th" scope="row">{product.id}</TableCell>
                                 <TableCell align="left">{product.name}</TableCell>
-                                <TableCell align="left">{product.goal}</TableCell>
-                                <TableCell align="left">{product.creatorName}</TableCell>
+                                <TableCell align="left">{product.qunatity}</TableCell>
+                                <TableCell align="left">{product.price}</TableCell>
                             </TableRow>
-                          )
-                      })} */}
+            );
+          })}
+
+
                   </TableBody>
               </Table>
           </TableContainer> 
@@ -67,4 +60,4 @@ const MyCart = ({cartItems, setCartItems}) => {
     )
 }
 
-export default MyCart
+export default MyCart;
