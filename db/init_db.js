@@ -10,6 +10,7 @@ const {
   getUserByUsername,
   getUserByEmail,
   getCart,
+
 } = require("./index");
 
 async function dropTables() {
@@ -236,7 +237,11 @@ async function createInitialProducts() {
         price: 750.0,
         quantity: 50,
         category: "accessories",
+<<<<<<< HEAD
       },
+=======
+      }
+>>>>>>> 34a7cadea207008330e9bc2bc7d425654d1c4f57
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");

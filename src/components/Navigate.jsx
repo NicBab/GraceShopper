@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
-<<<<<<< HEAD
-import { CartIcon, HeadIcon, HomeIcon } from "./icons";
-=======
-import { CartIcon, HeadIcon } from "./icons";
->>>>>>> 75db5c322a8faf8e0996bda580e9430937c490da
+import { CartIcon, HeadIcon} from "./icons";
 import "./css/Navigate.css";
 import { useAuth } from '../contexts/AuthContext'
 import { SearchIcon, GearIcon } from './icons'
