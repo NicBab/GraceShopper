@@ -3,7 +3,7 @@ import './css/Admin.css';
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Admin = ({users}) => {
+const Admin = () => {
   return (
     <>
       <div className="admin">Admin</div>

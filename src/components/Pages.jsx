@@ -93,10 +93,3 @@ const Pages = ({
 };
 
 export default Pages;
-
-//        <PrivateRoute exact path="/dashboard" component={Dashboard} />
-//        <PrivateRoute path="/update-profile" component={UpdateProfile} />
-//        <PrivateRoute path="/admin" component={Admin} />
-//        <PrivateRoute path="/inventory" component={Inventory} />
-
-//         <Route exact path="/"></Route>

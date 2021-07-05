@@ -1,12 +1,12 @@
 const {
   client,
   createUser,
-  getAllUsers,
+  //getAllUsers,
   createProduct,
-  getAllProducts,
-  addToCart,
-  getUserByUsername,
-  getUserByEmail,
+  //getAllProducts,
+  //addToCart,
+  //getUserByUsername,
+  //getUserByEmail,
 } = require("./index");
 
 async function dropTables() {
