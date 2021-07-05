@@ -1,7 +1,7 @@
 const {
   client,
   createUser,
-  getAllUsers,
+  //getAllUsers,
   createProduct,
   getAllProducts,
   createCart,
@@ -10,6 +10,7 @@ const {
   getUserByUsername,
   getUserByEmail,
   getCart,
+
 } = require("./index");
 
 async function dropTables() {

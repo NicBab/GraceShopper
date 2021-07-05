@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { FaceBookIcon, InstaIcon,} from './icons'
 import "./css/Footer.css";
 
@@ -15,7 +15,7 @@ const Footer = () => {
             { InstaIcon }
             </div>
             <div>
-            <footer>
+            <footer className="site-footer">
               <section className="footer-links">
                 <h2>Customer Care</h2>
                 <a href="">Account</a>

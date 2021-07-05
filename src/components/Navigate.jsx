@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { CartIcon, HeadIcon, HomeIcon } from "./icons";
+import { CartIcon, HeadIcon } from "./icons";
 import "./css/Navigate.css";
 import { useAuth } from '../contexts/AuthContext'
 import { SearchIcon, GearIcon } from './icons'
