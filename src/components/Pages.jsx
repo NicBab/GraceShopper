@@ -17,6 +17,7 @@ import {
   PrivateRoute,
   UpdateProfile,
   ForgotPassword,
+  Landing
 } from "../components";
 
 const Pages = ({
@@ -49,6 +50,9 @@ const Pages = ({
 
         <Route exact path="/">
           <Home products={products} addToCart={addToCart} onAdd={onAdd} userCart={userCart} setUserCart={setUserCart}/>
+        </Route>
+        <Route exact path="/landing">
+          <Landing/>
         </Route>
 
         <Route exact path="/shoes">

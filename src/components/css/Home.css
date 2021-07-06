@@ -5,18 +5,16 @@
     text-align: center;
     margin: 5px;
     font-size: 3em;
-    
 }
 
 .homePgCard {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    height: 60vh; 
+    background-color: #e3e3e3;
+    display: flex; 
+    align-items: center;
 }
 
-.card-body {
-    min-height: 175.54px;
+.landscape {
+    background-size: cover;
+    overflow: hidden;
 }
