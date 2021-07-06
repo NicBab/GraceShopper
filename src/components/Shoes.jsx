@@ -36,7 +36,7 @@ const Shoes = ({ products, addToCart }) => {
             return (
               <Row>
                 <Col>
-                  <Product product={product} addToCart={addToCart} />
+                  <Product className="mb-4" product={product} addToCart={addToCart} />
                 </Col>
               </Row>
             );

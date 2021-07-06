@@ -2,111 +2,48 @@ import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import { createProduct } from "../api";
 import InventoryItem from "./InventoryItem";
+import defaultImg from "../img/Default-Photo.png"
+import AddModal from "./AddModal";
+import Jumbotron from "react-bootstrap/Jumbotron"
+import Container from "react-bootstrap/Container"
+const Inventory = ({ product, products, setProducts }) => {
+  const [show, setShow] = useState(false);
+  const [addMode, setAddMode] = useState(false)
+  
 
-const Inventory = ({ products, setProducts }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [img_url, setImgUrl] = useState("");
-  const [price, setPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [category, setCategory] = useState("");
-
-  const handleCreateProduct = async (event) => {
-    try {
-      event.preventDefault();
-      const { newProduct } = await createProduct({
-        name,
-        description,
-        img_url,
-        price,
-        quantity,
-        category,
-      });
-      setProducts((prevProducts) => {
-        return  [...prevProducts.products, newProduct];
-      });
-      setName("");
-      setDescription("");
-      setImgUrl("");
-      setPrice("");
-      setQuantity("");
-      setCategory("");
-    } catch (err) {
-      throw err;
-    }
-  };
+  const handleAdd = (id) => {
+    setAddMode(true);
+    setShow(true);
+  };  
 
   return (
     <>
-      <h2>Add to Inventory</h2>
-      <Form onSubmit={handleCreateProduct}>
-        <Form.Row>
-          <Col>
-            <Form.Control
-              value={name}
-              onInput={(event) => {
-                setName(event.target.value);
-              }}
-              placeholder="Product"
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              value={description}
-              onInput={(event) => {
-                setDescription(event.target.value);
-              }}
-              placeholder="Description"
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              value={img_url}
-              onInput={(event) => {
-                setImgUrl(event.target.value);
-              }}
-              placeholder="Image URL"
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              value={price}
-              onInput={(event) => {
-                setPrice(event.target.value);
-              }}
-              placeholder="Price"
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              value={quantity}
-              type="number"
-              onInput={(event) => {
-                setQuantity(event.target.value);
-              }}
-              placeholder="Quantity"
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              as="select"
-              value={category}
-              onInput={(event) => {
-                setCategory(event.target.value);
-              }}
-            >
-              <option>Shoes</option>
-              <option>Hats</option>
-              <option>Accessories</option>
-            </Form.Control>
-          </Col>
-        </Form.Row>
-        <br />
-        <Button type="submit" variant="primary">
-          Submit
-        </Button>
-      </Form>
+    <Jumbotron fluid>
+  <Container>
+    <h1>Add a Product.</h1>
+    <p>
+      Add and edit items in your store.
+    </p>
+      <Button variant="outline-primary" size="lg" block onClick={handleAdd} >
+        Add an Item
+        {addMode && (
+          <AddModal 
+            product={product}
+            products={products}
+            setProducts={setProducts}
+            setAddMode={setAddMode}
+            setShow={setShow}
+            show={show}
+            addMode={addMode}
+          />
+        )}
+      </Button>
+  </Container>
+</Jumbotron>
+
       <h2>Inventory</h2>
+      <hr></hr>
+      <br/>
       <Row>
         {products.products &&
           products.products.map((product, idx) => {
