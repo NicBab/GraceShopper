@@ -21,12 +21,12 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.get("/users", async (_, res, next) => {
   try {
     const users = await getAllUsers();
-
     res.send({
       users: users,
     });
   } catch ({ name, message }) {
     next({ name: "GetUserError", message: "Unable to get users" });
+    console.error(message)
   }
 });
 
@@ -79,6 +79,45 @@ apiRouter.post("/products", async (req, res, next) => {
   }
 });
 
+apiRouter.patch("/:product_id", async (req, res, next) => {
+  const { product_id } = req.params;
+  const { img_url, name, description, price, quantity, category } = req.body;
+
+  const updateFields = {};
+
+  if (img_url) {
+    updateFields.img_url = img_url;
+  }
+
+  if (name) {
+    updateFields.name = name;
+  }
+
+  if (description) {
+    updateFields.description = description;
+  }
+
+  if (price) {
+    updateFields.price = price;
+  }
+
+  if (quantity) {
+    updateFields.quantity = quantity;
+  }
+
+  if (category) {
+    updateFields.category = category;
+  }
+
+  try {
+    const updatedProduct = await updateProduct(product_id, updateFields);
+    res.send({ updatedProduct });
+  } catch ({ name, message }) {
+    next({ name: "ProductUpdateError", message: "Unable to update product info!" });
+    console.error(message)
+  }
+});
+
 apiRouter.delete("/:product_id", async (req, res, next) => {
   try {
     const product = await getProductById(req.params.product_id);
@@ -108,39 +147,39 @@ apiRouter.get("/MyCart", async (req, res, next) => {
   }
 });
 
-apiRouter.post("/MyCart/addItems", async (req, res, next) => {
-  const {
-    cartid,
-    product_id,
-    product_name,
-    product_quantity,
-    product_price,
-  } = req.body;
+// apiRouter.post("/MyCart/addItems", async (req, res, next) => {
+//   const {
+//     cartid,
+//     product_id,
+//     product_name,
+//     product_quantity,
+//     product_price,
+//   } = req.body;
 
-  const newItems = {};
-  try {
-    const userID = await getUserById();
-    const user = userID.id;
+//   const newItems = {};
+//   try {
+//     const userID = await getUserById();
+//     const user = userID.id;
 
-    const newCart = await createCart(user);
-    const cartID = newCart.id;
+//     const newCart = await createCart(user);
+//     const cartID = newCart.id;
 
-    newItems.cartid = cartID;
-    newItems.product_id;
-    newItems.product_name;
-    newItems.product_quantity = 1;
-    newItems.product_price;
+//     newItems.cartid = cartID;
+//     newItems.product_id;
+//     newItems.product_name;
+//     newItems.product_quantity = 1;
+//     newItems.product_price;
 
-    const addedItem = await addToCart(newItems);
-    console.log(addedItem);
-    return addedItem;
-  } catch (error) {
-    next({
-      name: "ErrorAddingProduct",
-      messages: "Could not add item to the Cart",
-    });
-  }
-});
+//     const addedItem = await addToCart(newItems);
+//     console.log(addedItem);
+//     return addedItem;
+//   } catch (error) {
+//     next({
+//       name: "ErrorAddingProduct",
+//       messages: "Could not add item to the Cart",
+//     });
+//   }
+// });
 
 //createUser
 // apiRouter.post('/api/register', async (req, res, next) => {

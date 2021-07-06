@@ -42,9 +42,9 @@ async function getAllUsers() {
   // select and return an array of all users
   try {
     const { rows: id } = await client.query(`
-        SELECT id
-        FROM users;
-        `);
+    SELECT id
+    FROM users;
+    `);
     const users = await Promise.all(id.map((user) => getUserById(user.id)));
     return users;
   } catch (error) {
@@ -52,14 +52,14 @@ async function getAllUsers() {
   }
 }
 
-async function getUserById(id) {
+async function getUserById(userId) {
   try {
     const {
       rows: [user],
     } = await client.query(`
     SELECT * 
     FROM users
-    WHERE id=$1;
+    WHERE id=${userId};
     `);
 
     // if (!user) {
@@ -68,7 +68,6 @@ async function getUserById(id) {
     //     message: "Could not find a user with that id",
     //   };
     // }
-
     return user;
   } catch (error) {
     throw error;
@@ -171,13 +170,6 @@ const createProduct = async ({
 
 
 async function updateProduct(product_id, fields = {}) {
-  const { img_url, name, descripiton, quantity, category } = fields;
-  delete fields.img_url;
-  delete fields.name;
-  delete fields.descripiton;
-  delete fields.quantity;
-  delete fields.category;
-
   // build the set string
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
@@ -196,10 +188,6 @@ async function updateProduct(product_id, fields = {}) {
       );
     }
 
-    // return early if there's no products to update
-    // if (products === undefined) {
-    //   return await getProductById(product_id);
-    // }
 
     return await getProductById(product_id);
   } catch (error) {

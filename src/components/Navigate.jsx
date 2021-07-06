@@ -48,7 +48,7 @@ console.log("logout")
     <>
 
       <div>
-        <Navbar bg="light" expand="lg">
+        <Navbar className="nav-bar" bg="light" expand="lg">
           <Link to="/">
             <img className="os-logo" src={OhShoesLogo}></img>
            </Link>

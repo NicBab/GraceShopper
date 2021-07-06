@@ -1,7 +1,6 @@
 const {
   client,
   createUser,
-  //getAllUsers,
   createProduct,
   getAllProducts,
   createCart,
@@ -18,12 +17,12 @@ async function dropTables() {
     console.log("Starting to drop tables...");
     client.query(`
         DROP TABLE IF EXISTS customer_orders;
-        DROP TABLE IF EXISTS cart_items;
-        DROP TABLE IF EXISTS user_cart;
-        DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS cart_items CASCADE;
+        DROP TABLE IF EXISTS user_cart CASCADE;
+        DROP TABLE IF EXISTS products CASCADE;
         DROP TABLE IF EXISTS users_payment;
         DROP TABLE IF EXISTS users_address;
-        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS users CASCADE;
         DROP TABLE IF EXISTS category;
       `);
     console.log("Finished dropping tables!");
@@ -37,7 +36,6 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
-
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
@@ -49,7 +47,6 @@ async function createTables() {
       zipcode INT NOT NULL,
       admin BOOLEAN DEFAULT FALSE
     );
-
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       img_url TEXT NOT NULL,
@@ -60,25 +57,13 @@ async function createTables() {
       category VARCHAR(255) NOT NULL,
       active boolean DEFAULT true
     );
-
     CREATE TABLE user_cart(
       id SERIAL PRIMARY KEY,
       orderid SERIAL NOT NULL UNIQUE,
       user_id INT REFERENCES users(id) NOT NULL,
-
       active BOOLEAN DEFAULT TRUE,
       cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
       UNIQUE(user_id, orderid)
-    );
-
-    CREATE TABLE cart_items(
-      id SERIAL PRIMARY KEY,
-      cartID INT REFERENCES user_cart(id) NOT NULL,
-      product_id INT REFERENCES products(id) NOT NULL UNIQUE,
-      product_name VARCHAR(255) REFERENCES products(name) NOT NULL UNIQUE,
-      product_quantity INT NOT NULL,
-      product_price DECIMAL REFERENCES products(price) NOT NULL,
-      UNIQUE(product_id, product_name)
     );
 
     CREATE TABLE customer_orders(
@@ -86,7 +71,6 @@ async function createTables() {
       cart_id INT REFERENCES user_cart(id) NOT NULL,
       order_id INT REFERENCES user_cart(orderid) NOT NULL
     );
-
       `);
     console.log("Finished building tables!");
   } catch (error) {
@@ -240,8 +224,6 @@ async function createInitialProducts() {
 
       },
 
-
-      }
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");
@@ -253,72 +235,72 @@ async function createInitialProducts() {
   }
 }
 
-async function createInitialUserCart() {
-  console.log("Starting to create User Cart!");
-  try {
-    const cartToCreate = [
-      {
-        orderid: "1",
-        user_id: "3",
-      },
-    ];
-    const cart = await Promise.all(cartToCreate.map(createCart));
-    console.log("Cart created:");
-    console.log(cart);
-    console.log("Finished creating cart!");
-  } catch (error) {
-    console.error("Error creating cart!");
-    throw error;
-  }
-}
+// async function createInitialUserCart() {
+//   console.log("Starting to create User Cart!");
+//   try {
+//     const cartToCreate = [
+//       {
+//         orderid: "1",
+//         user_id: "3",
+//       },
+//     ];
+//     const cart = await Promise.all(cartToCreate.map(createCart));
+//     console.log("Cart created:");
+//     console.log(cart);
+//     console.log("Finished creating cart!");
+//   } catch (error) {
+//     console.error("Error creating cart!");
+//     throw error;
+//   }
+// }
 
-async function createInitialCartItems() {
-  console.log("Starting to add to Cart!");
-  try {
-    const productsToAdd = [
-      {
-        cartid: "1",
-        product_id: "1",
-        product_name: "Shoe",
-        product_quantity: "1",
-        product_price: "30.99",
-      },
-      {
-        cartid: "1",
-        product_id: "3",
-        product_name: "Jordan",
-        product_quantity: "1",
-        product_price: "110.99",
-      },
-    ];
-    const cartItems = await Promise.all(productsToAdd.map(addToCart));
-    console.log("Products added to cart:");
-    console.log(cartItems);
-    console.log("Finished adding products to cart!");
-  } catch (error) {
-    console.error("Error adding products to cart!");
-    throw error;
-  }
-}
+// async function createInitialCartItems() {
+//   console.log("Starting to add to Cart!");
+//   try {
+//     const productsToAdd = [
+//       {
+//         cartid: "1",
+//         product_id: "1",
+//         product_name: "Shoe",
+//         product_quantity: "1",
+//         product_price: "30.99",
+//       },
+//       {
+//         cartid: "1",
+//         product_id: "3",
+//         product_name: "Jordan",
+//         product_quantity: "1",
+//         product_price: "110.99",
+//       },
+//     ];
+//     const cartItems = await Promise.all(productsToAdd.map(addToCart));
+//     console.log("Products added to cart:");
+//     console.log(cartItems);
+//     console.log("Finished adding products to cart!");
+//   } catch (error) {
+//     console.error("Error adding products to cart!");
+//     throw error;
+//   }
+// }
 
-async function createInitialOrders() {
-  console.log("Starting to create Order!");
-  try {
-    const orderToCreate = [
-      {
-        cart_id: "1",
-        order_id: "1",
-      },
-    ];
-    const cart = await Promise.all(orderToCreate.map(createOrders));
-    console.log("Order created:");
-    console.log(cart);
-    console.log("Finished creating order!");
-  } catch (error) {
-    console.error("Error creating order!");
-    throw error;
-  }
-}
+// async function createInitialOrders() {
+//   console.log("Starting to create Order!");
+//   try {
+//     const orderToCreate = [
+//       {
+//         cart_id: "1",
+//         order_id: "1",
+//       },
+//     ];
+//     const cart = await Promise.all(orderToCreate.map(createOrders));
+//     console.log("Order created:");
+//     console.log(cart);
+//     console.log("Finished creating order!");
+//   } catch (error) {
+//     console.error("Error creating order!");
+//     throw error;
+//   }
+// }
 
 async function rebuildDB() {
   try {
@@ -327,9 +309,9 @@ async function rebuildDB() {
     await createTables();
     await createInitialUsers();
     await createInitialProducts();
-    await createInitialUserCart();
-    await createInitialOrders();
-    await createInitialCartItems();
+    // await createInitialUserCart();
+    // await createInitialOrders();
+    // await createInitialCartItems();
   } catch (error) {
     console.log("Error during rebuildDB");
     throw error;

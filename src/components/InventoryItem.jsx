@@ -7,9 +7,11 @@ import EditModal from "./EditModal";
 
 const InventoryItem = ({ product, products, setProducts }) => {
   const [editMode, setEditMode] = useState(false);
+    const [show, setShow] = useState(true);
 
   const handleEdit = (id) => {
     setEditMode(true);
+    setShow(true);
   };
 
   const handleSave = (id) => {};
@@ -17,7 +19,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
   const handleDelete = async (id) => {
     try {
       //onRemoveProduct()
-      await deleteProduct(id)
+      await deleteProduct(id);
 
       const activeProducts = products.products.filter(
         (fProduct) => fProduct.id !== product.id
@@ -27,21 +29,6 @@ const InventoryItem = ({ product, products, setProducts }) => {
       throw err;
     }
   };
-  const [show, setShow] = useState(false);
-  const handleClose = () => {
-    setShow(false);
-  };
-  const handleShow = () => {
-    setShow(true)
-    setEditMode(true)
-  }
-  /*
-  const onRemoveProduct = (idx) => {
-		const copy = [...products];
-		copy.splice(idx, 1);
-		setProducts(copy);
-	};
-  */ // NEED TO RENDER PRODUCTS AFTER DELETE WITHOUT PAGE RELOAD!
 
   /*
   const onRemoveProduct = (idx) => {
@@ -51,7 +38,13 @@ const InventoryItem = ({ product, products, setProducts }) => {
 	};
   */ // NEED TO RENDER PRODUCTS AFTER DELETE WITHOUT PAGE RELOAD!
 
-
+  /*
+  const onRemoveProduct = (idx) => {
+		const copy = [...products];
+		copy.splice(idx, 1);
+		setProducts(copy);
+	};
+  */ // NEED TO RENDER PRODUCTS AFTER DELETE WITHOUT PAGE RELOAD!
 
   return (
     <>
@@ -75,18 +68,24 @@ const InventoryItem = ({ product, products, setProducts }) => {
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Text>{product.description}</Card.Text>
                 <h6 className="card-subtitle">${product.price}</h6>
-                <br></br>
-
+                <br/>
                 <h6 className="card-subtitle">Inventory: {product.quantity}</h6>
-                <br></br>
-                <Button onClick={handleShow} variant="secondary">Edit</Button>
-                {editMode && (
-                  <EditModal
-                    product={product}
-                    products={products}
-                    setProducts={setProducts}
-                  />
-                )}
+                <br/>
+                <h6 className="card-subtitle">Category: {product.category}</h6>
+                <br/>
+                <Button onClick={handleEdit} variant="secondary">
+                  Edit
+                  {editMode && (
+                    <EditModal
+                      product={product}
+                      products={products}
+                      setProducts={setProducts}
+                      setEditMode={setEditMode}
+                      setShow={setShow}
+                      show={show}
+                    />
+                  )}
+                </Button>
                 {"  "}
                 <Button
                   variant="secondary"
