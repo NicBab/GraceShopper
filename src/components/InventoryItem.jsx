@@ -45,7 +45,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
               className="homePgCard ml-4 mb-4"
               bg="light"
               key={product.id}
-              style={{ width: "18rem" }}
+              style={{ width: "18rem", height: "30rem" }}
             >
               <Link to="/product/id">
                 <Card.Img

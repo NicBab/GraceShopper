@@ -139,37 +139,90 @@ async function createInitialProducts() {
     const productsToCreate = [
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/sauconyShadowOriginalGreyOliveGreenSneakerPOliticsWHites-4_540x.jpg?v=1625162893",
-        name: "Saucony Shadow Original",
+          "https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        name: "Nike Zoom",
         description: "Light Grey/Green",
-        price: 80.0,
+        price: 80.00,
         quantity: 20,
         category: "shoes",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/NiekAirForce1QSUndreBrushSneakerPOliticsWhites-4_720x.jpg?v=1623273969",
-        name: "Nike Air Force 1 QS",
-        description: "Natural/Underbrush/Acorn",
-        price: 130.0,
+          "https://images.pexels.com/photos/4495416/pexels-photo-4495416.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        name: "Nike Air Max 720",
+        description: "'Sunrise'",
+        price: 97.00,
+        quantity: 20,
+        category: "shoes",
+      },
+      {
+        img_url:
+          "https://images.unsplash.com/photo-1539045230092-f8c7e0d1b4b9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80",
+        name: "Casio F-91WC",
+        description: "Yellow digital watch",
+        price: 39.99,
+        quantity: 320,
+        category: "accessories",
+      },
+      {
+        img_url:
+          "https://images.pexels.com/photos/4252965/pexels-photo-4252965.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        name: "Nike Air Force 1 Custom",
+        description: "White with custom mint drip",
+        price: 140.0,
         quantity: 200,
         category: "shoes",
       },
-
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/ReferenceSnapBackHatsSneakerpOlitics-06_540x.jpg?v=1622833226",
-        name: "Reference Paradise Snap Back",
-        description: "Black",
-        price: 45.99,
+          "https://images.unsplash.com/photo-1618420281222-091f6d69ffbe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1504&q=80",
+        name: "Stussy Slides",
+        description: "Lime Green",
+        price: 85.99,
         quantity: 320,
+        category: "shoes",
+      },
+      {
+        img_url:
+          "https://images.unsplash.com/photo-1542629458-eaa56d608062?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1347&q=80",
+        name: "Clear Frame Sunnies",
+        description: "Clear acrylic frame.",
+        price: 24.99,
+        quantity: 300,
+        category: "accessories",
+      },
+      {
+        img_url:
+          "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+        name: "Nike Air Max 2.0",
+        description: "Blue/Pink",
+        price: 95.99,
+        quantity: 320,
+        category: "shoes",
+      },
+      {
+        img_url:
+          "https://images.unsplash.com/photo-1597265245060-dad51a9463c9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
+        name: "Yeezy Boost 350 V2",
+        description: "'Semi Frozen Yellow''",
+        price: 401.00,
+        quantity: 120,
+        category: "shoes",
+      },
+      {
+        img_url:
+          "https://images.unsplash.com/photo-1530227826287-f12d70f4ee18?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
+        name: "Lakers Beanie",
+        description: "LA ONLY Purple",
+        price: 40.00,
+        quantity: 120,
         category: "hats",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/NikeLeBronXVIIIPsychadelicPurpleSneakerPoliticsWhites-5_540x.jpg?v=1624544942",
-        name: "Nike LeBron XVIII 'Best 10-18'",
-        description: "Psychadelic Purple/Black/Multi",
+          "https://images.unsplash.com/photo-1618329544399-da869978ef5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1352&q=80",
+        name: "Nike Air Max 1/97 Sean Wotherspoon",
+        description: "Multi color. Extra lace set only.",
         price: 210.99,
         quantity: 80,
         category: "shoes",
@@ -177,66 +230,75 @@ async function createInitialProducts() {
 
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/b55d30db9394c937d60c4e520738c06c_1024x1024_2x_66152e0a-7423-4248-b3bf-d38385cf0f3e_540x.jpg?v=1622587814",
-        name: "Cold World Cold Bunny Hat",
-        description: "Teal",
-        price: 39.99,
+          "https://images.pexels.com/photos/1124465/pexels-photo-1124465.jpeg?cs=srgb&dl=pexels-aman-jakhar-1124465.jpg&fm=jpg",
+        name: "Nike Red Snapback",
+        description: "Adjustable",
+        price: 29.99,
         quantity: 90,
         category: "hats",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/NS_sacai_Cornell_SHIELD_set_ORANGE_angle_720x.jpg?v=1571440067",
-        name: "Native Sons",
-        description: "'Cornell' Shield Set - Brown Tort",
-        price: 750.0,
+          "https://images.unsplash.com/photo-1598313697935-b4d757c226c2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
+        name: "Grateful Dead x Dunk Low SB",
+        description: "'Yellow Bear'",
+        price: 815.0,
+        quantity: 50,
+        category: "shoes",
+      },
+      {
+        img_url:
+          "https://images.unsplash.com/photo-1589642380614-4a8c2147b857?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2467&q=80",
+        name: "Cartier - Santos De Cartier",
+        description: "Sunglasses Men Metal",
+        price: 1145.0,
         quantity: 50,
         category: "accessories",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/CK2351-106-PHSLH000-2000_540x.jpg?v=1625347372",
-        name: "WMNS Adidas Ultraboost 21",
-        description: "Halo Blush/Wonder White/Ambient Blush",
-        price: 179.99,
+          "https://images.unsplash.com/photo-1618623583196-e4e9e11f8511?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1348&q=80",
+        name: "Nike Air Force 1 WMNS",
+        description: "Shadow 'Pastel'",
+        price: 259.99,
         quantity: 45,
         category: "shoes",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/h34606_prappfront_001_fi_540x.jpg?v=1623786020",
-        name: "Adidas x Noah Floral Tech Cap",
-        description: "Multi",
-        price: 59.99,
+          "https://images.unsplash.com/photo-1606196480626-449de89dc7b3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80",
+        name: "Reflective Shield Glasses",
+        description: "Yellow mirrored lense futurism",
+        price: 175.99,
         quantity: 110,
-        category: "hats",
+        category: "accessories",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/Sneaker_Politics_doc_martins_1_540x.jpg?v=1625540493",
-        name: "Basquiat x Dr. Martens 1460",
-        description: "Black/Multi",
-        price: 155.99,
+          "https://images.pexels.com/photos/4252948/pexels-photo-4252948.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        name: "Nike Air Force 1",
+        description: "Jewel Tones/Multi",
+        price: 95.89,
         quantity: 55,
         category: "shoes",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/ScreenShot2021-05-06at4.11.48PM_540x.jpg?v=1620753133",
-        name: "Nike ACG Karst Bag",
-        description: "Black/Peat Moss",
-        price: 70.0,
-        quantity: 50,
-        category: "accessories",
+          "https://images.unsplash.com/photo-1445282804813-123ac28fe498?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80",
+        name: "Brixton Snapback",
+        description: "Rift Mp Hat in orange and black",
+        price: 25.99,
+        quantity: 10,
+        category: "hats",
       },
       {
         img_url:
-          "https://cdn.shopify.com/s/files/1/0214/7974/products/AOTSocks1_540x.jpg?v=1620908333",
-        name: "AOT Lo-Fi Socks",
-        description: "Green",
-        price: 15.0,
+          "https://images.unsplash.com/photo-1596568359553-a56de6970068?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1328&q=80",
+        name: "Air Jordan 1",
+        description: "Retro High OG GS 'Pine Green 2.0'",
+        price: 325.0,
         quantity: 50,
-        category: "accessories",
+        category: "shoes",
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
