@@ -34,6 +34,7 @@ export async function loginUser() {
 export async function getAllUsers() {
   try {
     const { data } = await axios.get("/api/users");
+    console.log("******USERS")
     return data;
   } catch (error) {
     throw error;

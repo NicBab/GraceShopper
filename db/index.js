@@ -42,9 +42,9 @@ async function getAllUsers() {
   // select and return an array of all users
   try {
     const { rows: id } = await client.query(`
-        SELECT id
-        FROM users;
-        `);
+    SELECT id
+    FROM users;
+    `);
     const users = await Promise.all(id.map((user) => getUserById(user.id)));
     return users;
   } catch (error) {
@@ -52,14 +52,14 @@ async function getAllUsers() {
   }
 }
 
-async function getUserById(id) {
+async function getUserById(userId) {
   try {
     const {
       rows: [user],
     } = await client.query(`
     SELECT * 
     FROM users
-    WHERE id=$1;
+    WHERE id=${userId};
     `);
 
     // if (!user) {
@@ -68,7 +68,6 @@ async function getUserById(id) {
     //     message: "Could not find a user with that id",
     //   };
     // }
-
     return user;
   } catch (error) {
     throw error;

@@ -21,12 +21,12 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.get("/users", async (_, res, next) => {
   try {
     const users = await getAllUsers();
-
     res.send({
       users: users,
     });
   } catch ({ name, message }) {
     next({ name: "GetUserError", message: "Unable to get users" });
+    console.error(message)
   }
 });
 
@@ -108,39 +108,39 @@ apiRouter.get("/MyCart", async (req, res, next) => {
   }
 });
 
-apiRouter.post("/MyCart/addItems", async (req, res, next) => {
-  const {
-    cartid,
-    product_id,
-    product_name,
-    product_quantity,
-    product_price,
-  } = req.body;
+// apiRouter.post("/MyCart/addItems", async (req, res, next) => {
+//   const {
+//     cartid,
+//     product_id,
+//     product_name,
+//     product_quantity,
+//     product_price,
+//   } = req.body;
 
-  const newItems = {};
-  try {
-    const userID = await getUserById();
-    const user = userID.id;
+//   const newItems = {};
+//   try {
+//     const userID = await getUserById();
+//     const user = userID.id;
 
-    const newCart = await createCart(user);
-    const cartID = newCart.id;
+//     const newCart = await createCart(user);
+//     const cartID = newCart.id;
 
-    newItems.cartid = cartID;
-    newItems.product_id;
-    newItems.product_name;
-    newItems.product_quantity = 1;
-    newItems.product_price;
+//     newItems.cartid = cartID;
+//     newItems.product_id;
+//     newItems.product_name;
+//     newItems.product_quantity = 1;
+//     newItems.product_price;
 
-    const addedItem = await addToCart(newItems);
-    console.log(addedItem);
-    return addedItem;
-  } catch (error) {
-    next({
-      name: "ErrorAddingProduct",
-      messages: "Could not add item to the Cart",
-    });
-  }
-});
+//     const addedItem = await addToCart(newItems);
+//     console.log(addedItem);
+//     return addedItem;
+//   } catch (error) {
+//     next({
+//       name: "ErrorAddingProduct",
+//       messages: "Could not add item to the Cart",
+//     });
+//   }
+// });
 
 //createUser
 // apiRouter.post('/api/register', async (req, res, next) => {

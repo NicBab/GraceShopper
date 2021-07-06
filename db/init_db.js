@@ -1,7 +1,6 @@
 const {
   client,
   createUser,
-  //getAllUsers,
   createProduct,
   getAllProducts,
   createCart,
@@ -18,12 +17,12 @@ async function dropTables() {
     console.log("Starting to drop tables...");
     client.query(`
         DROP TABLE IF EXISTS customer_orders;
-        DROP TABLE IF EXISTS cart_items;
-        DROP TABLE IF EXISTS user_cart;
-        DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS cart_items CASCADE;
+        DROP TABLE IF EXISTS user_cart CASCADE;
+        DROP TABLE IF EXISTS products CASCADE;
         DROP TABLE IF EXISTS users_payment;
         DROP TABLE IF EXISTS users_address;
-        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS users CASCADE;
         DROP TABLE IF EXISTS category;
       `);
     console.log("Finished dropping tables!");
@@ -37,7 +36,6 @@ async function createTables() {
   try {
     console.log("Starting to build tables...");
     await client.query(`
-
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
@@ -49,7 +47,6 @@ async function createTables() {
       zipcode INT NOT NULL,
       admin BOOLEAN DEFAULT FALSE
     );
-
     CREATE TABLE products(
       id SERIAL PRIMARY KEY,
       img_url TEXT NOT NULL,
@@ -60,17 +57,14 @@ async function createTables() {
       category VARCHAR(255) NOT NULL,
       active boolean DEFAULT true
     );
-
     CREATE TABLE user_cart(
       id SERIAL PRIMARY KEY,
       orderid SERIAL NOT NULL UNIQUE,
       user_id INT REFERENCES users(id) NOT NULL,
-
       active BOOLEAN DEFAULT TRUE,
       cartDT DATE NOT NULL DEFAULT CURRENT_DATE,
       UNIQUE(user_id, orderid)
     );
-
     CREATE TABLE cart_items(
       id SERIAL PRIMARY KEY,
       cartID INT REFERENCES user_cart(id) NOT NULL,
@@ -80,13 +74,11 @@ async function createTables() {
       product_price DECIMAL REFERENCES products(price) NOT NULL,
       UNIQUE(product_id, product_name)
     );
-
     CREATE TABLE customer_orders(
       id SERIAL PRIMARY KEY,
       cart_id INT REFERENCES user_cart(id) NOT NULL,
       order_id INT REFERENCES user_cart(orderid) NOT NULL
     );
-
       `);
     console.log("Finished building tables!");
   } catch (error) {
@@ -240,8 +232,6 @@ async function createInitialProducts() {
 
       },
 
-
-      }
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");
