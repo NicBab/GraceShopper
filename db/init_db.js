@@ -9,7 +9,6 @@ const {
   getUserByUsername,
   getUserByEmail,
   getCart,
-
 } = require("./index");
 
 async function dropTables() {
@@ -140,77 +139,49 @@ async function createInitialProducts() {
     const productsToCreate = [
       {
         img_url:
-          "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-        name: "Shoe",
-        description: "Very comfortable",
-        price: 30.99,
-        quantity: 100,
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/sauconyShadowOriginalGreyOliveGreenSneakerPOliticsWHites-4_540x.jpg?v=1625162893",
+        name: "Saucony Shadow Original",
+        description: "Light Grey/Green",
+        price: 80.0,
+        quantity: 20,
         category: "shoes",
       },
       {
         img_url:
-          "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-        name: "Asics",
-        description: "ASICS X Mita GEL-Kayano Trainer",
-        price: 100.99,
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/NiekAirForce1QSUndreBrushSneakerPOliticsWhites-4_720x.jpg?v=1623273969",
+        name: "Nike Air Force 1 QS",
+        description: "Natural/Underbrush/Acorn",
+        price: 130.0,
         quantity: 200,
         category: "shoes",
       },
 
       {
         img_url:
-          "https://images.unsplash.com/photo-1597248881519-db089d3744a5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fG5pa2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        name: "Jordan",
-        description: "Nike Jordan",
-        price: 110.99,
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/ReferenceSnapBackHatsSneakerpOlitics-06_540x.jpg?v=1622833226",
+        name: "Reference Paradise Snap Back",
+        description: "Black",
+        price: 45.99,
+        quantity: 320,
+        category: "hats",
+      },
+      {
+        img_url:
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/NikeLeBronXVIIIPsychadelicPurpleSneakerPoliticsWhites-5_540x.jpg?v=1624544942",
+        name: "Nike LeBron XVIII 'Best 10-18'",
+        description: "Psychadelic Purple/Black/Multi",
+        price: 210.99,
         quantity: 80,
         category: "shoes",
       },
 
       {
         img_url:
-          "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mzh8fG5pa2UlMjBzaG9lc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        name: "Vans",
-        description: "Maroon and White Vans",
-        price: 59.99,
-        quantity: 320,
-        category: "shoes",
-      },
-
-      {
-        img_url:
-          "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OTF8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        name: "VA RVCA",
-        description: "Grey and White Hat",
-        price: 29.99,
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/b55d30db9394c937d60c4e520738c06c_1024x1024_2x_66152e0a-7423-4248-b3bf-d38385cf0f3e_540x.jpg?v=1622587814",
+        name: "Cold World Cold Bunny Hat",
+        description: "Teal",
+        price: 39.99,
         quantity: 90,
-        category: "hats",
-      },
-      {
-        img_url:
-          "https://images.unsplash.com/photo-1533603531139-2c4d04df8f16?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mjl8fGJhc2ViYWxsJTIwaGF0c3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        name: "NY Baseball Hat",
-        description: "Navy and Red",
-        price: 19.99,
-        quantity: 60,
-        category: "hats",
-      },
-      {
-        img_url:
-          "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk3fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        name: "Snapback",
-        description: "White",
-        price: 69.99,
-        quantity: 110,
-        category: "hats",
-      },
-      {
-        img_url:
-          "https://images.unsplash.com/photo-1618354691792-d1d42acfd860?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTI2fHxiYXNlYmFsbCUyMGhhdHN8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-        name: "Beanie",
-        description: "Black",
-        price: 15.99,
-        quantity: 145,
         category: "hats",
       },
       {
@@ -221,9 +192,52 @@ async function createInitialProducts() {
         price: 750.0,
         quantity: 50,
         category: "accessories",
-
       },
-
+      {
+        img_url:
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/CK2351-106-PHSLH000-2000_540x.jpg?v=1625347372",
+        name: "WMNS Adidas Ultraboost 21",
+        description: "Halo Blush/Wonder White/Ambient Blush",
+        price: 179.99,
+        quantity: 45,
+        category: "shoes",
+      },
+      {
+        img_url:
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/h34606_prappfront_001_fi_540x.jpg?v=1623786020",
+        name: "Adidas x Noah Floral Tech Cap",
+        description: "Multi",
+        price: 59.99,
+        quantity: 110,
+        category: "hats",
+      },
+      {
+        img_url:
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/Sneaker_Politics_doc_martins_1_540x.jpg?v=1625540493",
+        name: "Basquiat x Dr. Martens 1460",
+        description: "Black/Multi",
+        price: 155.99,
+        quantity: 55,
+        category: "shoes",
+      },
+      {
+        img_url:
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/ScreenShot2021-05-06at4.11.48PM_540x.jpg?v=1620753133",
+        name: "Nike ACG Karst Bag",
+        description: "Black/Peat Moss",
+        price: 70.0,
+        quantity: 50,
+        category: "accessories",
+      },
+      {
+        img_url:
+          "https://cdn.shopify.com/s/files/1/0214/7974/products/AOTSocks1_540x.jpg?v=1620908333",
+        name: "AOT Lo-Fi Socks",
+        description: "Green",
+        price: 15.0,
+        quantity: 50,
+        category: "accessories",
+      },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
     console.log("Products created:");

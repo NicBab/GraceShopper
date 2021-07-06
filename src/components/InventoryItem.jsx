@@ -14,8 +14,6 @@ const InventoryItem = ({ product, products, setProducts }) => {
     setShow(true);
   };
 
-  const handleSave = (id) => {};
-
   const handleDelete = async (id) => {
     try {
       //onRemoveProduct()
@@ -29,14 +27,6 @@ const InventoryItem = ({ product, products, setProducts }) => {
       throw err;
     }
   };
-
-  /*
-  const onRemoveProduct = (idx) => {
-		const copy = [...products];
-		copy.splice(idx, 1);
-		setProducts(copy);
-	};
-  */ // NEED TO RENDER PRODUCTS AFTER DELETE WITHOUT PAGE RELOAD!
 
   /*
   const onRemoveProduct = (idx) => {
@@ -73,7 +63,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
                 <br/>
                 <h6 className="card-subtitle">Category: {product.category}</h6>
                 <br/>
-                <Button onClick={handleEdit} variant="secondary">
+                <Button onClick={handleEdit} variant="outline-dark">
                   Edit
                   {editMode && (
                     <EditModal
@@ -88,7 +78,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
                 </Button>
                 {"  "}
                 <Button
-                  variant="secondary"
+                  variant="outline-danger"
                   onClick={() => {
                     handleDelete(product.id);
                   }}

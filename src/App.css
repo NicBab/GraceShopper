@@ -10,3 +10,7 @@ footer {
   background: grey;
   padding: 5px;
 }
+
+main {
+  min-height: 100vh;
+}

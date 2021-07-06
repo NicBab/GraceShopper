@@ -19,9 +19,6 @@ const EditModal = ({
   const [category, setCategory] = useState(product.category);
   const [show, setShow] = useState(true);
 
-  const handleShow = () => {
-    setShow(true);
-  };
   const handleClose = () => {
     setShow(false);
     setEditMode(false);
@@ -106,12 +103,15 @@ const EditModal = ({
               <Form.Group>
                 <Form.Label>Category</Form.Label>
                 <Form.Control
+                  defaultValue="Select..."
                   as="select"
+                  title="Category"
                   value={category}
                   onInput={(event) => {
                     setCategory(event.target.value);
                   }}
                 >
+                  <option>Select...</option>
                   <option>Shoes</option>
                   <option>Hats</option>
                   <option>Accessories</option>
