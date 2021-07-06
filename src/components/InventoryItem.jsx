@@ -68,10 +68,11 @@ const InventoryItem = ({ product, products, setProducts }) => {
                 <Card.Title>{product.name}</Card.Title>
                 <Card.Text>{product.description}</Card.Text>
                 <h6 className="card-subtitle">${product.price}</h6>
-                <br></br>
-
+                <br/>
                 <h6 className="card-subtitle">Inventory: {product.quantity}</h6>
-                <br></br>
+                <br/>
+                <h6 className="card-subtitle">Category: {product.category}</h6>
+                <br/>
                 <Button onClick={handleEdit} variant="secondary">
                   Edit
                   {editMode && (

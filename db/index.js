@@ -170,13 +170,6 @@ const createProduct = async ({
 
 
 async function updateProduct(product_id, fields = {}) {
-  const { img_url, name, descripiton, quantity, category } = fields;
-  delete fields.img_url;
-  delete fields.name;
-  delete fields.descripiton;
-  delete fields.quantity;
-  delete fields.category;
-
   // build the set string
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
@@ -195,10 +188,6 @@ async function updateProduct(product_id, fields = {}) {
       );
     }
 
-    // return early if there's no products to update
-    // if (products === undefined) {
-    //   return await getProductById(product_id);
-    // }
 
     return await getProductById(product_id);
   } catch (error) {

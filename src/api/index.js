@@ -41,29 +41,6 @@ export async function getAllUsers() {
   }
 }
 
-// export async function createUser({ name, email, password = [] }) {
-//   try {
-//     const data = await axios.post(`/api/users/register`, {
-//       name: `${name}`,
-//       email: `${email}`,
-//       password: `${password}`
-//     })
-
-//     return data
-//   } catch (error) {
-//     throw error
-//   }
-// }
-
-// export async function getUserById(id) {
-//   try {
-//     const { data } = await axios.get(`/api/users/:id`)
-
-//     return data
-//   } catch (error) {
-//     throw error
-//   }
-// }
 
 /*********** PRODUCT FUNCTIONS ***********/
 
@@ -97,6 +74,31 @@ export async function createProduct({
   } catch (error) {
     throw error;
   }
+}
+
+export async function patchProduct(  
+  id,
+  img_url,
+  name,
+  description,
+  price,
+  quantity,
+  category
+  ) {
+  try {
+    const { data } = await axios.patch(`/api/${id}`, {
+      img_url: img_url,
+      name: name,
+      description: description,
+      price: price,
+      quantity: quantity,
+      category: category,
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+
 }
 
 export async function deleteProduct(id) {

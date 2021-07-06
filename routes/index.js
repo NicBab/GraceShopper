@@ -79,6 +79,45 @@ apiRouter.post("/products", async (req, res, next) => {
   }
 });
 
+apiRouter.patch("/:product_id", async (req, res, next) => {
+  const { product_id } = req.params;
+  const { img_url, name, description, price, quantity, category } = req.body;
+
+  const updateFields = {};
+
+  if (img_url) {
+    updateFields.img_url = img_url;
+  }
+
+  if (name) {
+    updateFields.name = name;
+  }
+
+  if (description) {
+    updateFields.description = description;
+  }
+
+  if (price) {
+    updateFields.price = price;
+  }
+
+  if (quantity) {
+    updateFields.quantity = quantity;
+  }
+
+  if (category) {
+    updateFields.category = category;
+  }
+
+  try {
+    const updatedProduct = await updateProduct(product_id, updateFields);
+    res.send({ updatedProduct });
+  } catch ({ name, message }) {
+    next({ name: "ProductUpdateError", message: "Unable to update product info!" });
+    console.error(message)
+  }
+});
+
 apiRouter.delete("/:product_id", async (req, res, next) => {
   try {
     const product = await getProductById(req.params.product_id);
