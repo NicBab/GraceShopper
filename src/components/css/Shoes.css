@@ -34,6 +34,12 @@
   height: 100%;
 }
 
+#items {
+  display: inline-grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 50px;
+}
+
 .description {
   margin: 8px;
   font-weight: bold;

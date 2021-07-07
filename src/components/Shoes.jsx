@@ -34,7 +34,7 @@ const Shoes = ({ products, addToCart }) => {
       {allShoes
         ? allShoes.map((product) => {
             return (
-              <Row>
+              <Row id="items">
                 <Col>
                   <Product className="mb-4" product={product} addToCart={addToCart} />
                 </Col>

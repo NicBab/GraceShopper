@@ -32,7 +32,7 @@ const Hats = ({addToCart}) => {
       {allHats
         ? allHats.map((product) => {
             return (
-              <Row>
+              <Row id="items">
                 <Col>
                   <Product product={product} addToCart={addToCart} />
                 </Col>

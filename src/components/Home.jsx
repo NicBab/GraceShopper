@@ -14,7 +14,8 @@ const Home = ({ products, addToCart, cartItems, setCartItems, onAdd, userCart, s
       </div>
       <div className="home">HOME</div>
       <hr/>
-      <Row>
+      <div class="item-container">
+      <Row id="items">
         {products.products &&
           products.products.map((product, idx) => {
             return (
@@ -22,6 +23,7 @@ const Home = ({ products, addToCart, cartItems, setCartItems, onAdd, userCart, s
               );
             })}
       </Row>
+      </div>
       </CartProvider>
     </>
   );
