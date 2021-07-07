@@ -1,15 +1,20 @@
+#navigation {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 10;
+}
+
 .os-logo {
-    max-width: 150px;
-    padding: 1px;
-    margin-right: 50px;
+  max-width: 150px;
+  padding: 1px;
+  margin-right: 50px;
 }
 
 a:hover {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 img:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
-
-

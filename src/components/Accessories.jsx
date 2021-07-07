@@ -35,7 +35,7 @@ const Accessories = ({ products, addToCart }) => {
       {allAccessories
         ? allAccessories.map((product) => {
             return (
-              <Row>
+              <Row id="items">
                 <Col>
                   <Product product={product} addToCart={addToCart} />
                 </Col>

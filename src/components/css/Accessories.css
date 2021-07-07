@@ -1,6 +1,12 @@
-.accessories{
-    color: #BECAE6;
-    text-align: center;
-    margin: 5px;
-    font-size: 3em;
+.accessories {
+  color: #becae6;
+  text-align: center;
+  margin: 5px;
+  font-size: 3em;
+}
+
+#items {
+  display: inline-grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 50px;
 }

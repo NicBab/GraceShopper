@@ -14,13 +14,15 @@ const Home = ({ products, addToCart, cartItems, setCartItems, onAdd, userCart, s
       </div>
       <div className="home">HOME</div>
       <hr/>
-      <Row>
+      <div class="item-container">
+      <Row id="items">
         {products.map((product, idx) => {
             return (
               <Product key={idx} product={product} addToCart={addToCart} cartItems={cartItems} setCartItems={setCartItems} onAdd={onAdd} userCart={userCart} setUserCart={setUserCart}/>
               );
             }).reverse()}
       </Row>
+      </div>
       </CartProvider>
     </>
   );
