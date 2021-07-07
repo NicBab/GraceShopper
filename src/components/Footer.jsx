@@ -1,21 +1,37 @@
 import React from 'react';
 import { Container } from 'react-bootstrap'
-import { FaceBookIcon, InstaIcon,} from './icons'
+import { Link } from 'react-router-dom'
+import { FaceBookIcon, InstaIcon, GitHubIcon } from './icons'
 import "./css/Footer.css";
+
+const onGitClick = () => {
+  window.open("https://github.com/NicBab/GraceShopper")
+}
 
 const Footer = () => {
     return (
+      <>
       <Container className="d-flex align-items-start justify-content-around mt-10" 
-        style={{minHeight: "25vh", marginTop: "10px"}}>
+        style={{minHeight: "8vh", marginTop: "10px"}}>
           <>
             <div className="social-icons">
-            { FaceBookIcon } 
+              { FaceBookIcon } 
             </div>
-            <div className="social-icons">
-            { InstaIcon }
-            </div>
-            <div>
 
+            <div className="social-icons">
+              { InstaIcon }
+            </div>
+
+            <div className="social-icons" onClick={onGitClick} style={{cursor: 'pointer'}}>
+                { GitHubIcon } 
+            </div>
+            </>
+          </Container>
+
+          <Container className="d-flex align-items-end justify-content-around mt-10" 
+            style={{minHeight: "10vh", marginTop: "10px"}}>
+              <>
+            <div>
             <footer className="site-footer">
               <section className="footer-links">
                 <h2>Customer Care</h2>
@@ -44,6 +60,7 @@ const Footer = () => {
             </div>
           </>
       </Container>
+      </>
     )
 }
 
