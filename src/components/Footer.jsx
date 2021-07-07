@@ -1,7 +1,12 @@
 import React from 'react';
 import { Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { FaceBookIcon, InstaIcon, GitHubIcon } from './icons'
 import "./css/Footer.css";
+
+const onGitClick = () => {
+  window.open("https://github.com/NicBab/GraceShopper")
+}
 
 const Footer = () => {
     return (
@@ -12,11 +17,13 @@ const Footer = () => {
             <div className="social-icons">
               { FaceBookIcon } 
             </div>
+
             <div className="social-icons">
               { InstaIcon }
             </div>
-            <div className="social-icons">
-              { GitHubIcon } 
+
+            <div className="social-icons" onClick={onGitClick} style={{cursor: 'pointer'}}>
+                { GitHubIcon } 
             </div>
             </>
           </Container>
