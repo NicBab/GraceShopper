@@ -6,7 +6,6 @@ import Col from "react-bootstrap/col";
 import { createProduct } from "../api";
 
 const AddModal = ({ setProducts, product, setAddMode }) => {
-  
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [img_url, setImgUrl] = useState("");
@@ -32,7 +31,7 @@ const AddModal = ({ setProducts, product, setAddMode }) => {
         category,
       });
       setProducts((prevProducts) => {
-        return [...prevProducts.products, newProduct];
+        return [...prevProducts, newProduct];
       });
       setName("");
       setDescription("");

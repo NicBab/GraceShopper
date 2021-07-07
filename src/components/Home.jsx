@@ -16,12 +16,11 @@ const Home = ({ products, addToCart, cartItems, setCartItems, onAdd, userCart, s
       <hr/>
       <div class="item-container">
       <Row id="items">
-        {products.products &&
-          products.products.map((product, idx) => {
+        {products.map((product, idx) => {
             return (
               <Product key={idx} product={product} addToCart={addToCart} cartItems={cartItems} setCartItems={setCartItems} onAdd={onAdd} userCart={userCart} setUserCart={setUserCart}/>
               );
-            })}
+            }).reverse()}
       </Row>
       </div>
       </CartProvider>

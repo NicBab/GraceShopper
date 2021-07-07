@@ -119,12 +119,12 @@ async function getAllProducts() {
     const { rows: products } = await client.query(`
       SELECT *
       FROM products
-    `);
+    `); 
     return products;
   } catch (error) {
     throw error;
   }
-}
+} 
 
 async function getProductById(product_id) {
   try {

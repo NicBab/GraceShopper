@@ -13,6 +13,7 @@ const Shoes = ({ products, addToCart }) => {
 
   const getAllShoes = async () => {
     const products = await getAllProducts()
+    console.log(products, "*****")
     try {
       let allShoes = products.products.filter((product) => {
         return product.category.toLowerCase().includes("shoes");
