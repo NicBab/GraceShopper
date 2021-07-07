@@ -19,7 +19,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
       //onRemoveProduct()
       await deleteProduct(id);
 
-      const activeProducts = products.products.filter(
+      const activeProducts = products.filter(
         (fProduct) => fProduct.id !== product.id
       );
       setProducts(activeProducts);

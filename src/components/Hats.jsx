@@ -13,7 +13,7 @@ const Hats = ({addToCart}) => {
   const getAllHats = async () => {
     try {
       const products = await getAllProducts()
-      let allHats = products.products.filter((product) => {
+      let allHats = products.filter((product) => {
         return product.category.toLowerCase().includes("hats");
       });
       setAllHats(allHats);
