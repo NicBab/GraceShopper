@@ -14,7 +14,7 @@ const Shoes = ({ products, addToCart }) => {
   const getAllShoes = async () => {
     const products = await getAllProducts()
     try {
-      let allShoes = products.products.filter((product) => {
+      let allShoes = products.filter((product) => {
         return product.category.toLowerCase().includes("shoes");
       });
       setAllShoes(allShoes);

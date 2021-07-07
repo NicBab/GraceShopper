@@ -33,8 +33,8 @@ function App() {
 
   useEffect(() => {
     getAllProducts()
-      .then((response) => {
-        setProducts(response);
+      .then(({products}) => {
+        setProducts(products);
       })
       .catch((error) => {
         console.error(error);
