@@ -1,6 +1,6 @@
 footer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   background-color: rgb(10, 9, 48);
   color: white;
   padding: 1rem;
@@ -9,12 +9,9 @@ footer {
 
 .site-footer {
   display: flex;
+  flex-direction: row;
 }
 
-.site-footer {
-
- display: flex;
-}
 footer > section {
   margin-right: 5rem;
   display: flex;
