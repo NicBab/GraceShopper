@@ -59,7 +59,7 @@ const InventoryItem = ({ product, products, setProducts }) => {
                 <Card.Text>{product.description}</Card.Text>
                 <h6 className="card-subtitle">${product.price}</h6>
                 <br/>
-                <h6 className="card-subtitle">Inventory: {product.quantity}</h6>
+                <h6 className="card-subtitle">Inventory: {product.inventory}</h6>
                 <br/>
                 <h6 className="card-subtitle">Category: {product.category}</h6>
                 <br/>

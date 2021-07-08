@@ -10,7 +10,7 @@ const AddModal = ({ setProducts, product, setAddMode }) => {
   const [description, setDescription] = useState("");
   const [img_url, setImgUrl] = useState("");
   const [price, setPrice] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [inventory, setInventory] = useState("");
   const [category, setCategory] = useState("");
   const [show, setShow] = useState(true);
 
@@ -27,7 +27,7 @@ const AddModal = ({ setProducts, product, setAddMode }) => {
         description,
         img_url,
         price,
-        quantity,
+        inventory,
         category,
       });
       setProducts((prevProducts) => {
@@ -37,7 +37,7 @@ const AddModal = ({ setProducts, product, setAddMode }) => {
       setDescription("");
       setImgUrl("");
       setPrice("");
-      setQuantity("");
+      setInventory("");
       setCategory("");
       setShow(false);
       setAddMode(false);
@@ -103,9 +103,9 @@ const AddModal = ({ setProducts, product, setAddMode }) => {
                   <Form.Label>Inventory</Form.Label>
                   <Form.Control
                     type="number"
-                    value={quantity}
+                    value={inventory}
                     onInput={(event) => {
-                      setQuantity(event.target.value);
+                      setInventory(event.target.value);
                     }}
                   />
                 </Form.Group>

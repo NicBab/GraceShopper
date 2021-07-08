@@ -44,7 +44,7 @@ apiRouter.get("/products", async (req, res, next) => {
 });
 
 apiRouter.post("/products", async (req, res, next) => {
-  const { img_url, name, description, price, quantity, category } = req.body;
+  const { img_url, name, description, price, inventory, category } = req.body;
   const productData = {};
 
   try {
@@ -52,7 +52,7 @@ apiRouter.post("/products", async (req, res, next) => {
     productData.name = name;
     productData.description = description;
     productData.price = price;
-    productData.quantity = quantity;
+    productData.inventory = inventory;
     productData.category = category;
 
     if (!name) {
@@ -81,7 +81,7 @@ apiRouter.post("/products", async (req, res, next) => {
 
 apiRouter.patch("/:product_id", async (req, res, next) => {
   const { product_id } = req.params;
-  const { img_url, name, description, price, quantity, category } = req.body;
+  const { img_url, name, description, price, inventory, category } = req.body;
 
   const updateFields = {};
 
@@ -101,8 +101,8 @@ apiRouter.patch("/:product_id", async (req, res, next) => {
     updateFields.price = price;
   }
 
-  if (quantity) {
-    updateFields.quantity = quantity;
+  if (inventory) {
+    updateFields.inventory = inventory;
   }
 
   if (category) {
