@@ -4,7 +4,7 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
-// *************** USER FUNCTIONS ***************
+// *************** USER ***************
 
 async function createUser({
   name,
@@ -92,6 +92,47 @@ async function getUserByEmail(email) {
   }
 }
 
+async function createUserAddress({
+  user_id,
+  street,
+  city,
+  state,
+  zipcode
+}) {
+  try {
+    await client.query(
+      `
+      INSERT INTO user_address(
+        user_id, street, city, state, zipcode)
+      VALUES($1, $2, $3, $4, $5)
+      ON CONFLICT (user_id) DO NOTHING
+      RETURNING *;
+      `,
+      [user_id, street, city, state, zipcode]
+    );
+    return await joinAddressToUser(user_id)
+  } catch (error) {
+    console.error("Error creating address")
+  }
+}
+
+async function joinAddressToUser(user_id) {
+  try {
+    const { rows: userAddress } = await client.query(
+      `
+        SELECT users.id
+        FROM users
+        INNER JOIN user_address ON user_id = users.id
+        WHERE user_address.user_id = $1
+      `,
+      [user_id]
+    );
+    return userAddress;
+  } catch (error) {
+    console.error("Error joining address")
+  }
+}
+
 async function createGuest({ email, name }) {
   try {
     const {
@@ -120,9 +161,7 @@ async function createGuest({ email, name }) {
 // createUserAddress()
 //
 // joinAddressToUser()
-//
-// createGuest()     
-// ---------------------------
+//// ---------------------------
 
 
 
@@ -131,7 +170,7 @@ async function createGuest({ email, name }) {
 
 
 
-// *************** PRODUCT FUNCTIONS ***************
+// *************** PRODUCT ***************
 
 const createProduct = async ({
   img_url,
@@ -233,17 +272,17 @@ async function updateProduct(product_id, fields = {}) {
 
 // *************** CART FUNCTIONS ***************
 
-async function createCart({ orderid, user_id }) {
+async function createCart(user_id) {
   try {
     const {
       rows: [cart],
     } = await client.query(
       `
-      INSERT INTO user_cart(orderid, user_id)
-      VALUES($1, $2)
+      INSERT INTO user_cart(user_id)
+      VALUES($1)
       RETURNING *;
       `,
-      [orderid, user_id]
+      [user_id]
     );
     return cart;
   } catch (error) {
@@ -253,29 +292,30 @@ async function createCart({ orderid, user_id }) {
 }
 
 async function addToCart({
-  cartid,
+  user_id,
   product_id,
-  product_name,
   product_quantity,
-  product_price,
 }) {
   try {
     const {
-      rows: [items],
+      rows: [item],
     } = await client.query(
       `
-      INSERT INTO cart_items(cartid, product_id, product_name, product_quantity, product_price)
-      VALUES($1, $2, $3, $4, $5)
-      RETURNING *;
+      SELECT * 
+      FROM products
+      WHERE id=$1
       `,
-      [cartid, product_id, product_name, product_quantity, product_price]
+      [product_id]
     );
-    return items;
+    await createCartItem(user_id, item.id, product_quantity);
+    return await getUserById(user_id);
   } catch (error) {
     console.error("Error adding to items to cart in db");
     throw error;
   }
 }
+
+createCartItem
 
 async function createOrders({ cart_id, order_id }) {
   try {
@@ -310,6 +350,8 @@ async function getUserCart(userId) {
     throw error;
   }
 }
+
+
 
 // createCartItem
 // updateCartItemQty

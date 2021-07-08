@@ -21,7 +21,7 @@ const Product = ({ product, products, setProducts, cart, setCart, addToCart}) =>
   // }
 
   try{
-    const response = await (`${process.env.REACT_APP_GRACE_SHOPPER}/MyCart/addItems`, {
+    const response = await (`${process.env.REACT_APP_GRACE_SHOPPER}/Cart/addItems`, {
      method: 'POST',
      headers: {
        'Content-Type': 'application/json',

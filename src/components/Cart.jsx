@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './css/MyCart.css'
+import './css/Cart.css'
 import {
     Paper,
     TableContainer,
@@ -11,13 +11,13 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 
-const MyCart = ({cartItems}) => {
+const Cart = ({cartItems}) => {
 
     const [userCart, setUserCart] = useState({});
 
 
     useEffect(async () => {
-      axios.get(`${process.env.REACT_APP_GRACE_SHOPPER}/MyCart`)
+      axios.get(`${process.env.REACT_APP_GRACE_SHOPPER}/Cart`)
         .then(({data}) => {
           if (data.length) {
             setUserCart(data);
@@ -65,4 +65,4 @@ const MyCart = ({cartItems}) => {
     )
 }
 
-export default MyCart;
+export default Cart;

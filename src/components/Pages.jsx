@@ -9,7 +9,7 @@ import {
   Admin,
   Register,
   Login,
-  MyCart,
+  Cart,
   Dashboard,
   OrderHistory,
   Users,
@@ -82,7 +82,7 @@ const Pages = ({
         </Route>
 
         <Route exact path="/cart">
-          <MyCart cartItems={cartItems} setCartItems={setCartItems} cart={cart}
+          <Cart cartItems={cartItems} setCartItems={setCartItems} cart={cart}
           setCart={setCart} addToCart={addToCart} onAdd={onAdd}/>
         </Route>
 

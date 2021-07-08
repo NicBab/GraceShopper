@@ -3,12 +3,16 @@ const apiRouter = require("express").Router();
 const {
   createUser,
   getAllUsers,
+  getUserById,
+  deleteCartItem,
+  updateProductQty,
   getAllProducts,
   createProduct,
   getProductById,
   updateProduct,
   getUserCart,
   addToCart,
+  createOrders,
 } = require("../db");
 
 apiRouter.get("/", (req, res, next) => {
@@ -30,7 +34,7 @@ apiRouter.get("/users", async (_, res, next) => {
   }
 });
 
-//getProducts
+// Products
 apiRouter.get("/products", async (req, res, next) => {
   try {
     const products = await getAllProducts();
@@ -135,51 +139,74 @@ apiRouter.delete("/:product_id", async (req, res, next) => {
   }
 });
 
-apiRouter.get("/MyCart", async (req, res, next) => {
+// Cart
+
+apiRouter.get("/cart", async (req, res, next) => {
   try {
-    const cart = await getUserCart();
-    console.log(cart);
-    res.send({
-      cart: cart,
-    });
+    const { id } = req.user;
+    const user = await getUserById(id);
+    res.send(user.cart);
   } catch (error) {
     next({ name: "ErrorGettingCart", messages: "Cannot Get the Cart" });
   }
 });
 
-// apiRouter.post("/MyCart/addItems", async (req, res, next) => {
-//   const {
-//     cartid,
-//     product_id,
-//     product_name,
-//     product_quantity,
-//     product_price,
-//   } = req.body;
+apiRouter.post("/cart", async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const { product_id, product_quantity } = req.body;
+    const addedItem = await addToCart(id, product_id, product_quantity);
+    res.send(addedItem)
+  } catch (error) {
+    console.error("Error adding item in routes")
+  }
+})
 
-//   const newItems = {};
-//   try {
-//     const userID = await getUserById();
-//     const user = userID.id;
+apiRouter.delete("/:product_id", async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const { product_id } = req.params;
+    const removedItem = await deleteCartItem(id, product_id);
+    res.send(removedItem); 
+  } catch (error) {
+    console.error("Error deleting cart item in routes")
+  }
+})
 
-//     const newCart = await createCart(user);
-//     const cartID = newCart.id;
+apiRouter.patch(":/product_id", async (req, res, next) => {
+  const { id } = req.user;
+  const { product_id } = req.params;
+  const { product_quantity } = req.body;
+  const updatedItem = await updateProductQty(id, product_id, product_quantity);
+  res.send(updatedItem)
+})
 
-//     newItems.cartid = cartID;
-//     newItems.product_id;
-//     newItems.product_name;
-//     newItems.product_quantity = 1;
-//     newItems.product_price;
+apiRouter.post("/checkout", async (req, res, next) => {
 
-//     const addedItem = await addToCart(newItems);
-//     console.log(addedItem);
-//     return addedItem;
-//   } catch (error) {
-//     next({
-//       name: "ErrorAddingProduct",
-//       messages: "Could not add item to the Cart",
-//     });
-//   }
-// });
+})
+
+// Order
+
+apiRouter.get("/order", async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    const data = await getUserById(id);
+    res.send(data.order);
+  } catch (error) {
+    console.error("Error with order route");
+  }
+})
+
+apiRouter.post("/order", async (req, res, next) => {
+  try {
+    const data = await createOrders(req.user.id);
+    res.send(data);
+  } catch (error) {
+    console.error("Error creating order in routes")
+  }
+})
+
+
 
 //createUser
 // apiRouter.post('/api/register', async (req, res, next) => {
