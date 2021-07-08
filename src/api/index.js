@@ -1,5 +1,6 @@
 import axios from "axios";
 import { storeCurrentUser } from "../auth";
+import { OrderHistory } from "../components";
 
 /*********** USER FUNCTIONS ***********/
 
@@ -34,13 +35,12 @@ export async function loginUser() {
 export async function getAllUsers() {
   try {
     const { data } = await axios.get("/api/users");
-    console.log("******USERS")
+    console.log("******USERS");
     return data;
   } catch (error) {
     throw error;
   }
 }
-
 
 /*********** PRODUCT FUNCTIONS ***********/
 
@@ -58,8 +58,8 @@ export async function createProduct({
   name,
   description,
   price,
-  quantity,
-  category
+  inventory,
+  category,
 }) {
   try {
     const { data } = await axios.post("/api/products", {
@@ -67,38 +67,37 @@ export async function createProduct({
       name,
       description,
       price,
-      quantity,
-      category
-    }); 
+      inventory,
+      category,
+    });
     return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function patchProduct(  
+export async function patchProduct(
   id,
   img_url,
   name,
   description,
   price,
-  quantity,
+  inventory,
   category
-  ) {
+) {
   try {
     const { data } = await axios.patch(`/api/${id}`, {
-      img_url: img_url,
-      name: name,
-      description: description,
-      price: price,
-      quantity: quantity,
-      category: category,
+      img_url,
+      name,
+      description,
+      price,
+      inventory,
+      category,
     });
     return data;
   } catch (error) {
     throw error;
   }
-
 }
 
 export async function deleteProduct(id) {
@@ -112,80 +111,80 @@ export async function deleteProduct(id) {
 
 export async function getUserCart() {
   try {
-    const myCart = await getUserCart();
-    console.log(myCart);
+    const { data } = await axios.get("api/cart");
+    console.log(data);
+    return data;
   } catch (error) {
-    console.error("Error getting user's cart");
+    console.error("Error getting cart");
     throw error;
   }
 }
 
-export async function createCart({ orderid, user_id }) {
+export async function addToCart( product_id, product_quantity ) {
   try {
-    const { data } = await axios
-      .post(`/api/cart`, {
-        orderid,
-        user_id,
-      })
-      .then(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    const { data } = await axios.post(`/api/cart`, {
+      product_id,
+      product_quantity,
+    });
+    return data;
   } catch (error) {
-    console.error("Error creating cart api");
+    console.error("Error adding to cart");
     throw error;
   }
 }
 
-export async function addToCart({
-  cartid,
-  product_id,
-  product_name,
-  product_quantity,
-  product_price,
-}) {
+export async function updateProductQty(product_id, product_quantity) {
   try {
-    const { data } = await axios
-      .post(`/api/cart/items`, {
-        cartid,
-        product_id,
-        product_name,
-        product_quantity,
-        product_price,
-      })
-      .then(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    const { data } = await axios.patch(
+      `/api/cart/${product_id}`,
+      { product_quantity },
+    );
+    return data;
+  } catch (error) {
+    console.error("error updating quantity");
+  }
+}
+
+
+export async function removeFromCart(product_id) {
+  try {
+    const { data } = await axios.delete(`api/cart/${product_id}, {}`);
+    return data;
+  } catch (error) {
+    console.error("Error removing from cart");
+    throw error;
+  }
+}
+
+export async function checkout(cart) {
+  try {
+    const { data } = await axios.post("api/cart/checkout", cart);
+    return data;
+  } catch (error) {
+    console.error("Error checking out");
+    throw error;
+  }
+}
+
+export async function createOrder() {
+  try {
+    const order = await axios.post(`/api/order`, {});
+    return order;
   } catch (error) {
     throw error;
   }
 }
 
-export async function createOrders({ cart_id, order_id }) {
+export async function getAllOrders() {
   try {
-    const { data } = await axios
-      .post(`/api/orders`, {
-        cart_id,
-        order_id,
-      })
-      .then(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    const allOrders = await axios.get("api/order", {});
+    return allOrders;
   } catch (error) {
+    console.error("Error getting all orders");
     throw error;
   }
 }
+
+
+//getMyAccount
+//removeUser

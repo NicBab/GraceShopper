@@ -15,7 +15,7 @@ const EditModal = ({
   const [img_url, setImgUrl] = useState(product.img_url);
   const [description, setDescription] = useState(product.description);
   const [price, setPrice] = useState(product.price);
-  const [quantity, setQuantity] = useState(product.quantity);
+  const [inventory, setInventory] = useState(product.inventory);
   const [category, setCategory] = useState(product.category);
   const [show, setShow] = useState(true);
 
@@ -27,7 +27,7 @@ const EditModal = ({
   const handleEditProduct = async (event) => {
     event.preventDefault();
     try {
-      await patchProduct(id, img_url, name, description, price, quantity, category);
+      await patchProduct(id, img_url, name, description, price, inventory, category);
       let updatedProducts = await getAllProducts();
       setProducts(updatedProducts.products);
       handleClose()
@@ -92,9 +92,9 @@ const EditModal = ({
                 <Form.Label>Inventory</Form.Label>
                 <Form.Control
                   type="number"
-                  value={quantity}
+                  value={inventory}
                   onInput={(event) => {
-                    setQuantity(event.target.value);
+                    setInventory(event.target.value);
                   }}
                 />
               </Form.Group>

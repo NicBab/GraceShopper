@@ -81,7 +81,7 @@ const Pages = ({
           <ForgotPassword />
         </Route>
 
-        <Route exact path="/mycart">
+        <Route exact path="/cart">
           <MyCart cartItems={cartItems} setCartItems={setCartItems} cart={cart}
           setCart={setCart} addToCart={addToCart} onAdd={onAdd}/>
         </Route>

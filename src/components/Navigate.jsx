@@ -83,7 +83,7 @@ console.log("logout")
             <Link to="/dashboard">
               <Dropdown.Item as="button">{HeadIcon}</Dropdown.Item>
             </Link>
-            <Link to="/mycart">
+            <Link to="/cart">
               <Dropdown.Item as="button">{CartIcon}({cart.length})</Dropdown.Item>
             </Link>
                 { showLogout ? (

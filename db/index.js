@@ -4,17 +4,13 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
-// USER FUNCTIONS
+// *************** USER FUNCTIONS ***************
 
 async function createUser({
   name,
   email,
   password,
-  address,
-  city,
-  state,
-  zipcode,
-  admin,
+  admin
 }) {
   try {
     const SALT_COUNT = 10;
@@ -23,12 +19,12 @@ async function createUser({
       rows: [users],
     } = await client.query(
       `
-      INSERT INTO users(name, email, password, address, city, state, zipcode, admin)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      INSERT INTO users(name, email, password, admin)
+      VALUES($1, $2, $3, $4)
       ON CONFLICT (email) DO NOTHING
       RETURNING *;
       `,
-      [name, email, hashedPassword, address, city, state, zipcode, admin]
+      [name, email, hashedPassword, admin]
     );
     password = hashedPassword;
     delete users.password;
@@ -52,15 +48,16 @@ async function getAllUsers() {
   }
 }
 
-async function getUserById(userId) {
+async function getUserById(user_id) {
   try {
     const {
       rows: [user],
     } = await client.query(`
     SELECT * 
     FROM users
-    WHERE id=${userId};
-    `);
+    WHERE id=$1;
+    `,
+    [user_id]);
 
     // if (!user) {
     //   throw {
@@ -68,25 +65,8 @@ async function getUserById(userId) {
     //     message: "Could not find a user with that id",
     //   };
     // }
-    return user;
-  } catch (error) {
-    throw error;
-  }
-}
 
-async function getUserByUsername(name) {
-  try {
-    const {
-      rows: [user],
-    } = await client.query(
-      `
-    SELECT *
-    FROM users
-    WHERE name=$1;
-  `,
-      [name]
-    );
-
+    //  products + address
     return user;
   } catch (error) {
     throw error;
@@ -112,13 +92,79 @@ async function getUserByEmail(email) {
   }
 }
 
-// PRODUCT FUNCTIONS
+async function createGuest({ email, name }) {
+  try {
+    const {
+      rows: [guests],
+    } = await client.query(
+      ` 
+        INSERT INTO guests(email, name)
+        VALUES($1, $2)
+        ON CONFLICT (email) DO NOTHING
+        RETURNING *;
+      `,
+      [email, name]
+    );
+    return guests;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// ( PROBABLY NEED TO BUILD )
+//
+// deleteUser() 
+//     
+// verifyUniqueUser()
+//
+// createUserAddress()
+//
+// joinAddressToUser()
+//
+// createGuest()     
+// ---------------------------
+
+
+
+
+
+
+
+
+// *************** PRODUCT FUNCTIONS ***************
+
+const createProduct = async ({
+  img_url,
+  name,
+  description,
+  price,
+  inventory,
+  category
+
+}) => {
+  try {
+    const {
+      rows: [products],
+    } = await client.query(
+      `
+      INSERT INTO products(img_url, name, description, price, inventory, category)
+      VALUES($1, $2, $3, $4, $5, $6)
+      RETURNING *;
+      `,
+      [img_url, name, description, price, inventory, category]
+    );
+    return products;
+  } catch (error) {
+    console.error("Error creating product in db/index.js");
+    throw error;
+  }
+};
 
 async function getAllProducts() {
   try {
     const { rows: products } = await client.query(`
       SELECT *
-      FROM products
+      FROM products;
     `); 
     return products;
   } catch (error) {
@@ -140,34 +186,6 @@ async function getProductById(product_id) {
     console.error(error);
   }
 }
-
-const createProduct = async ({
-  img_url,
-  name,
-  description,
-  price,
-  quantity,
-  category
-
-}) => {
-  try {
-    const {
-      rows: [products],
-    } = await client.query(
-      `
-      INSERT INTO products(img_url, name, description, price, quantity, category)
-      VALUES($1, $2, $3, $4, $5, $6)
-      RETURNING *;
-      `,
-      [img_url, name, description, price, quantity, category]
-    );
-    return products;
-  } catch (error) {
-    console.error("Error creating product in db/index.js");
-    throw error;
-  }
-};
-
 
 async function updateProduct(product_id, fields = {}) {
   // build the set string
@@ -194,6 +212,26 @@ async function updateProduct(product_id, fields = {}) {
     throw error;
   }
 }
+
+
+
+// ( SHOULD WE BUILD THESE? )
+//
+// getProductByName 
+//      -for search function?
+//
+// getProductByCategory 
+//      -for rendering categories 
+//       on the backend?
+// --------------------------
+
+
+
+
+
+
+
+// *************** CART FUNCTIONS ***************
 
 async function createCart({ orderid, user_id }) {
   try {
@@ -273,18 +311,35 @@ async function getUserCart(userId) {
   }
 }
 
+// createCartItem
+// updateCartItemQty
+// createCart **
+// getCartByUserId
+// addToCart ** 
+// setCartInactive
+// deleteCartItem
+// finish getUserById
+// updateProductQty
+// createUserOrder
+// addCartProductsToOrderProducts
+// bulkUpdateOrderProducts
+// removeCartItemsOnOrder
+// getUserByIdForOrders
+
+
 module.exports = {
   client,
   createUser,
   getAllUsers,
+  getUserById,
+  getUserByEmail,
+  createGuest,
   createProduct,
   getAllProducts,
+  getProductById,
+  updateProduct,
   createCart,
   addToCart,
   createOrders,
-  getUserByUsername,
-  getUserByEmail,
-  getProductById,
   getUserCart,
-  updateProduct
 };
