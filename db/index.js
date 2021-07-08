@@ -157,10 +157,6 @@ async function createGuest({ email, name }) {
 // deleteUser() 
 //     
 // verifyUniqueUser()
-//
-// createUserAddress()
-//
-// joinAddressToUser()
 //// ---------------------------
 
 
@@ -315,7 +311,44 @@ async function addToCart({
   }
 }
 
-createCartItem
+async function createCartItem(user_id, product_id, product_quantity) {
+  try {
+    let cart = await getCartByUserId(user_id);
+    if (cart.length === 0) {
+      userCart = await createCart(user_id);
+    
+
+    const {
+      rows: [product]
+    } = await client.query(
+      `
+      INSERT INTO cart_products(user_cart_id, product_id, product_quantity)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (user_cart_id, product_id) DO NOTHING
+      RETURNING *;
+      `,
+      [userCart.id, product_id, product_quantity]
+    );
+    return product;
+  }
+    const {
+      rows: [product]
+    } = await client.query(
+      `
+      INSERT INTO cart_products(user_cart_id, product_id, product_quantity)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (user_cart_id, product_id) DO NOTHING
+      RETURNING *;
+      `, 
+      [
+        userCart[0].id, product_id, product_quantity
+      ]
+    )
+    return product;
+  } catch (error) {
+    console.error("Problem creating cart item in db")
+  }
+}
 
 async function createOrders({ cart_id, order_id }) {
   try {
@@ -351,18 +384,26 @@ async function getUserCart(userId) {
   }
 }
 
+async function updateItemQty(user_cart_id, product_id, product_quantity) {
+  try {
+    await client.query(
+      `
+      UPDATE cart_products
+      SET $3
+      WHERE id=$1 AND product_id=$2
+      RETURNING *;
+      `,
+      [user_cart_id, product_id, product_quantity]
+    );
+  } catch (error) {
+    console.error("Error updating quantity")
+  }
+}
 
-
-// createCartItem
-// updateCartItemQty
-// createCart **
 // getCartByUserId
-// addToCart ** 
 // setCartInactive
 // deleteCartItem
 // finish getUserById
-// updateProductQty
-// createUserOrder
 // addCartProductsToOrderProducts
 // bulkUpdateOrderProducts
 // removeCartItemsOnOrder
@@ -380,6 +421,9 @@ module.exports = {
   getAllProducts,
   getProductById,
   updateProduct,
+  updateItemQty,
+  createUserAddress,
+  joinAddressToUser,
   createCart,
   addToCart,
   createOrders,

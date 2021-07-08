@@ -10,27 +10,23 @@ import {
     TableBody,
 } from '@material-ui/core';
 import axios from 'axios';
+import { getUserCart } from '../api';
 
-const Cart = ({cartItems}) => {
+const Cart = ({cart, setCart}) => {
 
-    const [userCart, setUserCart] = useState({});
+  useEffect(() => {
+    async function getCart() {
+        const userCart = await getUserCart();
+        setCart(userCart)
+    }
+    getCart()
+  }, [])
 
-
-    useEffect(async () => {
-      axios.get(`${process.env.REACT_APP_GRACE_SHOPPER}/Cart`)
-        .then(({data}) => {
-          if (data.length) {
-            setUserCart(data);
-            console.log(data);
-          }
-         
-        });
-      }, []);
 
     return (
         <>
 
-{cartItems.length === 0 && <h1 class="emptyCart">Your Cart is Empty</h1>}
+{cart.length === 0 && <h1 className="emptyCart">Your Cart is Empty</h1>}
 <div className="cart">
           </div>
             <TableContainer component={Paper}>
@@ -44,8 +40,8 @@ const Cart = ({cartItems}) => {
                       </TableRow>
                   </TableHead>
                   <TableBody>
-{cartItems.length > 0 &&
-          cartItems.map((product) => {
+{cart.length > 0 &&
+          cart.map((product) => {
               console.log(product)
             return (
                 <TableRow key={product}>

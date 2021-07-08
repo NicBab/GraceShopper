@@ -17,19 +17,14 @@ function App() {
   const [cart, setCart] = useState([]);
 
 
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      setLoggedIn(true);
-    }
-  }, [setLoggedIn]);
 
   const handleAddToCart = async (product_id, qty) => {};
 
-  // useEffect(() => {
-  //   getUserCart().then((response) => {
-  //     setUserCart(response);
-  //   });
-  // }, []);
+  useEffect(() => {
+    getUserCart().then((response) => {
+      setUserCart(response);
+    });
+  }, []);
 
   useEffect(() => {
     getAllProducts()
