@@ -10,7 +10,7 @@ const EditModal = ({
   product,
   setEditMode,
 }) => {
-  const [id, setId] = useState(product.id);
+  const [id] = useState(product.id);
   const [name, setName] = useState(product.name);
   const [img_url, setImgUrl] = useState(product.img_url);
   const [description, setDescription] = useState(product.description);

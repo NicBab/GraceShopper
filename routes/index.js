@@ -145,6 +145,7 @@ apiRouter.get("/cart", async (req, res, next) => {
   try {
     const { id } = req.user;
     const user = await getUserById(id);
+    console.log(user, "**********")
     res.send(user.cart);
   } catch (error) {
     next({ name: "ErrorGettingCart", messages: "Cannot Get the Cart" });

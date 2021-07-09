@@ -1,6 +1,5 @@
 import axios from "axios";
 import { storeCurrentUser } from "../auth";
-import { OrderHistory } from "../components";
 
 /*********** USER FUNCTIONS ***********/
 
@@ -108,22 +107,23 @@ export async function deleteProduct(id) {
   }
 }
 
-export async function getUserCart() {
+export async function getCart() {
   try {
-    const { data } = await axios.get("api/cart");
-    console.log(data);
+    console.log("**************")
+    const { data } = await axios.get("/api/cart");
+    console.log(data, "***************");
     return data;
   } catch (error) {
-    console.error("Error getting cart");
+    console.error("Error getting cart in api/index");
     throw error;
   }
 }
 
-export async function addToCart( product_id, product_quantity ) {
+export async function addToCart(product_id, product_quantity) {
   try {
     const { data } = await axios.post(`/api/cart`, {
       product_id,
-      product_quantity,
+      product_quantity
     });
     return data;
   } catch (error) {

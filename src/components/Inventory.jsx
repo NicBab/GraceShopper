@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
-import { createProduct } from "../api";
+import { Button, Row } from "react-bootstrap";
 import InventoryItem from "./InventoryItem";
-import defaultImg from "../img/Default-Photo.png"
+//import defaultImg from "../img/Default-Photo.png"
 import AddModal from "./AddModal";
 import Jumbotron from "react-bootstrap/Jumbotron"
 import Container from "react-bootstrap/Container"

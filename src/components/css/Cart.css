@@ -3,6 +3,7 @@
   text-align: center;
   margin: 5px;
   font-size: 3em;
+  margin: 100px;
 }
 
 .emptyCart {
@@ -10,4 +11,8 @@
   margin-bottom: 20px;
   text-align: center;
   color: grey;
+}
+
+.item-qty {
+  width: 20% !important;
 }

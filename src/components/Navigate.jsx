@@ -23,7 +23,7 @@ const Navigate = ({ loggedIn, setLoggedIn, admin, setAdmin, logout, cart, setCar
 const{ currentUser } = useAuth()
 const [error, setError] = useState("")
 const history = useHistory()
-const [showLogout, setShowLogout] = useState(!!currentUser);
+const [showLogout, setShowLogout] = useState(/*!!currentUser*/);
 
 
 

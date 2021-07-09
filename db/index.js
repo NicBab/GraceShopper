@@ -268,6 +268,21 @@ async function updateProduct(product_id, fields = {}) {
 
 // *************** CART FUNCTIONS ***************
 
+async function getCartByUserId(user_id) {
+  try {
+    const { rows: cart } = await client.query(
+      `
+      SELECT *
+      FROM user_cart
+      WHERE user_id=$1
+      `, [user_id]
+    ) 
+    return cart;
+  } catch(error) {
+    console.error("Couldn't find cart")
+  }
+}
+
 async function createCart(user_id) {
   try {
     const {
@@ -280,6 +295,7 @@ async function createCart(user_id) {
       `,
       [user_id]
     );
+    console.log("Hello in createCart!")
     return cart;
   } catch (error) {
     console.error("Error adding to usercart in db");
@@ -287,14 +303,14 @@ async function createCart(user_id) {
   }
 }
 
-async function addToCart({
+async function addToCart(
   user_id,
   product_id,
-  product_quantity,
-}) {
+  quantity
+) {
   try {
     const {
-      rows: [item],
+      rows: [product],
     } = await client.query(
       `
       SELECT * 
@@ -303,7 +319,7 @@ async function addToCart({
       `,
       [product_id]
     );
-    await createCartItem(user_id, item.id, product_quantity);
+    await createCartItem(user_id, product.id, quantity);
     return await getUserById(user_id);
   } catch (error) {
     console.error("Error adding to items to cart in db");
@@ -311,37 +327,36 @@ async function addToCart({
   }
 }
 
-async function createCartItem(user_id, product_id, product_quantity) {
+async function createCartItem(user_id, product_id, quantity) {
   try {
     let cart = await getCartByUserId(user_id);
     if (cart.length === 0) {
-      userCart = await createCart(user_id);
-    
+      cart = await createCart(user_id);
+    const {
+      rows: [product]
+    } = await client.query(
+      `
+      INSERT INTO cart_items(user_cart_id, product_id, quantity)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (user_cart_id, product_id) DO NOTHING
+      RETURNING *;
+      `,
+      [cart.id, product_id, quantity]
+    );
+    return product;
+  }
 
     const {
       rows: [product]
     } = await client.query(
       `
-      INSERT INTO cart_products(user_cart_id, product_id, product_quantity)
-      VALUES ($1, $2, $3)
-      ON CONFLICT (user_cart_id, product_id) DO NOTHING
-      RETURNING *;
-      `,
-      [userCart.id, product_id, product_quantity]
-    );
-    return product;
-  }
-    const {
-      rows: [product]
-    } = await client.query(
-      `
-      INSERT INTO cart_products(user_cart_id, product_id, product_quantity)
+      INSERT INTO cart_products(user_cart_id, product_id, quantity)
       VALUES ($1, $2, $3)
       ON CONFLICT (user_cart_id, product_id) DO NOTHING
       RETURNING *;
       `, 
       [
-        userCart[0].id, product_id, product_quantity
+        [0].id, product_id, quantity
       ]
     )
     return product;
@@ -400,7 +415,6 @@ async function updateItemQty(user_cart_id, product_id, product_quantity) {
   }
 }
 
-// getCartByUserId
 // setCartInactive
 // deleteCartItem
 // finish getUserById
