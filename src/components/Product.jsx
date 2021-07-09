@@ -49,7 +49,7 @@ const Product = ({ product, products, setProducts, cart, setCart, addToCart}) =>
                 className="landscape"
                 variant="top"
                 style={{ maxHeight: "200px"  }}
-                src={product.img_url}
+                src={product.img_url ? product.img_url : 'https://www.usacarry.com/directory/wp-content/uploads/2021/06/depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpeg'}
               />
             </Link>
             <Card.Body>

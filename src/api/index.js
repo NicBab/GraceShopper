@@ -120,7 +120,7 @@ export async function getUserCart() {
   }
 }
 
-export async function addToCart( product_id, product_quantity ) {
+export async function addToCart(product_id, product_quantity) {
   try {
     const { data } = await axios.post(`/api/cart`, {
       product_id,
@@ -135,16 +135,14 @@ export async function addToCart( product_id, product_quantity ) {
 
 export async function updateProductQty(product_id, product_quantity) {
   try {
-    const { data } = await axios.patch(
-      `/api/cart/${product_id}`,
-      { product_quantity },
-    );
+    const { data } = await axios.patch(`/api/cart/${product_id}`, {
+      product_quantity,
+    });
     return data;
   } catch (error) {
     console.error("error updating quantity");
   }
 }
-
 
 export async function removeFromCart(product_id) {
   try {
@@ -184,7 +182,6 @@ export async function getAllOrders() {
     throw error;
   }
 }
-
 
 //getMyAccount
 //removeUser

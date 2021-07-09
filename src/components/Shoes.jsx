@@ -32,18 +32,22 @@ const Shoes = ({ products, addToCart }) => {
     <>
 
       <div className="shoes">Shoes</div>
+      <div class="item-container">
+      <Row id="items">
       {allShoes
         ? allShoes.map((product) => {
             return (
-              <Row id="items">
                 <Col>
                   <Product className="mb-4" product={product} addToCart={addToCart} />
                 </Col>
-              </Row>
+              
+        
             );
           })
 
         : null}
+        </Row>
+        </div>
     </>
   );
 };
