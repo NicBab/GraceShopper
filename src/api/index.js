@@ -110,7 +110,6 @@ export async function deleteProduct(id) {
 export async function getCart() {
   try {
     const { data } = await axios.get("/api/cart");
-    console.log(data, "*******'data' from getCart (api) ********");
     return data;
   } catch (error) {
     console.error("Error getting cart in api/index");

@@ -9,9 +9,9 @@ function App() {
   const [users, setUsers] = useState([]);
   const [cart, setCart] = useState([]);
   const [currentUser, setCurrentUser] = useState();
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [admin, setAdmin] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  // const [loggedIn, setLoggedIn] = useState(false);
+  // const [admin, setAdmin] = useState(false);
+  // const [cartItems, setCartItems] = useState([]);
   const {logout} = useAuth();
 
   useEffect(() => {
@@ -38,19 +38,13 @@ function App() {
     async function fetchCart() {
       const userCart = await getCart();
       setCart(userCart);
-      console.log(userCart, "*****userCart in useEffect (App)*****");
     }
     fetchCart();
   }, []);
-
   return (
     <>
       <header>
         <Header
-          admin={admin}
-          setAdmin={setAdmin}
-          loggedIn={loggedIn}
-          setLoggedIn={setLoggedIn}
           currentUser={currentUser}
           setCurrentUser={setCurrentUser}
           logout={logout}
@@ -66,8 +60,6 @@ function App() {
           users={users}
           products={products}
           setProducts={setProducts}
-          cartItems={cartItems}
-          setCartItems={setCartItems}
         />
       </main>
     

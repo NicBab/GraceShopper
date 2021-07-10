@@ -2,15 +2,9 @@ const {
   client,
   createUser,
   getAllUsers,
-  getUserById,
-  getUserByEmail,
   createGuest,
-  createOrders,
   createProduct,
   getAllProducts,
-  getProductById,
-  updateProduct,
-  createCart,
   addItemToCart,
 } = require("./index");
 

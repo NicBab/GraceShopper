@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { Form } from "react-bootstrap";
 import "./css/Cart.css";
 import { TiDelete } from "react-icons/ti";
 import { removeFromCart } from "../api";
 
 const CartItem = ({ cart, setCart, cartItem }) => {
-    const [itemQty, setItemQty] = useState(1)
-    const { id, name, img_url, description, quantity, price, product_id } =
+    // const [itemQty, setItemQty] = useState(1)
+    const { /*id, name, img_url, description, quantity, price,*/ product_id } =
     cartItem;
     const handleDeleteCartItem = async (event) => {
         try {

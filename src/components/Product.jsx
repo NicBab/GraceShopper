@@ -13,7 +13,7 @@ const Product = ({
   setCart,
 }) => {
   const [showProductInfo, setShowProductInfo] = useState(false);
-  const { id, name, description, price, img_url } = product;
+  /*const { id, name, description, price, img_url } = product;*/
   const handleAddToCart = async () => {
     try {
       alert(`${product.name} added to cart!`)

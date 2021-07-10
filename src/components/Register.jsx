@@ -14,7 +14,7 @@ const Register = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const history = useHistory()
-  const [token, setToken] = useState()
+  //const [token, setToken] = useState()
 
   async function handleRegister(e) {
     e.preventDefault()

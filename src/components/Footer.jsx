@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap'
-import { FaceBookIcon, InstaIcon, GitHubIcon } from './icons'
+import { GitHubIcon } from './icons'
 import "./css/Footer.css";
 
 const onGitClick = () => {
@@ -15,6 +15,14 @@ const Footer = () => {
               <>
             <div>
             <footer className="site-footer">
+            <Container className="d-flex align-items-start justify-content-around mt-10" 
+        style={{minHeight: "8vh", marginTop: "10px"}}>
+          <>
+            <div className="social-icons" onClick={onGitClick} style={{cursor: 'pointer'}}>
+                { GitHubIcon } 
+            </div>
+            </>
+          </Container>
               <section className="footer-links">
                 <h2>Customer Care</h2>
                 <a href="https://www.google.com/">Account</a>
