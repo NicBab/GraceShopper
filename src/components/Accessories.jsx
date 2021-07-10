@@ -5,7 +5,6 @@ import { getAllProducts } from "../api";
 import Product from "./Product";
 
 const Accessories = ({ products, addToCart }) => {
-    //question for instructor -- better to use props here? or api endpoint getAllProducts()?
   const [allAccessories, setAllAccessories] = useState();
 
   const getAllAccessories = async () => {
@@ -28,14 +27,14 @@ const Accessories = ({ products, addToCart }) => {
     <>
 
       <div className="accessories">Accessories</div>
-      <div class="item-container">
+      <div className="item-container">
       <Row id="items">
       {allAccessories
-        ? allAccessories.map((product) => {
+        ? allAccessories.map((product, idx) => {
             return (
               
                 <Col>
-                  <Product product={product} addToCart={addToCart} />
+                  <Product key={idx} product={product} addToCart={addToCart} />
                 </Col>
               
             );
