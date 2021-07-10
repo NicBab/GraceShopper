@@ -1,14 +1,9 @@
-.hats {
-  color: #becae6;
-  text-align: center;
-  margin: 5px;
-  font-size: 3em;
-}
-
 #items {
   display: inline-grid;
   grid-template-columns: auto auto auto auto;
   gap: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .item-container {
