@@ -81,8 +81,7 @@ const Pages = ({
         </Route>
 
         <Route exact path="/cart">
-          <Cart cartItems={cartItems} setCartItems={setCartItems} cart={cart}
-          setCart={setCart} addToCart={addToCart} onAdd={onAdd}/>
+          <Cart cart={cart} setCart={setCart}/>
         </Route>
 
          <Route exact path="/admin/users">

@@ -44,7 +44,6 @@ const Inventory = ({ product, products, setProducts }) => {
       <hr></hr>
       <br/>
       <Row>
-
           {products.map((product, idx) => {
             return <InventoryItem key={idx} setProducts={setProducts} product={product} products={products} />;
           }).reverse()}
