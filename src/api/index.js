@@ -84,7 +84,7 @@ export async function patchProduct(
   category
 ) {
   try {
-    const { data } = await axios.patch(`/api/${id}`, {
+    const { data } = await axios.patch(`/api/products/${id}`, {
       img_url,
       name,
       description,
@@ -100,7 +100,7 @@ export async function patchProduct(
 
 export async function deleteProduct(id) {
   try {
-    const { data } = await axios.delete(`/api/${id}`);
+    const { data } = await axios.delete(`/api/products/${id}`);
     return data;
   } catch (error) {
     throw error;
@@ -109,9 +109,8 @@ export async function deleteProduct(id) {
 
 export async function getCart() {
   try {
-    console.log("**************")
     const { data } = await axios.get("/api/cart");
-    console.log(data, "***************");
+    console.log(data, "*******'data' from getCart (api) ********");
     return data;
   } catch (error) {
     console.error("Error getting cart in api/index");
@@ -119,12 +118,14 @@ export async function getCart() {
   }
 }
 
-export async function addToCart(product_id, product_quantity) {
+export async function addToCart({user_id, product_id, quantity}) {
   try {
-    const { data } = await axios.post(`/api/cart`, {
+    const { data } = await axios.post("/api/cart", {
+      user_id,
       product_id,
-      product_quantity
+      quantity
     });
+    console.log(data, "yeeeeeehaw!!!!!!!!!!!!")
     return data;
   } catch (error) {
     console.error("Error adding to cart");
@@ -132,11 +133,11 @@ export async function addToCart(product_id, product_quantity) {
   }
 }
 
-export async function updateProductQty(product_id, product_quantity) {
+export async function updateProductQty(product_id, quantity) {
   try {
     const { data } = await axios.patch(
       `/api/cart/${product_id}`,
-      { product_quantity },
+      { quantity },
     );
     return data;
   } catch (error) {

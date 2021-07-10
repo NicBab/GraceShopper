@@ -10,7 +10,6 @@ export { default as Home } from './Home'
 export { default as Inventory } from './Inventory';
 export { default as Login } from './Login';
 export { default as Cart } from './Cart';
-export { default as OrderHistory } from './OrderHistory';
 export { default as Navigate } from './Navigate';
 export { default as Pages } from './Pages';
 export { default as PrivateRoute } from './PrivateRoute'

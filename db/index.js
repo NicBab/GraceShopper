@@ -6,12 +6,7 @@ const bcrypt = require("bcrypt");
 
 // *************** USER ***************
 
-async function createUser({
-  name,
-  email,
-  password,
-  admin
-}) {
+async function createUser({ username, email, password, admin }) {
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -19,12 +14,12 @@ async function createUser({
       rows: [users],
     } = await client.query(
       `
-      INSERT INTO users(name, email, password, admin)
+      INSERT INTO users(username, email, password, admin)
       VALUES($1, $2, $3, $4)
       ON CONFLICT (email) DO NOTHING
       RETURNING *;
       `,
-      [name, email, hashedPassword, admin]
+      [username, email, hashedPassword, admin]
     );
     password = hashedPassword;
     delete users.password;
@@ -52,21 +47,66 @@ async function getUserById(user_id) {
   try {
     const {
       rows: [user],
-    } = await client.query(`
+    } = await client.query(
+      `
     SELECT * 
     FROM users
     WHERE id=$1;
     `,
-    [user_id]);
+      [user_id]
+    );
 
-    // if (!user) {
-    //   throw {
-    //     name: "UserNotFoundError",
-    //     message: "Could not find a user with that id",
-    //   };
-    // }
+    if (!user) {
+      throw {
+        name: "UserNotFoundError",
+        message: "Could not find user by that id",
+      };
+    }
 
-    //  products + address
+    delete user.password;
+
+    const { rows: products } = await client.query(
+      `
+      SELECT *
+      FROM products
+      JOIN cart_items ON products.id=cart_items.product_id
+      JOIN user_cart ON cart_items.user_cart_id=user_cart.id
+      WHERE user_cart.user_id=$1
+    `,
+      [user_id]
+    );
+    user.cart = products;
+    const { rows: orderProducts } = await client.query(
+      `
+      SELECT *
+      FROM products
+      INNER JOIN order_items ON products.id=order_items.product_id
+      INNER JOIN user_orders ON order_items.order_id=user_orders.id
+      WHERE user_orders.user_id=$1
+    `,
+      [user_id]
+    );
+    if (orderProducts) {
+      user.order = orderProducts;
+    } else {
+      user.order = [];
+    }
+
+    const { rows: address } = await client.query(
+      `
+      SELECT user_address.*
+      FROM user_address
+      INNER JOIN users ON users.id = user_address.id
+      WHERE user_address.user_id = $1
+    `,
+      [user_id]
+    );
+
+    if (address) {
+      user.address = address;
+    }
+    return user;
+
     return user;
   } catch (error) {
     throw error;
@@ -92,13 +132,7 @@ async function getUserByEmail(email) {
   }
 }
 
-async function createUserAddress({
-  user_id,
-  street,
-  city,
-  state,
-  zipcode
-}) {
+async function createUserAddress({ user_id, street, city, state, zipcode }) {
   try {
     await client.query(
       `
@@ -110,9 +144,9 @@ async function createUserAddress({
       `,
       [user_id, street, city, state, zipcode]
     );
-    return await joinAddressToUser(user_id)
+    return await joinAddressToUser(user_id);
   } catch (error) {
-    console.error("Error creating address")
+    console.error("Error creating address");
   }
 }
 
@@ -129,7 +163,7 @@ async function joinAddressToUser(user_id) {
     );
     return userAddress;
   } catch (error) {
-    console.error("Error joining address")
+    console.error("Error joining address");
   }
 }
 
@@ -154,17 +188,10 @@ async function createGuest({ email, name }) {
 
 // ( PROBABLY NEED TO BUILD )
 //
-// deleteUser() 
-//     
+// deleteUser()
+//
 // verifyUniqueUser()
 //// ---------------------------
-
-
-
-
-
-
-
 
 // *************** PRODUCT ***************
 
@@ -174,8 +201,7 @@ const createProduct = async ({
   description,
   price,
   inventory,
-  category
-
+  category,
 }) => {
   try {
     const {
@@ -200,12 +226,12 @@ async function getAllProducts() {
     const { rows: products } = await client.query(`
       SELECT *
       FROM products;
-    `); 
+    `);
     return products;
   } catch (error) {
     throw error;
   }
-} 
+}
 
 async function getProductById(product_id) {
   try {
@@ -241,73 +267,73 @@ async function updateProduct(product_id, fields = {}) {
       );
     }
 
-
     return await getProductById(product_id);
   } catch (error) {
     throw error;
   }
 }
 
-
-
 // ( SHOULD WE BUILD THESE? )
 //
-// getProductByName 
+// getProductByName
 //      -for search function?
 //
-// getProductByCategory 
-//      -for rendering categories 
+// getProductByCategory
+//      -for rendering categories
 //       on the backend?
 // --------------------------
 
-
-
-
-
-
-
 // *************** CART FUNCTIONS ***************
+
+// async function getAllCartItems() {
+//   try {
+//     const { rows } = await client.query(
+//       `
+//       SELECT *
+//       FROM products
+//       `
+//     )
+//   }
+// }
 
 async function getCartByUserId(user_id) {
   try {
-    const { rows: cart } = await client.query(
+    const { rows: userCart } = await client.query(
       `
       SELECT *
       FROM user_cart
       WHERE user_id=$1
-      `, [user_id]
-    ) 
-    return cart;
-  } catch(error) {
-    console.error("Couldn't find cart")
+      AND active=true;
+      `,
+      [user_id]
+    );
+    return userCart;
+  } catch (error) {
+    console.error("Couldn't find cart");
   }
 }
 
 async function createCart(user_id) {
   try {
     const {
-      rows: [cart],
+      rows: [userCart],
     } = await client.query(
       `
       INSERT INTO user_cart(user_id)
-      VALUES($1)
+      VALUES ($1)
       RETURNING *;
       `,
       [user_id]
     );
-    console.log("Hello in createCart!")
-    return cart;
+    console.log("Hello in createCart!");
+    return userCart;
   } catch (error) {
     console.error("Error adding to usercart in db");
     throw error;
   }
 }
 
-async function addToCart(
-  user_id,
-  product_id,
-  quantity
-) {
+async function addItemToCart(user_id, product_id, quantity) {
   try {
     const {
       rows: [product],
@@ -315,53 +341,58 @@ async function addToCart(
       `
       SELECT * 
       FROM products
-      WHERE id=$1
+      WHERE id=$1;
       `,
       [product_id]
     );
-    await createCartItem(user_id, product.id, quantity);
+
+    await createCartItem(user_id, product_id, quantity);
+    console.log("unicorn");
     return await getUserById(user_id);
+
   } catch (error) {
-    console.error("Error adding to items to cart in db");
+    console.error("Error adding items to cart in db");
     throw error;
   }
 }
 
 async function createCartItem(user_id, product_id, quantity) {
   try {
-    let cart = await getCartByUserId(user_id);
-    if (cart.length === 0) {
-      cart = await createCart(user_id);
-    const {
-      rows: [product]
-    } = await client.query(
-      `
-      INSERT INTO cart_items(user_cart_id, product_id, quantity)
-      VALUES ($1, $2, $3)
-      ON CONFLICT (user_cart_id, product_id) DO NOTHING
-      RETURNING *;
-      `,
-      [cart.id, product_id, quantity]
-    );
-    return product;
-  }
+    // let userCart = await getCartByUserId(user_id);
+    // if (userCart.length === 0) {
+    //   userCart = await createCart(user_id);
+    //   console.log("******rose all day***********");
+    const userCart = await createCart(user_id)
+    console.log("createCartItem")
+      const {
+        rows: [product],
+      } = await client.query(
+        `
+        INSERT INTO cart_items(user_cart_id, product_id, quantity)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (user_cart_id, product_id) DO NOTHING
+        RETURNING *;
+        `,
+        [userCart.id, product_id, quantity]
+      );
+      console.log("*******DOG FACE*********");
+      return product;
+    
 
-    const {
-      rows: [product]
-    } = await client.query(
-      `
-      INSERT INTO cart_products(user_cart_id, product_id, quantity)
-      VALUES ($1, $2, $3)
-      ON CONFLICT (user_cart_id, product_id) DO NOTHING
-      RETURNING *;
-      `, 
-      [
-        [0].id, product_id, quantity
-      ]
-    )
-    return product;
+    // const {
+    //   rows: [product],
+    // } = await client.query(
+    //   `
+    //   INSERT INTO cart_items(user_cart_id, product_id, quantity)
+    //   VALUES ($1, $2, $3)
+    //   ON CONFILCT (user_cart_id, product_id) DO NOTHING
+    //   RETURNING *;
+    //   `,
+    //   [userCart[0].id, product_id, quantity]
+    // );
+    // return product;
   } catch (error) {
-    console.error("Problem creating cart item in db")
+    console.error("Problem creating cart item in db");
   }
 }
 
@@ -384,22 +415,7 @@ async function createOrders({ cart_id, order_id }) {
   }
 }
 
-async function getUserCart(userId) {
-  const user = await getUserById();
-  console.log(user, "this is your cart.");
-  try {
-    const { rows: cart } = await client.query(`
-      SELECT *
-      FROM user_cart
-      WHERE user_id=${userId};
-    `);
-    return cart;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function updateItemQty(user_cart_id, product_id, product_quantity) {
+async function updateItemQty(user_cart_id, product_id, quantity) {
   try {
     await client.query(
       `
@@ -408,21 +424,19 @@ async function updateItemQty(user_cart_id, product_id, product_quantity) {
       WHERE id=$1 AND product_id=$2
       RETURNING *;
       `,
-      [user_cart_id, product_id, product_quantity]
+      [user_cart_id, product_id, quantity]
     );
   } catch (error) {
-    console.error("Error updating quantity")
+    console.error("Error updating quantity");
   }
 }
 
 // setCartInactive
 // deleteCartItem
-// finish getUserById
 // addCartProductsToOrderProducts
 // bulkUpdateOrderProducts
 // removeCartItemsOnOrder
 // getUserByIdForOrders
-
 
 module.exports = {
   client,
@@ -430,6 +444,7 @@ module.exports = {
   getAllUsers,
   getUserById,
   getUserByEmail,
+  getCartByUserId,
   createGuest,
   createProduct,
   getAllProducts,
@@ -439,7 +454,6 @@ module.exports = {
   createUserAddress,
   joinAddressToUser,
   createCart,
-  addToCart,
+  addItemToCart,
   createOrders,
-  getUserCart,
 };

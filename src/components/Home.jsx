@@ -2,19 +2,17 @@ import React from "react";
 import "./css/Home.css";
 import { Row } from "react-bootstrap";
 import Product from "./Product";
-import {CartProvider} from "react-use-cart";
 import Landing from "./Landing"
 
 const Home = ({ products, addToCart, cartItems, setCartItems, onAdd, userCart, setUserCart }) => {
   return (
     <>
-    <CartProvider>
       <div className="landing-container">
         <Landing />
       </div>
       <div className="home">HOME</div>
       <hr/>
-      <div class="item-container">
+      <div className="item-container">
       <Row id="items">
         {products.map((product, idx) => {
             return (
@@ -23,9 +21,9 @@ const Home = ({ products, addToCart, cartItems, setCartItems, onAdd, userCart, s
             }).reverse()}
       </Row>
       </div>
-      </CartProvider>
     </>
   );
 };
 
 export default Home;
+

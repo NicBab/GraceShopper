@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { CartIcon, HeadIcon} from "./icons";
 import "./css/Navigate.css";
@@ -28,7 +28,7 @@ const [showLogout, setShowLogout] = useState(/*!!currentUser*/);
 
 
 useEffect(() => {
-  setShowLogout(!!currentUser)
+  setShowLogout(/*!!currentUser*/)
 }, [currentUser])
 
 

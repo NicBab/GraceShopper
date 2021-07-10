@@ -38,7 +38,7 @@ function App() {
     async function fetchCart() {
       const userCart = await getCart();
       setCart(userCart);
-      console.log(userCart, "**********");
+      console.log(userCart, "*****userCart in useEffect (App)*****");
     }
     fetchCart();
   }, []);

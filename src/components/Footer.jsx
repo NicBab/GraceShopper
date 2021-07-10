@@ -10,23 +10,6 @@ const onGitClick = () => {
 const Footer = () => {
     return (
       <>
-      <Container className="d-flex align-items-start justify-content-around mt-10" 
-        style={{minHeight: "8vh", marginTop: "10px"}}>
-          <>
-            <div className="social-icons">
-              { FaceBookIcon } 
-            </div>
-
-            <div className="social-icons">
-              { InstaIcon }
-            </div>
-
-            <div className="social-icons" onClick={onGitClick} style={{cursor: 'pointer'}}>
-                { GitHubIcon } 
-            </div>
-            </>
-          </Container>
-
           <Container className="d-flex align-items-end justify-content-around mt-10" 
             style={{minHeight: "10vh", marginTop: "10px"}}>
               <>

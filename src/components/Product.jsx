@@ -3,7 +3,7 @@ import "./css/Home.css";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { InfoIcon } from "./icons";
-//import { addToCart } from "../api";
+import { addToCart } from "../api"
 
 const Product = ({
   product,
@@ -11,22 +11,20 @@ const Product = ({
   setProducts,
   cart,
   setCart,
-  addToCart,
 }) => {
   const [showProductInfo, setShowProductInfo] = useState(false);
   //const { name, description, price, img_url } = product;
-
   const handleAddToCart = async () => {
     try {
-      console.log("cart clicked");
-      await addToCart(product.id, 1);
+      console.log(product, "product*****")
+      await addToCart(product.id, 1)
       product.quantity = 1;
-      cart.push(product);
-      setCart();
+      cart.push(product)
     } catch (error) {
-      throw error;
+      console.error("Error with AddToCart handler")
     }
-  };
+  }
+
 
   return (
     <>
