@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
 import './css/Register.css';
+
 // import { SettingsBackupRestoreRounded } from '@material-ui/icons';
 
 const Register = () => {
@@ -22,15 +23,20 @@ const Register = () => {
       passwordConfirmRef.current.value) {
         return setError("Passwords do not match")
       }
+
+      // const _user = await getUserByEmail(email);
+      // if (_user) {
+      //   return setError("A user with that email already exists.")
+      // }
       try {
-        
+    
         setError("")
         setLoading(true)
         await register(emailRef.current.value, passwordRef.current.value)
         history.push("/dashboard")
 
       } catch (error) {
-        setError("Signup Failed!")
+        setError('Error during registration')
       }
       setLoading(false)
   }

@@ -48,6 +48,7 @@ const Inventory = ({ product, products, setProducts }) => {
             return <InventoryItem key={idx} setProducts={setProducts} product={product} products={products} />;
           }).reverse()}
       </Row>
+      </div>
     </>
   );
 };

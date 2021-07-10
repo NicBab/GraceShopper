@@ -119,6 +119,7 @@ export async function getCart() {
 }
 
 export async function addToCart({user_id, product_id, quantity}) {
+
   try {
     const { data } = await axios.post("/api/cart", {
       user_id,
@@ -143,7 +144,6 @@ export async function updateProductQty(product_id, quantity) {
     console.error("error updating quantity");
   }
 }
-
 
 export async function removeFromCart(product_id) {
   try {
@@ -183,7 +183,6 @@ export async function getAllOrders() {
     throw error;
   }
 }
-
 
 //getMyAccount
 //removeUser

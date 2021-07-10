@@ -69,6 +69,7 @@ const Product = ({
           </Col>
         </Row>
       ) : null}
+
     </>
   );
 };

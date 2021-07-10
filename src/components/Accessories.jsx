@@ -28,17 +28,21 @@ const Accessories = ({ products, addToCart }) => {
     <>
 
       <div className="accessories">Accessories</div>
+      <div class="item-container">
+      <Row id="items">
       {allAccessories
         ? allAccessories.map((product) => {
             return (
-              <Row id="items">
+              
                 <Col>
                   <Product product={product} addToCart={addToCart} />
                 </Col>
-              </Row>
+              
             );
           })
         : null}
+        </Row>
+        </div>
     </>
   );
 };
