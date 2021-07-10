@@ -4,6 +4,7 @@ const cartRouter = express.Router()
 const {
   deleteCartItem,
   updateProductQty,
+  getAllCartItems,
   getCartByUserId,
   addItemToCart,
   createCart,
@@ -11,23 +12,31 @@ const {
 
 const { requireUser } = require("./utils")
 
+cartRouter.get("/:user_id", async (req, res, next) => {
+  try {
+    const { user_id } = req.params;
+    const userCart = await getCartByUserId(user_id);
+    res.send(userCart);
+
+  } catch (error) { 
+    next({ name: "ErrorGettingCart", messages: "Cannot Get the Cart" });
+  }
+});
 
 cartRouter.get("/", async (req, res, next) => {
     try {
-      const { user_id } = req.params;
-      const userCart = await getCartByUserId(user_id);
-      res.send(userCart);
+
+      const cartItems = await getAllCartItems()
+      res.send(cartItems);
     } catch (error) { 
-      next({ name: "ErrorGettingCart", messages: "Cannot Get the Cart" });
+      next({ name: "ErrorGettingCart", messages: "Cannot Get the Cart Items" });
     }
   });
   
   cartRouter.post("/", async (req, res, next) => {
     try {
       const { user_id, product_id, quantity } = req.params;
-      console.log("-------------------")
       const addedItem = await addItemToCart(user_id, product_id, quantity);
-      console.log("hello bitch")
       res.send(addedItem)
     } catch (error) {
       console.error("Error adding item in routes")
@@ -58,3 +67,4 @@ cartRouter.delete("/:product_id", async (req, res, next) => {
   // })
 
 module.exports = cartRouter;
+ 

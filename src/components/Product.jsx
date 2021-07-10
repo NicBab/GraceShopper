@@ -13,11 +13,11 @@ const Product = ({
   setCart,
 }) => {
   const [showProductInfo, setShowProductInfo] = useState(false);
-  //const { name, description, price, img_url } = product;
+  const { id, name, description, price, img_url } = product;
   const handleAddToCart = async () => {
     try {
-      console.log(product, "product*****")
-      await addToCart(product.id, 1)
+      const user_id = 3;
+      await addToCart(user_id, product.id, 1)
       product.quantity = 1;
       cart.push(product)
     } catch (error) {

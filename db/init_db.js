@@ -25,7 +25,7 @@ async function dropTables() {
         DROP TABLE IF EXISTS products CASCADE;
         DROP TABLE IF EXISTS user_address;
         DROP TABLE IF EXISTS guests;
-        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS users CASCADE;
       `);
     console.log("Finished dropping tables!");
   } catch (error) {
@@ -41,7 +41,7 @@ async function createTables() {
 
     CREATE TABLE users(
       id SERIAL PRIMARY KEY,
-      username VARCHAR(255) NOT NULL,
+      name VARCHAR(255) NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
       admin BOOLEAN DEFAULT FALSE

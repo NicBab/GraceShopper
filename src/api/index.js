@@ -125,7 +125,6 @@ export async function addToCart({user_id, product_id, quantity}) {
       product_id,
       quantity
     });
-    console.log(data, "yeeeeeehaw!!!!!!!!!!!!")
     return data;
   } catch (error) {
     console.error("Error adding to cart");

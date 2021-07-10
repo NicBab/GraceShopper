@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 
 // *************** USER ***************
 
-async function createUser({ username, email, password, admin }) {
+async function createUser({ name, email, password, admin }) {
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -14,12 +14,12 @@ async function createUser({ username, email, password, admin }) {
       rows: [users],
     } = await client.query(
       `
-      INSERT INTO users(username, email, password, admin)
+      INSERT INTO users(name, email, password, admin)
       VALUES($1, $2, $3, $4)
       ON CONFLICT (email) DO NOTHING
       RETURNING *;
       `,
-      [username, email, hashedPassword, admin]
+      [name, email, hashedPassword, admin]
     );
     password = hashedPassword;
     delete users.password;
@@ -106,8 +106,6 @@ async function getUserById(user_id) {
       user.address = address;
     }
     return user;
-
-    return user;
   } catch (error) {
     throw error;
   }
@@ -186,12 +184,6 @@ async function createGuest({ email, name }) {
   }
 }
 
-// ( PROBABLY NEED TO BUILD )
-//
-// deleteUser()
-//
-// verifyUniqueUser()
-//// ---------------------------
 
 // *************** PRODUCT ***************
 
@@ -273,29 +265,6 @@ async function updateProduct(product_id, fields = {}) {
   }
 }
 
-// ( SHOULD WE BUILD THESE? )
-//
-// getProductByName
-//      -for search function?
-//
-// getProductByCategory
-//      -for rendering categories
-//       on the backend?
-// --------------------------
-
-// *************** CART FUNCTIONS ***************
-
-// async function getAllCartItems() {
-//   try {
-//     const { rows } = await client.query(
-//       `
-//       SELECT *
-//       FROM products
-//       `
-//     )
-//   }
-// }
-
 async function getCartByUserId(user_id) {
   try {
     const { rows: userCart } = await client.query(
@@ -313,6 +282,22 @@ async function getCartByUserId(user_id) {
   }
 }
 
+async function getAllCartItems() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT *
+        FROM products
+        JOIN cart_items
+        ON products.id=cart_items.product_id
+      `
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function createCart(user_id) {
   try {
     const {
@@ -325,7 +310,6 @@ async function createCart(user_id) {
       `,
       [user_id]
     );
-    console.log("Hello in createCart!");
     return userCart;
   } catch (error) {
     console.error("Error adding to usercart in db");
@@ -347,9 +331,7 @@ async function addItemToCart(user_id, product_id, quantity) {
     );
 
     await createCartItem(user_id, product_id, quantity);
-    console.log("unicorn");
-    return await getUserById(user_id);
-
+    return await getUserById(3);
   } catch (error) {
     console.error("Error adding items to cart in db");
     throw error;
@@ -361,36 +343,19 @@ async function createCartItem(user_id, product_id, quantity) {
     // let userCart = await getCartByUserId(user_id);
     // if (userCart.length === 0) {
     //   userCart = await createCart(user_id);
-    //   console.log("******rose all day***********");
-    const userCart = await createCart(user_id)
-    console.log("createCartItem")
-      const {
-        rows: [product],
-      } = await client.query(
-        `
+    const userCart = await createCart(3);
+    const {
+      rows: [product],
+    } = await client.query(
+      `
         INSERT INTO cart_items(user_cart_id, product_id, quantity)
         VALUES ($1, $2, $3)
         ON CONFLICT (user_cart_id, product_id) DO NOTHING
         RETURNING *;
         `,
-        [userCart.id, product_id, quantity]
-      );
-      console.log("*******DOG FACE*********");
-      return product;
-    
-
-    // const {
-    //   rows: [product],
-    // } = await client.query(
-    //   `
-    //   INSERT INTO cart_items(user_cart_id, product_id, quantity)
-    //   VALUES ($1, $2, $3)
-    //   ON CONFILCT (user_cart_id, product_id) DO NOTHING
-    //   RETURNING *;
-    //   `,
-    //   [userCart[0].id, product_id, quantity]
-    // );
-    // return product;
+      [userCart.id, product_id, quantity]
+    );
+    return product;
   } catch (error) {
     console.error("Problem creating cart item in db");
   }
@@ -445,6 +410,7 @@ module.exports = {
   getUserById,
   getUserByEmail,
   getCartByUserId,
+  getAllCartItems,
   createGuest,
   createProduct,
   getAllProducts,
