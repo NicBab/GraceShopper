@@ -1,0 +1,35 @@
+.cart {
+  color: #becae6;
+  text-align: center;
+  margin: 5px;
+  font-size: 3em;
+  margin: 100px;
+}
+
+.emptyCart {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: grey;
+}
+
+.item-qty {
+  width: 20% !important;
+}
+
+.delete-btn:hover {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.subtotal {
+  border: 2px solid black;
+  text-align: right;
+  width: 500px;
+  height: 300px;
+  padding: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(241, 248, 255);
+}

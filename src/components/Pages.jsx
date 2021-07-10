@@ -9,9 +9,8 @@ import {
   Admin,
   Register,
   Login,
-  MyCart,
+  Cart,
   Dashboard,
-  OrderHistory,
   Users,
   Inventory,
   PrivateRoute,
@@ -82,13 +81,7 @@ const Pages = ({
         </Route>
 
         <Route exact path="/cart">
-          <MyCart cartItems={cartItems} setCartItems={setCartItems} cart={cart}
-          setCart={setCart} addToCart={addToCart} onAdd={onAdd}/>
-        </Route>
-
-
-        <Route exact path="/order-history">
-          <OrderHistory />
+          <Cart cart={cart} setCart={setCart}/>
         </Route>
 
          <Route exact path="/admin/users">

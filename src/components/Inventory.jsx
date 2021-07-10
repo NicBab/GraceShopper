@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button, Form, Col, Row } from "react-bootstrap";
-import { createProduct } from "../api";
+import { Button, Row } from "react-bootstrap";
 import InventoryItem from "./InventoryItem";
-import defaultImg from "../img/Default-Photo.png"
+//import defaultImg from "../img/Default-Photo.png"
 import AddModal from "./AddModal";
 import Jumbotron from "react-bootstrap/Jumbotron"
 import Container from "react-bootstrap/Container"
@@ -44,9 +43,7 @@ const Inventory = ({ product, products, setProducts }) => {
       <h2>Inventory</h2>
       <hr></hr>
       <br/>
-      <div class="item-container">
-      <Row id="items">
-
+      <Row>
           {products.map((product, idx) => {
             return <InventoryItem key={idx} setProducts={setProducts} product={product} products={products} />;
           }).reverse()}

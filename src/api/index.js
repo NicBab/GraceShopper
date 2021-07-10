@@ -1,6 +1,5 @@
 import axios from "axios";
 import { storeCurrentUser } from "../auth";
-import { OrderHistory } from "../components";
 
 /*********** USER FUNCTIONS ***********/
 
@@ -35,7 +34,6 @@ export async function loginUser() {
 export async function getAllUsers() {
   try {
     const { data } = await axios.get("/api/users");
-    console.log("******USERS");
     return data;
   } catch (error) {
     throw error;
@@ -86,7 +84,7 @@ export async function patchProduct(
   category
 ) {
   try {
-    const { data } = await axios.patch(`/api/${id}`, {
+    const { data } = await axios.patch(`/api/products/${id}`, {
       img_url,
       name,
       description,
@@ -102,29 +100,31 @@ export async function patchProduct(
 
 export async function deleteProduct(id) {
   try {
-    const { data } = await axios.delete(`/api/${id}`);
+    const { data } = await axios.delete(`/api/products/${id}`);
     return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function getUserCart() {
+export async function getCart() {
   try {
-    const { data } = await axios.get("api/cart");
-    console.log(data);
+    const { data } = await axios.get("/api/cart");
+    console.log(data, "*******'data' from getCart (api) ********");
     return data;
   } catch (error) {
-    console.error("Error getting cart");
+    console.error("Error getting cart in api/index");
     throw error;
   }
 }
 
-export async function addToCart(product_id, product_quantity) {
+export async function addToCart({user_id, product_id, quantity}) {
+
   try {
-    const { data } = await axios.post(`/api/cart`, {
+    const { data } = await axios.post("/api/cart", {
+      user_id,
       product_id,
-      product_quantity,
+      quantity
     });
     return data;
   } catch (error) {
@@ -133,11 +133,12 @@ export async function addToCart(product_id, product_quantity) {
   }
 }
 
-export async function updateProductQty(product_id, product_quantity) {
+export async function updateProductQty(product_id, quantity) {
   try {
-    const { data } = await axios.patch(`/api/cart/${product_id}`, {
-      product_quantity,
-    });
+    const { data } = await axios.patch(
+      `/api/cart/${product_id}`,
+      { quantity },
+    );
     return data;
   } catch (error) {
     console.error("error updating quantity");

@@ -4,14 +4,9 @@ const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
 const client = new Client(DB_URL);
 const bcrypt = require("bcrypt");
 
-// *************** USER FUNCTIONS ***************
+// *************** USER ***************
 
-async function createUser({
-  name,
-  email,
-  password,
-  admin
-}) {
+async function createUser({ name, email, password, admin }) {
   try {
     const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -52,21 +47,64 @@ async function getUserById(user_id) {
   try {
     const {
       rows: [user],
-    } = await client.query(`
+    } = await client.query(
+      `
     SELECT * 
     FROM users
     WHERE id=$1;
     `,
-    [user_id]);
+      [user_id]
+    );
 
-    // if (!user) {
-    //   throw {
-    //     name: "UserNotFoundError",
-    //     message: "Could not find a user with that id",
-    //   };
-    // }
+    if (!user) {
+      throw {
+        name: "UserNotFoundError",
+        message: "Could not find user by that id",
+      };
+    }
 
-    //  products + address
+    delete user.password;
+
+    const { rows: products } = await client.query(
+      `
+      SELECT *
+      FROM products
+      JOIN cart_items ON products.id=cart_items.product_id
+      JOIN user_cart ON cart_items.user_cart_id=user_cart.id
+      WHERE user_cart.user_id=$1
+    `,
+      [user_id]
+    );
+    user.cart = products;
+    const { rows: orderProducts } = await client.query(
+      `
+      SELECT *
+      FROM products
+      INNER JOIN order_items ON products.id=order_items.product_id
+      INNER JOIN user_orders ON order_items.order_id=user_orders.id
+      WHERE user_orders.user_id=$1
+    `,
+      [user_id]
+    );
+    if (orderProducts) {
+      user.order = orderProducts;
+    } else {
+      user.order = [];
+    }
+
+    const { rows: address } = await client.query(
+      `
+      SELECT user_address.*
+      FROM user_address
+      INNER JOIN users ON users.id = user_address.id
+      WHERE user_address.user_id = $1
+    `,
+      [user_id]
+    );
+
+    if (address) {
+      user.address = address;
+    }
     return user;
   } catch (error) {
     throw error;
@@ -92,6 +130,41 @@ async function getUserByEmail(email) {
   }
 }
 
+async function createUserAddress({ user_id, street, city, state, zipcode }) {
+  try {
+    await client.query(
+      `
+      INSERT INTO user_address(
+        user_id, street, city, state, zipcode)
+      VALUES($1, $2, $3, $4, $5)
+      ON CONFLICT (user_id) DO NOTHING
+      RETURNING *;
+      `,
+      [user_id, street, city, state, zipcode]
+    );
+    return await joinAddressToUser(user_id);
+  } catch (error) {
+    console.error("Error creating address");
+  }
+}
+
+async function joinAddressToUser(user_id) {
+  try {
+    const { rows: userAddress } = await client.query(
+      `
+        SELECT users.id
+        FROM users
+        INNER JOIN user_address ON user_id = users.id
+        WHERE user_address.user_id = $1
+      `,
+      [user_id]
+    );
+    return userAddress;
+  } catch (error) {
+    console.error("Error joining address");
+  }
+}
+
 async function createGuest({ email, name }) {
   try {
     const {
@@ -111,27 +184,8 @@ async function createGuest({ email, name }) {
   }
 }
 
-// ( PROBABLY NEED TO BUILD )
-//
-// deleteUser() 
-//     
-// verifyUniqueUser()
-//
-// createUserAddress()
-//
-// joinAddressToUser()
-//
-// createGuest()     
-// ---------------------------
 
-
-
-
-
-
-
-
-// *************** PRODUCT FUNCTIONS ***************
+// *************** PRODUCT ***************
 
 const createProduct = async ({
   img_url,
@@ -139,8 +193,7 @@ const createProduct = async ({
   description,
   price,
   inventory,
-  category
-
+  category,
 }) => {
   try {
     const {
@@ -165,12 +218,12 @@ async function getAllProducts() {
     const { rows: products } = await client.query(`
       SELECT *
       FROM products;
-    `); 
+    `);
     return products;
   } catch (error) {
     throw error;
   }
-} 
+}
 
 async function getProductById(product_id) {
   try {
@@ -206,74 +259,105 @@ async function updateProduct(product_id, fields = {}) {
       );
     }
 
-
     return await getProductById(product_id);
   } catch (error) {
     throw error;
   }
 }
 
+async function getCartByUserId(user_id) {
+  try {
+    const { rows: userCart } = await client.query(
+      `
+      SELECT *
+      FROM user_cart
+      WHERE user_id=$1
+      AND active=true;
+      `,
+      [user_id]
+    );
+    return userCart;
+  } catch (error) {
+    console.error("Couldn't find cart");
+  }
+}
 
+async function getAllCartItems() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT *
+        FROM products
+        JOIN cart_items
+        ON products.id=cart_items.product_id
+      `
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
 
-// ( SHOULD WE BUILD THESE? )
-//
-// getProductByName 
-//      -for search function?
-//
-// getProductByCategory 
-//      -for rendering categories 
-//       on the backend?
-// --------------------------
-
-
-
-
-
-
-
-// *************** CART FUNCTIONS ***************
-
-async function createCart({ orderid, user_id }) {
+async function createCart(user_id) {
   try {
     const {
-      rows: [cart],
+      rows: [userCart],
     } = await client.query(
       `
-      INSERT INTO user_cart(orderid, user_id)
-      VALUES($1, $2)
+      INSERT INTO user_cart(user_id)
+      VALUES ($1)
       RETURNING *;
       `,
-      [orderid, user_id]
+      [user_id]
     );
-    return cart;
+    return userCart;
   } catch (error) {
     console.error("Error adding to usercart in db");
     throw error;
   }
 }
 
-async function addToCart({
-  cartid,
-  product_id,
-  product_name,
-  product_quantity,
-  product_price,
-}) {
+async function addItemToCart(user_id, product_id, quantity) {
   try {
     const {
-      rows: [items],
+      rows: [product],
     } = await client.query(
       `
-      INSERT INTO cart_items(cartid, product_id, product_name, product_quantity, product_price)
-      VALUES($1, $2, $3, $4, $5)
-      RETURNING *;
+      SELECT * 
+      FROM products
+      WHERE id=$1;
       `,
-      [cartid, product_id, product_name, product_quantity, product_price]
+      [product_id]
     );
-    return items;
+
+    await createCartItem(user_id, product_id, quantity);
+    return await getUserById(3);
   } catch (error) {
-    console.error("Error adding to items to cart in db");
+    console.error("Error adding items to cart in db");
     throw error;
+  }
+}
+
+async function createCartItem(user_id, product_id, quantity) {
+  try {
+    // let userCart = await getCartByUserId(user_id);
+    // if (userCart.length === 0) {
+    //   userCart = await createCart(user_id);
+    const userCart = await createCart(3);
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+        INSERT INTO cart_items(user_cart_id, product_id, quantity)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (user_cart_id, product_id) DO NOTHING
+        RETURNING *;
+        `,
+      [userCart.id, product_id, quantity]
+    );
+    return product;
+  } catch (error) {
+    console.error("Problem creating cart item in db");
   }
 }
 
@@ -296,36 +380,28 @@ async function createOrders({ cart_id, order_id }) {
   }
 }
 
-async function getUserCart(userId) {
-  const user = await getUserById();
-  console.log(user, "this is your cart.");
+async function updateItemQty(user_cart_id, product_id, quantity) {
   try {
-    const { rows: cart } = await client.query(`
-      SELECT *
-      FROM user_cart
-      WHERE user_id=${userId};
-    `);
-    return cart;
+    await client.query(
+      `
+      UPDATE cart_products
+      SET $3
+      WHERE id=$1 AND product_id=$2
+      RETURNING *;
+      `,
+      [user_cart_id, product_id, quantity]
+    );
   } catch (error) {
-    throw error;
+    console.error("Error updating quantity");
   }
 }
 
-// createCartItem
-// updateCartItemQty
-// createCart **
-// getCartByUserId
-// addToCart ** 
 // setCartInactive
 // deleteCartItem
-// finish getUserById
-// updateProductQty
-// createUserOrder
 // addCartProductsToOrderProducts
 // bulkUpdateOrderProducts
 // removeCartItemsOnOrder
 // getUserByIdForOrders
-
 
 module.exports = {
   client,
@@ -333,13 +409,17 @@ module.exports = {
   getAllUsers,
   getUserById,
   getUserByEmail,
+  getCartByUserId,
+  getAllCartItems,
   createGuest,
   createProduct,
   getAllProducts,
   getProductById,
   updateProduct,
+  updateItemQty,
+  createUserAddress,
+  joinAddressToUser,
   createCart,
-  addToCart,
+  addItemToCart,
   createOrders,
-  getUserCart,
 };

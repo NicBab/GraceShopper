@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import "./css/Hats.css";
 import { getAllProducts } from "../api";
-import { InfoIcon } from './icons'
 import Product from "./Product";
 
 const Hats = ({addToCart}) => {
