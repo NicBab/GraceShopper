@@ -2,14 +2,23 @@ import React, {useState, useEffect} from "react";
 import { Form } from "react-bootstrap";
 import "./css/Cart.css";
 import { TiDelete } from "react-icons/ti";
-
+import { removeFromCart } from "../api";
 
 const CartItem = ({ cart, setCart, cartItem }) => {
     const [itemQty, setItemQty] = useState(1)
-
-    const useEffect = () => {
-
-    }
+    const { id, name, img_url, description, quantity, price, product_id } =
+    cartItem;
+    const handleDeleteCartItem = async (event) => {
+        try {
+            alert("Item removed from cart.")
+            await removeFromCart(product_id);
+            const updatedCart = [...cart];
+            updatedCart.splice(1);
+            setCart(updatedCart);
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
     
   return (
@@ -27,7 +36,7 @@ const CartItem = ({ cart, setCart, cartItem }) => {
             </td>
             <td>${cartItem.price * cartItem.quantity}</td>
             <td>
-                <TiDelete />
+                <TiDelete className="delete-btn" onClick={handleDeleteCartItem}/>
             </td>
         </tr> 
     </>

@@ -1,20 +1,14 @@
 import React from "react";
 import "./css/Cart.css";
-import { Table } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import CartItem from "./CartItem";
 
-const Cart = ({ cart, setCart, product }) => {
+const Cart = ({ cart }) => {
 
-  // const subtotal = () => {
-  //   //map through each cart item and add each cartItem.price
-  //   cart.map((cartItem, idx) => {
-  //     let price = cart.pop()
-  //     console.log(price)
+  const handleCheckout = (event) => {
+    alert("Thank you for your order!");
 
-  //     //forEach cart item, pop off the price, 
-  //   })
-  // }
-
+  } 
 
   let total = 0;
   return (
@@ -39,11 +33,12 @@ const Cart = ({ cart, setCart, product }) => {
           </tbody>
         </Table>
 
-
         <div className="subtotal">
-          <h5>Shipping:</h5>
+          <h5>Shipping: $20.00 (USPS Priority)</h5>
           <br />
-          <h4>Subtotal: ${total}</h4>
+          <h4>Subtotal: ${total + 20}</h4>
+          {'  '}
+          <Button onClick={handleCheckout} variant="outline-success">Checkout</Button>{' '}
         </div>
 
 

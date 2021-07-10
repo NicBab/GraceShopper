@@ -16,6 +16,7 @@ const Product = ({
   const { id, name, description, price, img_url } = product;
   const handleAddToCart = async () => {
     try {
+      alert(`${product.name} added to cart!`)
       const user_id = 3;
       await addToCart(user_id, product.id, 1)
       product.quantity = 1;
