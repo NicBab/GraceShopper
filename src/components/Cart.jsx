@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/Cart.css";
 import { Table, Button } from "react-bootstrap";
-import CartItem from "./CartItem";
+// import CartItem from "./CartItem";
 
 const Cart = ({ cart }) => {
 
@@ -24,13 +24,13 @@ const Cart = ({ cart }) => {
               <th> </th>
             </tr>
           </thead>
-          <tbody>
-            {cart.map((cartItem, idx) => {
-              total += cartItem.price * cartItem.quantity;
-              return <CartItem key={idx} cart={cart} cartItem={cartItem} />
-            }
-            )}
-          </tbody>
+//           <tbody>
+//             {cart.map((cartItem, idx) => {
+//               total += cartItem.price * cartItem.quantity;
+//               return <CartItem key={idx} cart={cart} cartItem={cartItem} />
+//             }
+//             )}
+//           </tbody>
         </Table>
 
         <div className="subtotal">
